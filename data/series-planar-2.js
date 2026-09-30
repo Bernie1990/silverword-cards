@@ -67,7 +67,7 @@ window.SERIES.push({
         skills: ['investigation', 'arcana', 'sleight_of_hand', 'medicine'], saves: ['con', 'int'],
         attack: { name: '鋼鐵防衛者', type: 'melee', damage: '1d8+4', damage_type: 'force', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work'],
     },
     {
       id: 'hadrian', kind: 'npc', name: '哈德良·天秤', full_name: '哈德良·天秤仲裁官（Arbiter Hadrian Balance）',
@@ -131,7 +131,7 @@ window.SERIES.push({
         skills: ['acrobatics', 'perception', 'athletics', 'survival'], saves: ['str', 'dex'],
         attack: { name: '鐘鳴風爪', type: 'melee', damage: '1d6+4', damage_type: 'thunder', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual'],
     },
     {
       id: 'brass', kind: 'npc', name: '銅角', full_name: '銅角·迷宮工程師（Brasshorn the Maze-Builder）',
@@ -198,7 +198,7 @@ window.SERIES.push({
         skills: ['athletics', 'intimidation', 'acrobatics', 'perception'], saves: ['str', 'con'],
         attack: { name: '靈能銀劍', type: 'melee', damage: '2d6+5', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base', 'tarot'],
+      looks: ['base', 'tarot', 'casual'],
     },
     {
       id: 'nova', kind: 'team', name: '諾娃', full_name: '諾娃·星漿（Nova Starjelly）',
@@ -295,7 +295,7 @@ window.SERIES.push({
         skills: ['arcana', 'history', 'insight', 'religion'], saves: ['int', 'wis'],
         attack: { name: '星辰墜落', type: 'spell', damage: '5d6', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown'],
     },
     {
       id: 'zorrak', kind: 'npc', name: '佐拉克', full_name: '佐拉克·四臂（Zorrak Four-Blades）',
@@ -327,7 +327,7 @@ window.SERIES.push({
         skills: ['survival', 'perception', 'stealth', 'investigation'], saves: ['str', 'dex'],
         attack: { name: '四刃旋斬', type: 'melee', damage: '2d8+4', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'rain'],
     },
   ],
 });

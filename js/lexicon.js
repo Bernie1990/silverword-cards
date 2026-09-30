@@ -80,6 +80,18 @@
     // D&D 系列專用
     { id: 'armor',    label: '戰裝', short: '戰' },
     { id: 'festival', label: '慶典', short: '慶' },
+    // 生活／情境套裝（全新構圖與姿態）
+    { id: 'casual',   label: '便裝',   short: '便' },
+    { id: 'travel',   label: '旅裝',   short: '旅' },
+    { id: 'gown',     label: '禮服',   short: '禮' },
+    { id: 'work',     label: '工作裝', short: '工' },
+    { id: 'training', label: '練功服', short: '練' },
+    { id: 'summer',   label: '夏日',   short: '夏' },
+    { id: 'winter',   label: '冬裝',   short: '冬' },
+    { id: 'rain',     label: '雨夜',   short: '雨' },
+    { id: 'night',    label: '夜行',   short: '夜' },
+    { id: 'ritual',   label: '儀式',   short: '儀' },
+    { id: 'dance',    label: '起舞',   short: '舞' },
     // 跨畫風套裝
     { id: 'chibi',   label: 'Q版公仔', short: 'Q' },
     { id: 'tarot',   label: '塔羅牌',  short: '塔' },

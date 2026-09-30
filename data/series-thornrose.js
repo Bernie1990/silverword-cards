@@ -59,7 +59,7 @@ window.SERIES.push({
         skills: ['religion', 'insight', 'persuasion', 'medicine'], saves: ['wis', 'cha'],
         attack: { name: '月之光輝', type: 'spell', damage: '2d10', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base', 'armor'],
+      looks: ['base', 'armor', 'gown', 'travel'],
     },
     /* ───────────────────────── 2 ───────────────────────── */
     {
@@ -93,7 +93,7 @@ window.SERIES.push({
         skills: ['athletics', 'intimidation', 'religion'], saves: ['wis', 'cha'],
         attack: { name: '薔薇制裁', type: 'melee', damage: '1d8+4', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base', 'armor'],
+      looks: ['base', 'armor', 'casual', 'winter'],
     },
     /* ───────────────────────── 3 ───────────────────────── */
     {
@@ -127,7 +127,7 @@ window.SERIES.push({
         skills: ['arcana', 'history', 'investigation', 'insight'], saves: ['int', 'wis'],
         attack: { name: '暮羽穿刺', type: 'spell', damage: '3d8', damage_type: 'force', is_heal: false },
       },
-      looks: ['base', 'festival'],
+      looks: ['base', 'festival', 'gown', 'rain'],
     },
     /* ───────────────────────── 4 ───────────────────────── */
     {
@@ -161,7 +161,7 @@ window.SERIES.push({
         skills: ['survival', 'perception', 'stealth', 'animal_handling'], saves: ['str', 'dex'],
         attack: { name: '獵魔箭', type: 'ranged', damage: '1d8+4', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base', 'armor'],
+      looks: ['base', 'armor', 'casual', 'night'],
     },
     /* ───────────────────────── 5 ───────────────────────── */
     {
@@ -195,7 +195,7 @@ window.SERIES.push({
         skills: ['performance', 'persuasion', 'history', 'insight'], saves: ['dex', 'cha'],
         attack: { name: '晨歌鼓舞', type: 'spell', damage: '3d6', damage_type: 'thunder', is_heal: false },
       },
-      looks: ['base', 'festival'],
+      looks: ['base', 'festival', 'casual', 'travel'],
     },
     /* ───────────────────────── 6 ───────────────────────── */
     {
@@ -229,7 +229,7 @@ window.SERIES.push({
         skills: ['athletics', 'intimidation', 'survival'], saves: ['str', 'con'],
         attack: { name: '狂暴劈斬', type: 'melee', damage: '1d12+4', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base', 'armor'],
+      looks: ['base', 'armor', 'gown', 'work'],
     },
     /* ───────────────────────── 7 ───────────────────────── */
     {
@@ -263,7 +263,7 @@ window.SERIES.push({
         skills: ['nature', 'medicine', 'survival', 'insight'], saves: ['int', 'wis'],
         attack: { name: '潮語療癒', type: 'spell', damage: '2d8+4', damage_type: 'cold', is_heal: true },
       },
-      looks: ['base', 'festival'],
+      looks: ['base', 'festival', 'summer', 'ritual'],
     },
     /* ───────────────────────── 8 ───────────────────────── */
     {
@@ -297,7 +297,7 @@ window.SERIES.push({
         skills: ['stealth', 'deception', 'investigation', 'sleight_of_hand'], saves: ['dex', 'int'],
         attack: { name: '影紗雙刃', type: 'melee', damage: '2d6+4', damage_type: 'poison', is_heal: false },
       },
-      looks: ['base', 'armor'],
+      looks: ['base', 'armor', 'gown', 'rain'],
     },
     /* ───────────────────────── 9 ───────────────────────── */
     {
@@ -331,7 +331,7 @@ window.SERIES.push({
         skills: ['arcana', 'investigation', 'sleight_of_hand', 'medicine'], saves: ['con', 'int'],
         attack: { name: '月燭閃光', type: 'ranged', damage: '2d6+2', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'winter'],
     },
     /* ───────────────────────── 10 ───────────────────────── */
     {
@@ -365,7 +365,7 @@ window.SERIES.push({
         skills: ['stealth', 'acrobatics', 'perception', 'insight'], saves: ['str', 'dex'],
         attack: { name: '灰影連打', type: 'melee', damage: '2d6+4', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'training', 'casual'],
     },
     /* ───────────────────────── 11 ───────────────────────── */
     {
@@ -399,7 +399,7 @@ window.SERIES.push({
         skills: ['arcana', 'intimidation', 'persuasion'], saves: ['con', 'cha'],
         attack: { name: '赫焰龍息', type: 'spell', damage: '3d8', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base', 'armor'],
+      looks: ['base', 'armor', 'gown', 'travel'],
     },
     /* ───────────────────────── 12 ───────────────────────── */
     {
@@ -433,7 +433,7 @@ window.SERIES.push({
         skills: ['deception', 'nature', 'arcana', 'persuasion'], saves: ['wis', 'cha'],
         attack: { name: '妖精魅語', type: 'spell', damage: '2d10', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base', 'festival'],
+      looks: ['base', 'festival', 'casual', 'night'],
     },
   ],
 });

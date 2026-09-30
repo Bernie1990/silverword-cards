@@ -92,7 +92,7 @@ window.SERIES.push({
         skills: ['athletics', 'intimidation', 'persuasion'], saves: ['str', 'cha'],
         attack: { name: '吐息烈焰', type: 'spell', damage: '2d6', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual'],
     },
     /* ───────────────────────── 3 ───────────────────────── */
     {
@@ -260,7 +260,7 @@ window.SERIES.push({
         skills: ['athletics', 'religion', 'persuasion'], saves: ['wis', 'cha'],
         attack: { name: '神聖斬', type: 'melee', damage: '1d8+3', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual'],
     },
     /* ───────────────────────── 8 ───────────────────────── */
     {
@@ -461,7 +461,7 @@ window.SERIES.push({
         skills: ['persuasion', 'deception', 'perception'], saves: ['cha', 'con'],
         attack: { name: '嗜血魅咒', type: 'spell', damage: '1d8', damage_type: 'necrotic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown'],
     },
     /* ───────────────────────── 14 ───────────────────────── */
     {
@@ -528,7 +528,7 @@ window.SERIES.push({
         skills: ['nature', 'medicine', 'animal_handling'], saves: ['wis', 'con'],
         attack: { name: '治癒綻放', type: 'spell', damage: '1d6', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'summer'],
     },
     /* ───────────────────────── 16 ───────────────────────── */
     {
@@ -562,7 +562,7 @@ window.SERIES.push({
         skills: ['persuasion', 'insight', 'perception'], saves: ['wis', 'cha'],
         attack: { name: '熱鍋拍擊', type: 'melee', damage: '1d6', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work'],
     },
     /* ───────────────────────── 17 ───────────────────────── */
     {
@@ -596,7 +596,7 @@ window.SERIES.push({
         skills: ['performance', 'persuasion', 'deception'], saves: ['cha', 'dex'],
         attack: { name: '諷刺詩句', type: 'spell', damage: '1d8', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'travel'],
     },
     /* ───────────────────────── 18 ───────────────────────── */
     {
@@ -629,7 +629,7 @@ window.SERIES.push({
         skills: ['athletics', 'survival', 'intimidation'], saves: ['str', 'con'],
         attack: { name: '寒霜巨槌', type: 'melee', damage: '1d10+4', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual'],
     },
     /* ───────────────────────── 19 ───────────────────────── */
     {
@@ -695,7 +695,7 @@ window.SERIES.push({
         skills: ['arcana', 'investigation', 'nature'], saves: ['int', 'con'],
         attack: { name: '寒冰碎片', type: 'spell', damage: '1d8', damage_type: 'cold', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown'],
     },
   ],
 });

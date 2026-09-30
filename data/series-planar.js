@@ -66,7 +66,7 @@ window.SERIES.push({
         skills: ['persuasion', 'deception', 'performance', 'insight'], saves: ['dex', 'cha'],
         attack: { name: '四季之弦', type: 'spell', damage: '3d8', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base', 'stained'],
+      looks: ['base', 'stained', 'travel'],
     },
     {
       id: 'bramble', kind: 'team', name: '布蘭布·刺莓', full_name: '布蘭布·刺莓（Bramble Thornberry）',
@@ -195,7 +195,7 @@ window.SERIES.push({
         skills: ['arcana', 'deception', 'insight', 'intimidation'], saves: ['int', 'wis'],
         attack: { name: '苦茶詛咒', type: 'spell', damage: '4d6', damage_type: 'poison', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work'],
     },
 
     /* ═════════════════════ 幽影界 · 灰燼渡守 ═════════════════════ */
@@ -262,7 +262,7 @@ window.SERIES.push({
         skills: ['intimidation', 'athletics', 'insight', 'history'], saves: ['wis', 'cha'],
         attack: { name: '餘燼巨劍', type: 'melee', damage: '2d6+4', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual'],
     },
     {
       id: 'dorian', kind: 'npc', name: '杜里安·永夜', full_name: '杜里安·凡·永夜伯爵（Count Dorian van Evernight）',
@@ -328,7 +328,7 @@ window.SERIES.push({
         skills: ['stealth', 'insight', 'perception'], saves: ['wis'],
         attack: { name: '寒霧之觸', type: 'spell', damage: '1d6', damage_type: 'cold', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'dance'],
     },
     {
       id: 'grave', kind: 'npc', name: '葛雷夫·骨鈴', full_name: '葛雷夫·骨鈴（Grave Bonebell）',

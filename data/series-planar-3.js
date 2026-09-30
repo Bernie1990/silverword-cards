@@ -67,7 +67,7 @@ window.SERIES.push({
         skills: ['medicine', 'insight', 'religion', 'nature'], saves: ['wis', 'cha'],
         attack: { name: '潮汐茶禮', type: 'spell', damage: '2d8', damage_type: 'cold', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'summer'],
     },
     {
       id: 'ganseki', kind: 'npc', name: '岩石·厚', full_name: '岩石厚兵衛（Ganseki Atsubei）',
@@ -230,7 +230,7 @@ window.SERIES.push({
         skills: ['religion', 'medicine', 'insight', 'stealth'], saves: ['wis', 'cha'],
         attack: { name: '暮光聖燈', type: 'spell', damage: '2d8', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'travel'],
     },
     {
       id: 'nib', kind: 'team', name: '尼卜', full_name: '尼卜·墨爪（Nib Inkclaw）',
@@ -294,7 +294,7 @@ window.SERIES.push({
         skills: ['athletics', 'acrobatics', 'intimidation', 'performance'], saves: ['str', 'dex'],
         attack: { name: '醉拳·搖山', type: 'melee', damage: '1d8+4', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base', 'chibi'],
+      looks: ['base', 'chibi', 'dance'],
     },
     {
       id: 'veyl', kind: 'npc', name: '薇爾', full_name: '薇爾·千面石（Veyl Thousandfacet）',
@@ -326,7 +326,7 @@ window.SERIES.push({
         skills: ['arcana', 'investigation', 'sleight_of_hand', 'deception'], saves: ['int', 'wis'],
         attack: { name: '千面幻光', type: 'spell', damage: '3d6', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown'],
     },
   ],
 });
