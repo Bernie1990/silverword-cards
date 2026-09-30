@@ -177,6 +177,7 @@
       ch.class ? `<span class="chip gold">${esc(ch.class)}${ch.level ? ` · Lv.${esc(ch.level)}` : ''}</span>` : '',
       ch.alignment ? `<span class="chip">${esc(ch.alignment)}</span>` : '',
       ch.role ? `<span class="chip teal">${esc(ch.role)}</span>` : '',
+      C.label.art(ch, look) ? `<span class="chip art">🎨 ${esc(C.label.art(ch, look))}</span>` : '',
       !dnd && c.archetype ? `<span class="chip">${esc(C.label.arch(c.archetype))}</span>` : '',
     ].filter(Boolean).join('');
 

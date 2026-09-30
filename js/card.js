@@ -35,6 +35,9 @@
     atkType: (id) => L.ATTACK_TYPE[id] || id || '',
     kind: (id) => L.KIND[id] || '',
     look: (id) => (L.LOOKS.find((l) => l.id === id) || {}).label || id,
+    /* 畫風：非原裝套裝以套裝名為準；原裝取角色自訂 art，再退回陣營的 art */
+    art: (ch, look) => (look && look !== 'base' ? label.look(look)
+      : ch.art || (factionOf(ch.faction) || {}).art || ''),
   };
 
   /* ── 小片段 ─────────────────────────────────────────────── */

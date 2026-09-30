@@ -34,6 +34,8 @@
     firbolg: '弗爾伯格', 'astral-elf': '星界精靈', 'wood-elf': '木精靈', 'sea-elf': '海精靈', duergar: '灰矮人',
     svirfneblin: '深地侏儒', githyanki: '吉斯洋基', githzerai: '吉斯澤萊', kalashtar: '卡拉斯塔', plasmoid: '原漿體',
     giff: '河馬人', shifter: '化獸者', 'yuan-ti': '蛇人',
+    harengon: '兔人', 'green-hag': '綠鬼婆', vampire: '吸血鬼貴族', ghost: '幽魂', modron: '秩序構裝體',
+    autognome: '自律侏儒', hadozee: '滑翔猿人', djinni: '風燈神', myconid: '蕈人', bugbear: '熊地精',
   };
 
   const ARCH = {
@@ -43,6 +45,7 @@
     lore_scholar: '知識學者', alchemist_caster: '鍊金施法', dark_arts_scholar: '禁術學者',
     seer_mystic: '先知秘術', bard_caster: '吟遊施法', noble_enchanter: '貴族惑控',
     commander_caster: '指揮施法', hearth_support: '爐火輔助', field_medic: '戰地醫者',
+    duelist_leader: '決鬥領袖',
   };
 
   const GENDER = { female: '女', male: '男', nonbinary: '非二元' };
@@ -77,6 +80,11 @@
     // D&D 系列專用
     { id: 'armor',    label: '戰裝', short: '戰' },
     { id: 'festival', label: '慶典', short: '慶' },
+    // 跨畫風套裝
+    { id: 'chibi',   label: 'Q版公仔', short: 'Q' },
+    { id: 'tarot',   label: '塔羅牌',  short: '塔' },
+    { id: 'pixel',   label: '像素',    short: '像' },
+    { id: 'stained', label: '彩繪玻璃', short: '窗' },
   ];
 
   const RANKS = [

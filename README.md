@@ -5,13 +5,16 @@
 
 從 `dnd_service`（銀語守門人）的圖鑑抽出角色卡機制後重新設計而成；資料與立繪可用內附腳本從 game-server 重新匯出。
 
-## 三個系列
+## 四個系列
 
 | 系列 | 主題 | 角色 | 特點 |
 |------|------|------|------|
 | **銀語守門人** | 霍格華茲（`theme: arcane`） | 主角＋4 核心隊員＋39 常駐角色 | 多套立繪（原裝／變裝／清涼／水手服／泳裝）、劇場套裝列 |
 | **橡木鎮冒險者錄** | 龍與地下城 5e（`theme: dnd`，青銅調） | 20 位邊境小鎮居民 | 每人職業／等級／陣營縱軸，**完整角色故事**：格言、背景、理想／羈絆／缺陷、三章故事、關係鏈（可點擊跳到對方） |
 | **荊薔誓約·遠征隊錄** | 龍與地下城 5e（`theme: dnd`，月銀×薔薇調） | 12 位女性冒險者（3 核心＋9 隊員） | 全新原創立繪；6 人另有「戰裝」、4 人另有「慶典」套裝；故事是橡木鎮主線的後續章節 |
+| **渡口城·萬界旅人錄** | 龍與地下城 5e 跨位面（`theme: dnd`，星紫×渡口青） | 30 位六個位面的旅人（6 調查團＋24 居民） | **六個位面＝六種畫風**：新藝術水彩、黑白墨繪一抹紅、裝飾藝術海報、賽璐璐動畫、浮世繪木刻、螢光水粉繪本；另有 Q版公仔／塔羅牌／像素／彩繪玻璃跨畫風套裝 |
+
+渡口城是橡木鎮與荊薔誓約之後的第三章：灰燼熔爐重新封印後，樞紐鬆動，一座由六個位面碎片拼成的城市每逢新月浮現在黑湖上空，登記簿上的名字卻一個接一個消失——「無名潮」。種族與體型刻意打散：兔人、弗爾伯格、綠鬼婆、鴉人、幽魂小女孩、秩序構裝體、自律侏儒、牛頭人、原漿體、滑翔猿人、四臂蟲人、燈神、龜人、蕈人、熊地精……關係鏈可以跨系列跳到橡木鎮的吉茲莫、苔鬚長老與荊薔誓約的歐芮兒。劇場會以 🎨 標示每張立繪的畫風。可用 `?series=planar` 直接開啟指定系列。
 
 橡木鎮 20 人共享同一條主線「灰燼熔爐甦醒」：矮人鐵匠索格的家族祖業、盜賊皮普的空白信、被吸血鬼咬過的酒館歌者、剛醒來的守衛構裝體吉茲莫、暗中資助的黑曜結社……每張卡的故事互相補洞，在劇場的「關係」區點名字即可順著線索翻閱。
 
@@ -95,13 +98,17 @@ character-cards/
 │  ├─ series-silver.js     銀語守門人（由匯出腳本產生）→ window.SERIES.push({...})
 │  ├─ series-silver.json   同內容的 JSON
 │  ├─ series-oakvale.js    橡木鎮冒險者錄（手寫，含完整故事）
-│  └─ series-thornrose.js  荊薔誓約·遠征隊錄（手寫，全原創立繪＋戰裝／慶典套裝）
+│  ├─ series-thornrose.js  荊薔誓約·遠征隊錄（手寫，全原創立繪＋戰裝／慶典套裝）
+│  └─ series-planar*.js    渡口城·萬界旅人錄（拆成 3 檔，同 id 自動合併）
+├─ assets/originals/<series>/                原圖（唯一來源）：<id>.jpg、<id>@<look>.jpg、_banner.jpg
 ├─ assets/banners/<series>.webp              世界觀橫幅（16:9，最長邊 1600）
 ├─ assets/portraits/<look>/<id>.webp         劇場用（最長邊 768）
 ├─ assets/portraits/<look>/<id>.thumb.webp   卡片用（最長邊 384）
 ├─ scripts/
 │  ├─ import-from-game-server.js  從 dnd_service 匯出角色資料
-│  └─ convert-portraits.py        PNG → WebP（需要 Pillow）
+│  ├─ convert-portraits.py        game-server PNG → WebP（需要 Pillow）
+│  ├─ build-art.py                assets/originals → WebP 立繪／縮圖／橫幅（需要 Pillow）
+│  └─ check-data.js               資料完整性檢查（id、立繪檔、關係鏈、詞彙表）
 └─ server.js               零相依本機伺服器
 ```
 
@@ -149,12 +156,17 @@ window.SERIES.push({
     "quote": "鐵不會說謎。你打它一千下，它就記住一千下。",
     "background": "…", "ideal": "…", "bond": "…", "flaw": "…",
     "chapters": [{ "title": "熔爐之子", "text": "…" }, /* 建議 3 章 */],
-    "relations": [{ "id": "kaelith", "text": "隔壁的鄰居，也是他唯一會借錢的人" }]   // id 指向同系列角色
-  }
+    "relations": [{ "id": "kaelith", "text": "隔壁的鄰居，也是他唯一會借錢的人" }]   // id 先找同系列，找不到再找其他系列
+  },
+  "art": "新藝術水彩"   // 選用：畫風標籤；省略時取 factions[<faction>].art
 }
 ```
 
 要換成自己的角色，只要照這個格式新增一個 `data/series-<name>.js`、在 `index.html` 加一行 `<script>`，並把立繪放到對應路徑即可；沒有圖的角色會顯示陣營色佔位大字。
+
+**大系列拆檔**：同一個 `id` 可以 push 多次，第一次提供系列設定，之後只寫 `{ id, characters: [...] }` 追加角色；每個系列上限 60 位。
+
+**新增立繪**：把原圖放進 `assets/originals/<series>/`（`<id>.jpg` 為原裝、`<id>@<look>.jpg` 為其他套裝、`_banner.jpg` 為橫幅），執行 `python scripts/build-art.py`，再用 `node scripts/check-data.js` 確認沒有缺圖或斷掉的關係。
 
 ## 從 game-server 重新匯出
 

@@ -14,7 +14,27 @@
   const esc = C.esc;
   const $ = (id) => document.getElementById(id);
 
-  const SERIES = (window.SERIES || []).filter((s) => s && Array.isArray(s.characters) && s.characters.length);
+  /* 同 id 的多個 push 合併為一個系列：第一個提供設定，後續只追加角色（方便把大系列拆檔） */
+  const MAX_PER_SERIES = 60;
+  const SERIES = [];
+  (window.SERIES || []).forEach((s) => {
+    if (!s || !s.id) return;
+    const host = SERIES.find((x) => x.id === s.id);
+    if (!host) { SERIES.push({ ...s, characters: (s.characters || []).slice() }); return; }
+    host.characters.push(...(s.characters || []));
+  });
+  SERIES.forEach((s) => {
+    if (s.characters.length > MAX_PER_SERIES) {
+      console.warn(`系列 ${s.id} 有 ${s.characters.length} 位角色，超過上限 ${MAX_PER_SERIES}，多出的不顯示`);
+      s.characters.length = MAX_PER_SERIES;
+    }
+  });
+  for (let i = SERIES.length - 1; i >= 0; i -= 1) if (!SERIES[i].characters.length) SERIES.splice(i, 1);
+
+  /* 跨系列查詢：關係鏈可指向其他系列的角色（先找目前系列，再找全域） */
+  const GLOBAL = new Map();
+  SERIES.forEach((s) => s.characters.forEach((c) => { if (!GLOBAL.has(c.id)) GLOBAL.set(c.id, c); }));
+  const ALL_FACTIONS = Object.assign({}, ...SERIES.map((s) => s.factions || {}));
 
   /* ── 狀態（持久化到 localStorage） ─────────────────────── */
   const KEY = 'character-cards:ui';
@@ -239,9 +259,19 @@
     const multi = ALL.some((c) => (c.looks || []).length > 1);
     $('lookAll').hidden = !multi;
     $('segKind').hidden = !ALL.some((c) => c.kind !== 'npc');
-    const nxt = L.LOOKS[(L.LOOKS.findIndex((l) => l.id === ui.lookAll) + 1) % L.LOOKS.length];
+    const nxt = nextLookAll();
     $('lookAll').textContent = `👗 全部${nxt.label}`;
     $('lookAll').title = `目前：${C.label.look(ui.lookAll)}；點擊切換為 ${nxt.label}（沒有該套裝的角色維持原裝）`;
+  }
+
+  /* 「全部換裝」只在目前系列實際有的套裝間循環 */
+  function seriesLooks() {
+    const have = new Set(ALL.flatMap((c) => c.looks || ['base']));
+    return L.LOOKS.filter((l) => have.has(l.id));
+  }
+  function nextLookAll() {
+    const seq = seriesLooks();
+    return seq[(seq.findIndex((l) => l.id === ui.lookAll) + 1) % seq.length] || L.LOOKS[0];
   }
 
   function syncSeg(id, val) {
@@ -270,14 +300,14 @@
     ALL = series.characters.slice();
     byId.clear();
     ALL.forEach((c) => byId.set(c.id, c));
-    C.setFactions(series.factions || {});
+    C.setFactions({ ...ALL_FACTIONS, ...(series.factions || {}) });
     applyPalette(series.palette);
     ranker = R.build(ALL.filter((c) => c.kind !== 'player'));
     Theater.init({
       rank: (ch) => ranker.rank(ch),
       percent: (ch) => ranker.percent(ch),
       lookOf, setLook,
-      byId: (cid) => byId.get(cid),
+      byId: (cid) => byId.get(cid) || GLOBAL.get(cid),
       theme: theme(),
       seriesTitle: series.title,
     });
@@ -314,8 +344,7 @@
       renderDeck();
     };
     $('lookAll').onclick = () => {
-      const i = L.LOOKS.findIndex((l) => l.id === ui.lookAll);
-      ui.lookAll = L.LOOKS[(i + 1) % L.LOOKS.length].id;
+      ui.lookAll = nextLookAll().id;
       ui.looks = {}; // 全部切換＝回到一致狀態，清掉個別覆寫
       save();
       renderToolbar();
@@ -374,5 +403,6 @@
     return;
   }
   bind();
-  activate(ui.series, true);
+  const linked = new URLSearchParams(location.search).get('series');
+  activate(linked && SERIES.some((s) => s.id === linked) ? linked : ui.series, !linked);
 }());

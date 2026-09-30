@@ -54,6 +54,12 @@
 .card[data-faction="ironrose"]  { --fa: var(--fx-ironrose-a);  --fb: var(--fx-ironrose-b); }
 .card[data-faction="duskquill"] { --fa: var(--fx-duskquill-a); --fb: var(--fx-duskquill-b); }
 .card[data-faction="wildthorn"] { --fa: var(--fx-wildthorn-a); --fb: var(--fx-wildthorn-b); }
+.card[data-faction="fey_court"]    { --fa: var(--fx-fey_court-a);    --fb: var(--fx-fey_court-b); }
+.card[data-faction="shadow_ferry"] { --fa: var(--fx-shadow_ferry-a); --fb: var(--fx-shadow_ferry-b); }
+.card[data-faction="cog_court"]    { --fa: var(--fx-cog_court-a);    --fb: var(--fx-cog_court-b); }
+.card[data-faction="astral_fleet"] { --fa: var(--fx-astral_fleet-a); --fb: var(--fx-astral_fleet-b); }
+.card[data-faction="elem_league"]  { --fa: var(--fx-elem_league-a);  --fb: var(--fx-elem_league-b); }
+.card[data-faction="spore_clan"]   { --fa: var(--fx-spore_clan-a);   --fb: var(--fx-spore_clan-b); }
 
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(28px) rotateX(-12deg) scale(.94); }
@@ -399,6 +405,13 @@
 .chip.gold { color: var(--gold-2); border-color: color-mix(in srgb, var(--gold) 60%, transparent); }
 .chip.rose { color: var(--rose-2); border-color: color-mix(in srgb, var(--rose) 60%, transparent); }
 .chip.teal { color: #c6fff6; border-color: color-mix(in srgb, var(--teal) 60%, transparent); }
+.chip.art {
+  color: #f3ecff;
+  border-color: transparent;
+  background:
+    linear-gradient(rgba(12, 10, 22, .78), rgba(12, 10, 22, .78)) padding-box,
+    linear-gradient(90deg, #ff7ac8, #ffd36b, #6bf0d2, #8a9bff) border-box;
+}
 
 .card-meta {
   position: absolute;
