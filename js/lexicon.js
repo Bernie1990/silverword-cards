@@ -1,0 +1,77 @@
+/* ═══════════════════════════════════════════════════════════════════
+   lexicon.js — 顯示用詞彙表：陣營、種族、架構、屬性、技能、套裝
+   純資料，不含邏輯；換世界觀只要改這裡。
+   ═══════════════════════════════════════════════════════════════════ */
+(function (global) {
+  'use strict';
+
+  const FACTION = {
+    gryffindor: { label: '葛萊芬多', icon: '🦁' },
+    slytherin:  { label: '史萊哲林', icon: '🐍' },
+    ravenclaw:  { label: '雷文克勞', icon: '🦅' },
+    hufflepuff: { label: '赫夫帕夫', icon: '🦡' },
+  };
+
+  const RACE = {
+    human: '人類', elf: '精靈', 'half-elf': '半精靈', dwarf: '矮人', dragonborn: '龍裔', tiefling: '提夫林',
+    'half-orc': '半獸人', orc: '獸人', halfling: '半身人', gnome: '地精', goblin: '哥布林', kobold: '狗頭人',
+    aasimar: '神裔', goliath: '巨人族', 'half-giant': '半巨人', changeling: '易形者', triton: '崔頓海族',
+    warforged: '鍛造人', 'treant-kin': '樹靈', aarakocra: '鳥人', 'fire-genasi': '火元素裔', 'water-genasi': '水元素裔',
+    'earth-genasi': '土元素裔', 'air-genasi': '風元素裔', 'spirit-touched': '通靈者', fairy: '妖精', 'shadar-kai': '暗影界',
+    lizardfolk: '蜥蜴人', 'vampire-spawn': '吸血鬼', tabaxi: '貓人', 'thri-kreen': '蟲人', 'dryad-kin': '樹妖', ratfolk: '鼠人',
+    drow: '卓爾', satyr: '羊人', centaur: '人馬', kenku: '鴉人', minotaur: '牛頭人', eladrin: '精類精靈', tortle: '龜人',
+    firbolg: '弗爾伯格', 'astral-elf': '星界精靈', 'wood-elf': '木精靈', 'sea-elf': '海精靈', duergar: '灰矮人',
+    svirfneblin: '深地侏儒', githyanki: '吉斯洋基', githzerai: '吉斯澤萊', kalashtar: '卡拉斯塔', plasmoid: '原漿體',
+    giff: '河馬人', shifter: '化獸者', 'yuan-ti': '蛇人',
+  };
+
+  const ARCH = {
+    support_healer: '輔助治療', controller_caster: '控場施法', precision_duelist: '精準決鬥',
+    frontline_charger: '前線衝鋒', guardian_caster: '守護施法', herbal_healer: '草藥治療',
+    diviner_support: '預視輔助', beast_ranger: '野獸巡林', swift_striker: '迅捷打擊',
+    lore_scholar: '知識學者', alchemist_caster: '鍊金施法', dark_arts_scholar: '禁術學者',
+    seer_mystic: '先知秘術', bard_caster: '吟遊施法', noble_enchanter: '貴族惑控',
+    commander_caster: '指揮施法', hearth_support: '爐火輔助', field_medic: '戰地醫者',
+  };
+
+  const GENDER = { female: '女', male: '男', nonbinary: '非二元' };
+
+  const KIND = { player: '主角', team: '核心隊員', npc: '常駐角色' };
+
+  const ABIL = ['str', 'dex', 'con', 'int', 'wis', 'cha'];
+  const ABIL_CN = { str: '力量', dex: '敏捷', con: '體質', int: '智力', wis: '感知', cha: '魅力' };
+  const ABIL_SHORT = { str: '力', dex: '敏', con: '體', int: '智', wis: '感', cha: '魅' };
+
+  const SKILL = {
+    athletics: '運動', acrobatics: '體操', sleight_of_hand: '手上功夫', stealth: '隱匿',
+    arcana: '奧秘', history: '歷史', investigation: '調查', nature: '自然', religion: '宗教',
+    animal_handling: '馴獸', insight: '洞察', medicine: '醫藥', perception: '察覺', survival: '生存',
+    deception: '欺瞞', intimidation: '威嚇', performance: '表演', persuasion: '說服',
+  };
+
+  const DAMAGE = {
+    bludgeoning: '鈍擊', piercing: '穿刺', slashing: '揮砍', fire: '火焰', cold: '寒冰', lightning: '閃電',
+    thunder: '雷鳴', acid: '酸蝕', poison: '毒素', radiant: '光耀', necrotic: '死靈', force: '力場', psychic: '心靈',
+  };
+
+  const ATTACK_TYPE = { melee: '近戰', ranged: '遠程', spell: '法術' };
+
+  /* 立繪套裝：順序就是「全部切換」的循環順序 */
+  const LOOKS = [
+    { id: 'base',    label: '原裝',   short: '原' },
+    { id: 'outfit',  label: '變裝',   short: '變' },
+    { id: 'outfit2', label: '清涼',   short: '涼' },
+    { id: 'sailor',  label: '水手服', short: '水' },
+    { id: 'swim',    label: '泳裝',   short: '泳' },
+  ];
+
+  const RANKS = [
+    { tag: 'N',   cn: '凡', desc: '尋常之輩' },
+    { tag: 'R',   cn: '稀', desc: '小有名氣' },
+    { tag: 'SR',  cn: '銳', desc: '嶄露鋒芒' },
+    { tag: 'SSR', cn: '極', desc: '一方翹楚' },
+    { tag: 'UR',  cn: '絕', desc: '傳說之人' },
+  ];
+
+  global.LEX = { FACTION, RACE, ARCH, GENDER, KIND, ABIL, ABIL_CN, ABIL_SHORT, SKILL, DAMAGE, ATTACK_TYPE, LOOKS, RANKS };
+}(window));

@@ -1,0 +1,12 @@
+{
+  "name": "character-cards",
+  "version": "1.0.0",
+  "description": "手遊風角色圖卡展示：3D 傾斜、全息箔、階級框、六維雷達、多套立繪與立繪劇場。純靜態、零相依。",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "import": "node scripts/import-from-game-server.js",
+    "portraits": "python scripts/convert-portraits.py"
+  },
+  "engines": { "node": ">=18" }
+}

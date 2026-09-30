@@ -1,0 +1,63 @@
+/* ═══════════════════════════════════════════════════════════════════
+   tokens.css — 設計變數：色彩、階級、陣營、字體、間距
+   所有元件只引用這裡的變數，換主題只需改這一個檔。
+   ═══════════════════════════════════════════════════════════════════ */
+
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;700;900&display=swap");
+
+:root {
+  color-scheme: dark;
+
+  /* ── 基底 ── */
+  --bg: #07090f;
+  --bg-1: #0d111a;
+  --bg-2: #131a27;
+  --bg-3: #1a2333;
+  --line: rgba(255, 255, 255, .08);
+  --line-strong: rgba(255, 255, 255, .16);
+  --text: #eef1f7;
+  --text-2: #aab3c5;
+  --text-3: #6f7a90;
+
+  --gold: #e6bd5a;
+  --gold-2: #fff0bf;
+  --teal: #4fe3cf;
+  --violet: #8e6bff;
+  --rose: #ff5c9a;
+  --rose-2: #ffb3cf;
+  --green: #5be49b;
+  --red: #ff6b7f;
+
+  /* ── 字體 ── */
+  --sans: "Noto Sans TC", -apple-system, "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --serif: "Noto Serif TC", "Songti TC", "Noto Serif CJK TC", serif;
+  --mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  /* ── 形狀 ── */
+  --r-card: 18px;
+  --r-ui: 10px;
+  --shadow-card: 0 18px 40px -22px rgba(0, 0, 0, .95), 0 2px 0 rgba(255, 255, 255, .03) inset;
+  --shadow-float: 0 40px 90px -30px rgba(0, 0, 0, 1);
+
+  /* ── 階級：a=主色 b=深色 t=亮色 ── */
+  --rk0-a: #8894ad; --rk0-b: #3e475c; --rk0-t: #c3cbdc; --rk0-name: "N";
+  --rk1-a: #4fb2ff; --rk1-b: #1f5a9e; --rk1-t: #b9e3ff;
+  --rk2-a: #b28bff; --rk2-b: #5a35c2; --rk2-t: #e2d3ff;
+  --rk3-a: #f4c25a; --rk3-b: #b77a15; --rk3-t: #fff0c4;
+  --rk4-a: #ff5fa8; --rk4-b: #ffc46b; --rk4-t: #ffe1f0;
+
+  /* ── 陣營 ── */
+  --fx-gryffindor-a: #b22a2a; --fx-gryffindor-b: #d9a441;
+  --fx-slytherin-a: #1f6b4a;  --fx-slytherin-b: #a9b6bd;
+  --fx-ravenclaw-a: #23408f;  --fx-ravenclaw-b: #b58c3c;
+  --fx-hufflepuff-a: #d9a51f; --fx-hufflepuff-b: #2a2a2a;
+  --fx-none-a: #3a4358;       --fx-none-b: #6d7890;
+
+  /* ── 動態 ── */
+  --ease-out: cubic-bezier(.2, .85, .25, 1);
+  --ease-soft: cubic-bezier(.4, 0, .2, 1);
+  --tilt-max: 11deg;
+}
+
+/* 讓 conic 邊框可平滑轉動；不支援的瀏覽器退化為靜態漸層 */
+@property --ang { syntax: '<angle>'; initial-value: 0deg; inherits: false; }

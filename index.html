@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>角色圖卡 · Character Cards</title>
+<meta name="description" content="手遊風角色圖卡展示：3D 傾斜、全息箔、階級框、六維雷達、多套立繪與立繪劇場。純靜態，零相依。" />
+<meta name="theme-color" content="#07090f" />
+<meta property="og:title" content="角色圖卡 · Character Cards" />
+<meta property="og:description" content="手遊風角色圖卡展示：3D 傾斜、全息箔、階級框、六維雷達、多套立繪與立繪劇場。" />
+<meta property="og:image" content="assets/portraits/base/storm.webp" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ff5fa8'/%3E%3Cstop offset='1' stop-color='%23ffc46b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='4' y='2' width='24' height='28' rx='4' fill='url(%23g)'/%3E%3Ctext x='16' y='21' font-size='14' text-anchor='middle' fill='%230b0d13' font-weight='bold'%3E%E2%98%85%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/tokens.css" />
+<link rel="stylesheet" href="css/card.css" />
+<link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="./"><span class="sigil">★</span>角色圖卡</a>
+  <div class="stats">
+    <span>角色 <b id="statCount">—</b></span>
+    <span>立繪 <b id="statLooks">—</b></span>
+  </div>
+  <a class="gh" href="#deck-title">卡池 ↓</a>
+</header>
+
+<main class="wrap" id="main">
+
+  <!-- 聚光燈：主角或隨機角色的電影感橫幅 -->
+  <section class="spotlight" id="spotlight" aria-label="聚光燈"></section>
+
+  <!-- 階級圖例（可點擊篩選） -->
+  <div class="legend" id="legend" aria-label="階級圖例"></div>
+
+  <h2 class="section" id="deck-title">角色卡池<span class="sub" id="sectionSub"></span></h2>
+
+  <!-- 工具列 -->
+  <div class="toolbar" role="search">
+    <input type="search" id="fQ" placeholder="🔍 搜尋名字、職業、性格、外貌、出沒地點…" autocomplete="off" />
+    <select id="fFaction" title="陣營"></select>
+    <select id="fRank" title="階級"></select>
+    <div class="seg" id="segKind" title="範圍">
+      <button data-v="all">全部</button>
+      <button data-v="party">主角與隊員</button>
+      <button data-v="npc">常駐角色</button>
+    </div>
+    <select id="fSort" title="排序">
+      <option value="default">預設順序</option>
+      <option value="rank">依階級</option>
+      <option value="power">依戰力</option>
+      <option value="name">依名字</option>
+      <option value="age">依年齡</option>
+    </select>
+    <button class="tb-btn rose" id="lookAll" type="button">👗 全部變裝</button>
+    <div class="seg" id="segSize" title="卡片尺寸">
+      <button data-v="s">S</button>
+      <button data-v="m">M</button>
+      <button data-v="l">L</button>
+    </div>
+    <button class="tb-btn" id="reset" type="button">清除篩選</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <!-- 卡池 -->
+  <section class="deck" id="deck" data-size="m" aria-label="角色卡池"></section>
+
+  <footer>
+    <span>資料產生於 <b id="generated">—</b></span>
+    <span>操作：點卡片開劇場 · <kbd>↻</kbd>／<kbd>F</kbd> 翻面 · <kbd>👗</kbd>／<kbd>L</kbd> 換立繪 · 劇場內 <kbd>←</kbd><kbd>→</kbd> 翻閱、<kbd>Esc</kbd> 關閉</span>
+    <span>純靜態頁面，零相依，可直接部署至任何靜態主機。</span>
+  </footer>
+</main>
+
+<!-- 立繪劇場 -->
+<div class="theater" id="theater" hidden role="dialog" aria-modal="true" aria-label="立繪劇場">
+  <div class="th-backdrop" data-close></div>
+  <div class="th-panel">
+    <div class="th-figure"></div>
+    <div class="th-info"></div>
+    <div class="th-pos"></div>
+    <button class="th-close" data-close title="關閉（Esc）" aria-label="關閉">✕</button>
+    <button class="th-nav prev" title="上一位（←）" aria-label="上一位">‹</button>
+    <button class="th-nav next" title="下一位（→）" aria-label="下一位">›</button>
+  </div>
+</div>
+
+<script src="data/characters.js"></script>
+<script src="js/lexicon.js"></script>
+<script src="js/rank.js"></script>
+<script src="js/card.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/theater.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

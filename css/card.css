@@ -1,0 +1,659 @@
+/* ═══════════════════════════════════════════════════════════════════
+   card.css — 角色圖卡元件
+   ───────────────────────────────────────────────────────────────────
+   結構（由 js/card.js 產生）：
+     .card                         外殼：階級／陣營變數、進場錯開
+       .card-aura                  卡片背後的階級色光
+       .card-3d                    3D 傾斜（--rx / --ry 由 fx.js 寫入）
+         .card-flip                翻面（.card.flipped → rotateY 180）
+           .card-face.card-front   正面：立繪＋名牌＋預覽
+           .card-face.card-back    背面：六維雷達＋數值
+   所有動畫預設靜止，hover／focus／.live 才播放，200 張卡也不會燒 GPU。
+   ═══════════════════════════════════════════════════════════════════ */
+
+.card {
+  /* 階級色（由 data-rank 決定） */
+  --ra: var(--rk1-a); --rb: var(--rk1-b); --rt: var(--rk1-t);
+  /* 陣營色（由 data-faction 決定） */
+  --fa: var(--fx-none-a); --fb: var(--fx-none-b);
+  --mx: 50%; --my: 50%;   /* 游標位置 */
+  --lift: 0;              /* 0 靜止 → 1 互動中 */
+  --power: 0%;            /* 戰力條 */
+  --peek-h: 64px;         /* hover 預覽的高度，名牌要往上讓出這麼多 */
+
+  position: relative;
+  aspect-ratio: 3 / 4;
+  perspective: 1100px;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  animation: cardIn .6s var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 28ms);
+}
+
+.card[data-rank="0"] { --ra: var(--rk0-a); --rb: var(--rk0-b); --rt: var(--rk0-t); }
+.card[data-rank="1"] { --ra: var(--rk1-a); --rb: var(--rk1-b); --rt: var(--rk1-t); }
+.card[data-rank="2"] { --ra: var(--rk2-a); --rb: var(--rk2-b); --rt: var(--rk2-t); }
+.card[data-rank="3"] { --ra: var(--rk3-a); --rb: var(--rk3-b); --rt: var(--rk3-t); }
+.card[data-rank="4"] { --ra: var(--rk4-a); --rb: var(--rk4-b); --rt: var(--rk4-t); }
+
+.card[data-faction="gryffindor"] { --fa: var(--fx-gryffindor-a); --fb: var(--fx-gryffindor-b); }
+.card[data-faction="slytherin"]  { --fa: var(--fx-slytherin-a);  --fb: var(--fx-slytherin-b); }
+.card[data-faction="ravenclaw"]  { --fa: var(--fx-ravenclaw-a);  --fb: var(--fx-ravenclaw-b); }
+.card[data-faction="hufflepuff"] { --fa: var(--fx-hufflepuff-a); --fb: var(--fx-hufflepuff-b); }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(28px) rotateX(-12deg) scale(.94); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── 3D 傾斜層 ─────────────────────────────────────────────── */
+.card-3d {
+  --rx: 0deg; --ry: 0deg;
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry)) translateY(calc(var(--lift) * -8px)) scale(calc(1 + var(--lift) * .02));
+  transition: transform .22s var(--ease-out);
+}
+
+.card-flip {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .7s cubic-bezier(.3, .7, .2, 1);
+}
+
+.card.flipped .card-flip { transform: rotateY(180deg); }
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-card);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-3), var(--bg-1));
+  box-shadow: var(--shadow-card);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: box-shadow .3s;
+}
+
+.card-back { transform: rotateY(180deg); }
+
+.card:hover .card-face,
+.card:focus-visible .card-face {
+  box-shadow:
+    0 34px 70px -28px rgba(0, 0, 0, 1),
+    0 0 40px -10px color-mix(in srgb, var(--ra) 60%, transparent);
+}
+
+.card:focus-visible .card-front::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 30;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px var(--rt);
+  pointer-events: none;
+}
+
+/* ── 階級光暈 ─────────────────────────────────────────────── */
+.card-aura {
+  position: absolute;
+  inset: -12px;
+  z-index: -1;
+  border-radius: 28px;
+  background: radial-gradient(55% 50% at 50% 60%, color-mix(in srgb, var(--ra) 65%, transparent), transparent 75%);
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity .35s;
+  pointer-events: none;
+}
+
+.card.live[data-rank="3"] .card-aura { opacity: .3; }
+.card.live[data-rank="4"] .card-aura { opacity: .45; animation: breathe 4.5s ease-in-out infinite; }
+.card:hover .card-aura { opacity: .7; }
+
+@keyframes breathe { 50% { opacity: .75; transform: scale(1.06); } }
+
+/* ── 邊框：conic 漸層環＋四角紋飾 ────────────────────────── */
+.card-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.card-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.6px;
+  background: conic-gradient(from var(--ang), var(--rb), var(--ra), var(--rt), var(--ra), var(--rb), var(--ra), var(--rb));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: .8;
+  animation: spin 8s linear infinite paused;
+  transition: opacity .25s;
+}
+
+.card[data-rank="3"] .card-frame::before { padding: 2px; }
+.card[data-rank="4"] .card-frame::before { padding: 2.4px; }
+
+.card:hover .card-frame::before,
+.card.live[data-rank="3"] .card-frame::before,
+.card.live[data-rank="4"] .card-frame::before { opacity: 1; animation-play-state: running; }
+
+@keyframes spin { to { --ang: 360deg; } }
+
+/* 內框細線：讓卡面像壓了一層透明護套 */
+.card-frame::after {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: calc(var(--r-card) - 6px);
+  border: 1px solid color-mix(in srgb, var(--rt) 28%, transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.card[data-rank="3"] .card-frame::after,
+.card[data-rank="4"] .card-frame::after,
+.card:hover .card-frame::after { opacity: 1; }
+
+/* ─────────────────────────────────────────────────────────────────
+   正面：立繪
+   ───────────────────────────────────────────────────────────────── */
+.card-art {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--bg-1);
+  container-type: inline-size;
+}
+
+.card-art img {
+  position: absolute;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
+  z-index: 2;
+  object-fit: cover;
+  object-position: 50% 12%;
+  opacity: 0;
+  transform: translate3d(calc((var(--mx) - 50%) * -.06), calc((var(--my) - 50%) * -.06), 0);
+  transition: opacity .5s, transform .35s var(--ease-out), filter .35s;
+  animation: kenburns 16s ease-in-out infinite alternate paused;
+}
+
+.card-art img.loaded { opacity: 1; }
+.card.live .card-art img,
+.card:hover .card-art img { animation-play-state: running; }
+
+.card:hover .card-art img {
+  transform: scale(1.07) translate3d(calc((var(--mx) - 50%) * -.1), calc((var(--my) - 50%) * -.1), 0);
+  filter: saturate(1.12) contrast(1.04);
+}
+
+@keyframes kenburns { from { scale: 1; } to { scale: 1.05; } }
+
+/* 多套立繪：只顯示 data-look 相符的那一層 */
+.card-art .look { opacity: 0; }
+.card-art .look.loaded.on { opacity: 1; }
+
+/* 佔位：陣營雙色＋大字首 */
+.card-ph {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  font-family: var(--serif);
+  font-size: clamp(40px, 30cqw, 90px);
+  font-weight: 900;
+  color: rgba(255, 255, 255, .85);
+  text-shadow: 0 6px 30px rgba(0, 0, 0, .6);
+  background:
+    radial-gradient(80% 60% at 70% 20%, color-mix(in srgb, var(--fb) 55%, transparent), transparent 70%),
+    linear-gradient(160deg, var(--fa), color-mix(in srgb, var(--fa) 30%, #000));
+}
+
+/* 遮罩：底部深、頂部淡 */
+.card-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(5, 7, 12, .55), transparent 22%),
+    linear-gradient(to top, rgba(5, 7, 12, .98) 0%, rgba(5, 7, 12, .88) 18%, rgba(5, 7, 12, .35) 44%, transparent 62%);
+  transition: opacity .3s;
+}
+
+/* 全息箔：斜向彩帶 + 掃光 */
+.card-foil {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  mix-blend-mode: color-dodge;
+  opacity: 0;
+  background:
+    repeating-linear-gradient(110deg,
+      rgba(255, 60, 140, .18) 0%, rgba(255, 200, 80, .18) 9%,
+      rgba(80, 255, 220, .18) 18%, rgba(100, 140, 255, .18) 27%,
+      rgba(255, 60, 140, .18) 36%);
+  background-size: 260% 260%;
+  background-position: calc(var(--mx) * 1.7) calc(var(--my) * 1.7);
+  transition: opacity .3s;
+}
+
+.card[data-rank="2"] .card-foil { opacity: .1; }
+.card[data-rank="3"] .card-foil { opacity: .2; }
+.card[data-rank="4"] .card-foil { opacity: .32; }
+.card:hover .card-foil { opacity: .6; }
+
+.card-foil::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(110deg, transparent 44%, rgba(255, 255, 255, .6) 50%, transparent 56%);
+  transform: translateX(-120%);
+}
+
+.card:hover .card-foil::after { animation: sweep 1s cubic-bezier(.3, .7, .3, 1); }
+@keyframes sweep { to { transform: translateX(120%); } }
+
+/* 游標反光 */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  background: radial-gradient(30% 30% at var(--mx) var(--my), rgba(255, 255, 255, .95), transparent 70%);
+  transition: opacity .25s;
+}
+
+.card:hover .card-glare { opacity: .9; }
+
+/* 粒子：最高階／互動時 */
+.card-sparks {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .35s;
+}
+
+.card.live[data-rank="4"] .card-sparks,
+.card:hover .card-sparks { opacity: 1; }
+
+.card-sparks i {
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 7px 1px color-mix(in srgb, var(--rt) 90%, transparent);
+  opacity: 0;
+  animation: spark 3.4s ease-in-out infinite paused;
+}
+
+.card.live .card-sparks i,
+.card:hover .card-sparks i { animation-play-state: running; }
+
+.card-sparks i:nth-child(1) { left: 10%; bottom: 20%; animation-delay: 0s; }
+.card-sparks i:nth-child(2) { left: 26%; bottom: 12%; animation-delay: .5s; }
+.card-sparks i:nth-child(3) { left: 44%; bottom: 26%; animation-delay: 1.1s; }
+.card-sparks i:nth-child(4) { left: 62%; bottom: 14%; animation-delay: 1.7s; }
+.card-sparks i:nth-child(5) { left: 78%; bottom: 30%; animation-delay: 2.3s; }
+.card-sparks i:nth-child(6) { left: 90%; bottom: 10%; animation-delay: 2.9s; }
+
+@keyframes spark {
+  0%   { opacity: 0; transform: translateY(0) scale(.5); }
+  18%  { opacity: 1; transform: translateY(-16px) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(.3); }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   正面：名牌與資訊
+   ───────────────────────────────────────────────────────────────── */
+.card-head {
+  position: absolute;
+  top: 10px; left: 10px; right: 10px;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.plaque {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  line-height: 1;
+  padding: 5px 9px;
+  border-radius: 7px;
+  color: #0b0d13;
+  background: linear-gradient(120deg, var(--rt), var(--ra) 60%, var(--rb));
+  box-shadow: 0 3px 12px -3px color-mix(in srgb, var(--ra) 90%, transparent), inset 0 1px 0 rgba(255, 255, 255, .5);
+}
+
+.card[data-rank="4"] .plaque,
+.plaque.holo {
+  background: linear-gradient(120deg, #ffe1f0, #ff5fa8 30%, #ffc46b 60%, #7fe9ff 90%, #ffe1f0);
+  background-size: 250% 100%;
+  animation: holo 3.2s linear infinite paused;
+}
+
+.card.live[data-rank="4"] .plaque,
+.card:hover .plaque.holo,
+.card:hover[data-rank="4"] .plaque { animation-play-state: running; }
+
+@keyframes holo { to { background-position: 250% 0; } }
+
+.crest {
+  margin-left: auto;
+  width: 26px; height: 26px;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  border-radius: 50%;
+  background: linear-gradient(140deg, var(--fa), var(--fb));
+  box-shadow: 0 2px 10px -2px rgba(0, 0, 0, .8), inset 0 0 0 1px rgba(255, 255, 255, .25);
+}
+
+.chip {
+  font-size: 10px;
+  line-height: 1;
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: #dfe5f1;
+  background: rgba(6, 8, 13, .7);
+  border: 1px solid rgba(255, 255, 255, .16);
+  backdrop-filter: blur(5px);
+  white-space: nowrap;
+}
+
+.chip.gold { color: var(--gold-2); border-color: color-mix(in srgb, var(--gold) 60%, transparent); }
+.chip.rose { color: var(--rose-2); border-color: color-mix(in srgb, var(--rose) 60%, transparent); }
+.chip.teal { color: #c6fff6; border-color: color-mix(in srgb, var(--teal) 60%, transparent); }
+
+.card-meta {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  padding: 12px 13px 13px;
+  pointer-events: none;
+  transform: translateZ(30px);
+  transition: transform .32s var(--ease-out);
+}
+
+.card:hover .card-meta { transform: translateZ(30px) translateY(calc(var(--peek-h, 0px) * -1)); }
+
+.stars {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  color: var(--rt);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--ra) 90%, transparent);
+  margin-bottom: 4px;
+}
+
+.stars .off { color: rgba(255, 255, 255, .2); text-shadow: none; }
+
+.card .name {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(14px, 8.5cqw, 19px);
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: .02em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 1);
+}
+
+.card .role {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: var(--text-2);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 戰力條：階級色，寬度＝戰力百分位 */
+.power {
+  display: block;
+  height: 3px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  overflow: hidden;
+}
+
+.power > i {
+  display: block;
+  height: 100%;
+  width: var(--power);
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--rb), var(--ra), var(--rt));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--ra) 80%, transparent);
+  transition: width .8s var(--ease-out);
+}
+
+/* hover 才浮出的預覽：性格一句話＋核心數值 */
+.card-peek {
+  position: absolute;
+  left: 13px; right: 13px; bottom: 12px;
+  z-index: 11;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity .28s, transform .3s var(--ease-out);
+}
+
+.card:hover .card-peek { opacity: 1; transform: none; }
+
+.peek-trait {
+  margin: 0 0 7px;
+  font-size: 11px;
+  line-height: 1.55;
+  color: #e9dfe6;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 1);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.peek-stats {
+  display: flex;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text);
+}
+
+.peek-stats span { display: inline-flex; gap: 4px; align-items: baseline; }
+.peek-stats b { font-weight: 700; color: var(--rt); font-size: 9.5px; letter-spacing: .05em; }
+
+/* 工具鈕：hover 才出現（觸控裝置一律顯示） */
+.card-tools {
+  position: absolute;
+  right: 10px;
+  top: 44px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity .25s, transform .25s var(--ease-out);
+}
+
+.card:hover .card-tools,
+.card:focus-within .card-tools { opacity: 1; transform: none; }
+
+@media (hover: none) { .card-tools { opacity: 1; transform: none; } }
+
+.tool {
+  width: 30px; height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, .18);
+  background: rgba(8, 10, 16, .78);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: border-color .2s, background .2s, transform .15s;
+}
+
+.tool:hover { border-color: var(--rt); background: rgba(8, 10, 16, .95); transform: scale(1.06); }
+.tool:active { transform: scale(.96); }
+.tool.on { background: linear-gradient(120deg, var(--rb), var(--ra)); border-color: transparent; color: #fff; }
+
+/* ─────────────────────────────────────────────────────────────────
+   背面：六維雷達與數值
+   ───────────────────────────────────────────────────────────────── */
+.card-back {
+  background:
+    radial-gradient(90% 60% at 50% 0%, color-mix(in srgb, var(--ra) 22%, transparent), transparent 70%),
+    linear-gradient(180deg, var(--bg-3), var(--bg-1));
+  display: flex;
+  flex-direction: column;
+  padding: 14px 14px 12px;
+  gap: 8px;
+  cursor: pointer;
+  container-type: inline-size;
+}
+
+.card-back::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .08;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .5) 1px, transparent 1px);
+  background-size: 18px 18px;
+  -webkit-mask: radial-gradient(70% 60% at 50% 40%, #000, transparent);
+  mask: radial-gradient(70% 60% at 50% 40%, #000, transparent);
+  pointer-events: none;
+}
+
+.back-head { position: relative; display: flex; align-items: center; gap: 8px; }
+.back-head .name { font-size: clamp(13px, 7.5cqw, 17px); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-shadow: none; }
+.back-head .sub { font-size: 10px; color: var(--text-3); font-family: var(--mono); }
+
+.radar {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  display: block;
+}
+
+.radar .grid { fill: none; stroke: rgba(255, 255, 255, .12); stroke-width: 1; }
+.radar .axis { stroke: rgba(255, 255, 255, .08); stroke-width: 1; }
+.radar .shape {
+  fill: color-mix(in srgb, var(--ra) 32%, transparent);
+  stroke: var(--rt);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--ra) 80%, transparent));
+}
+.radar .dot { fill: var(--rt); }
+.radar .lbl { font-family: var(--sans); font-size: 10.5px; font-weight: 700; fill: var(--text-2); }
+.radar .val { font-family: var(--mono); font-size: 10px; fill: var(--rt); }
+
+.back-stats {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.stat {
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 6px 4px 5px;
+  text-align: center;
+}
+
+.stat .k { display: block; font-size: 9px; letter-spacing: .1em; color: var(--text-3); }
+.stat .v { display: block; font-family: var(--mono); font-size: 15px; font-weight: 700; color: var(--rt); line-height: 1.2; }
+
+.back-attack {
+  position: relative;
+  font-size: 11px;
+  line-height: 1.5;
+  padding: 7px 9px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, .04);
+  border-left: 2px solid var(--ra);
+  color: var(--text-2);
+}
+
+.back-attack b { color: var(--text); }
+.back-attack .heal { color: var(--green); }
+
+.back-tags { position: relative; display: flex; flex-wrap: wrap; gap: 4px; }
+.back-tags .chip { padding: 4px 7px; font-size: 9.5px; }
+
+.card-back .tool { position: absolute; right: 10px; bottom: 10px; z-index: 20; }
+
+/* 窄卡（S 尺寸／手機）背面只留雷達與核心數值，讓雷達有空間 */
+@container (max-width: 190px) {
+  .back-tags, .back-head .sub { display: none; }
+  .back-attack { font-size: 10px; padding: 5px 8px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   尺寸變化：.deck[data-size]
+   ───────────────────────────────────────────────────────────────── */
+.deck {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+}
+
+.deck[data-size="s"] { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.deck[data-size="l"] { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
+
+@media (max-width: 560px) {
+  .deck, .deck[data-size="l"] { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .deck[data-size="s"] { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   降低動態／窄螢幕
+   ───────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .card, .card * { animation: none !important; transition: none !important; }
+  .card-3d { transform: none !important; }
+  .card-art img { transform: none !important; }
+  .card-sparks { display: none; }
+}
+
+@media (max-width: 820px) {
+  .card-art img, .card:hover .card-art img { animation: none !important; transform: none !important; }
+  .card-sparks { display: none; }
+}
