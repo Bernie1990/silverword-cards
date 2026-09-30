@@ -46,6 +46,10 @@
 .card[data-faction="slytherin"]  { --fa: var(--fx-slytherin-a);  --fb: var(--fx-slytherin-b); }
 .card[data-faction="ravenclaw"]  { --fa: var(--fx-ravenclaw-a);  --fb: var(--fx-ravenclaw-b); }
 .card[data-faction="hufflepuff"] { --fa: var(--fx-hufflepuff-a); --fb: var(--fx-hufflepuff-b); }
+.card[data-faction="silver_chalice"] { --fa: var(--fx-silver_chalice-a); --fb: var(--fx-silver_chalice-b); }
+.card[data-faction="azure_spire"]    { --fa: var(--fx-azure_spire-a);    --fb: var(--fx-azure_spire-b); }
+.card[data-faction="obsidian_pact"]  { --fa: var(--fx-obsidian_pact-a);  --fb: var(--fx-obsidian_pact-b); }
+.card[data-faction="crimson_banner"] { --fa: var(--fx-crimson_banner-a); --fb: var(--fx-crimson_banner-b); }
 
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(28px) rotateX(-12deg) scale(.94); }
@@ -625,6 +629,97 @@
   .back-tags, .back-head .sub { display: none; }
   .back-attack { font-size: 10px; padding: 5px 8px; }
 }
+
+/* ─────────────────────────────────────────────────────────────────
+   D&D 系列卡皮：data-theme="dnd"
+   青銅四角紋飾、羊皮紙名牌、盾形階級徽、職業／等級列
+   ───────────────────────────────────────────────────────────────── */
+.card[data-theme="dnd"] { --r-card: 12px; }
+
+/* 四角青銅紋飾（8 條漸層拼成 4 個 L 形角） */
+.card[data-theme="dnd"] .card-frame::after {
+  inset: 9px;
+  border: 0;
+  opacity: .9;
+  border-radius: 0;
+  --c: color-mix(in srgb, var(--bronze-2) 85%, var(--rt));
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 22px 1.5px,
+    linear-gradient(var(--c), var(--c)) top left / 1.5px 22px,
+    linear-gradient(var(--c), var(--c)) top right / 22px 1.5px,
+    linear-gradient(var(--c), var(--c)) top right / 1.5px 22px,
+    linear-gradient(var(--c), var(--c)) bottom left / 22px 1.5px,
+    linear-gradient(var(--c), var(--c)) bottom left / 1.5px 22px,
+    linear-gradient(var(--c), var(--c)) bottom right / 22px 1.5px,
+    linear-gradient(var(--c), var(--c)) bottom right / 1.5px 22px;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, .8));
+}
+
+/* 角落小菱形 */
+.card[data-theme="dnd"] .card-frame::before {
+  background: conic-gradient(from var(--ang), var(--rb), var(--bronze), var(--rt), var(--bronze-2), var(--rb), var(--bronze), var(--rb));
+}
+
+/* 盾形階級徽 */
+.card[data-theme="dnd"] .plaque {
+  border-radius: 4px 4px 9px 9px;
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
+  padding: 5px 9px 8px;
+  font-family: var(--serif);
+  letter-spacing: .04em;
+}
+
+/* 羊皮紙名牌 */
+.card[data-theme="dnd"] .card-scrim {
+  background:
+    linear-gradient(to bottom, rgba(5, 7, 12, .5), transparent 22%),
+    linear-gradient(to top, rgba(12, 9, 6, .98) 0%, rgba(12, 9, 6, .9) 20%, rgba(12, 9, 6, .3) 46%, transparent 62%);
+}
+
+.card[data-theme="dnd"] .card-meta { padding: 12px 14px 13px; }
+
+.card[data-theme="dnd"] .card-meta::before {
+  content: '';
+  display: block;
+  height: 1px;
+  margin-bottom: 8px;
+  background: linear-gradient(90deg, var(--bronze-2), var(--bronze) 40%, transparent);
+  opacity: .8;
+}
+
+.card[data-theme="dnd"] .stars { color: var(--bronze-2); text-shadow: 0 0 8px rgba(201, 149, 74, .8); }
+.card[data-theme="dnd"] .name { letter-spacing: .06em; }
+.card[data-theme="dnd"] .role { color: #d7c39c; font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; }
+.card[data-theme="dnd"] .power > i { background: linear-gradient(90deg, #6d4a1c, var(--bronze), var(--bronze-2)); box-shadow: 0 0 10px rgba(201, 149, 74, .8); }
+
+/* 等級徽記 */
+.chip.lvl {
+  font-family: var(--serif);
+  font-weight: 900;
+  color: var(--bronze-2);
+  border-color: color-mix(in srgb, var(--bronze) 70%, transparent);
+  background: rgba(20, 14, 6, .8);
+}
+
+/* 引言取代性格 */
+.card[data-theme="dnd"] .peek-trait { font-style: italic; color: #f1e6cf; }
+.card[data-theme="dnd"] .peek-trait::before { content: '「'; color: var(--bronze); }
+.card[data-theme="dnd"] .peek-trait::after { content: '」'; color: var(--bronze); }
+
+/* 背面：羊皮紙格線 */
+.card[data-theme="dnd"] .card-back {
+  background:
+    radial-gradient(90% 60% at 50% 0%, color-mix(in srgb, var(--bronze) 18%, transparent), transparent 70%),
+    linear-gradient(180deg, #1a1710, #0d0b08);
+}
+
+.card[data-theme="dnd"] .card-back::before { opacity: .05; }
+.card[data-theme="dnd"] .stat { border-color: rgba(201, 149, 74, .25); background: rgba(201, 149, 74, .06); }
+.card[data-theme="dnd"] .stat .v { color: var(--bronze-2); }
+.card[data-theme="dnd"] .back-attack { border-left-color: var(--bronze); }
+.card[data-theme="dnd"] .radar .shape { fill: color-mix(in srgb, var(--bronze) 32%, transparent); stroke: var(--bronze-2); filter: drop-shadow(0 0 6px rgba(201, 149, 74, .8)); }
+.card[data-theme="dnd"] .radar .dot, .card[data-theme="dnd"] .radar .val { fill: var(--bronze-2); }
 
 /* ─────────────────────────────────────────────────────────────────
    尺寸變化：.deck[data-size]

@@ -51,7 +51,16 @@
   --fx-slytherin-a: #1f6b4a;  --fx-slytherin-b: #a9b6bd;
   --fx-ravenclaw-a: #23408f;  --fx-ravenclaw-b: #b58c3c;
   --fx-hufflepuff-a: #d9a51f; --fx-hufflepuff-b: #2a2a2a;
+  --fx-silver_chalice-a: #2f5b6e; --fx-silver_chalice-b: #c9d6de;
+  --fx-azure_spire-a: #1f3f8f;    --fx-azure_spire-b: #7a56d6;
+  --fx-obsidian_pact-a: #2a1d33;  --fx-obsidian_pact-b: #6d3f86;
+  --fx-crimson_banner-a: #7a1a22; --fx-crimson_banner-b: #d07a2c;
   --fx-none-a: #3a4358;       --fx-none-b: #6d7890;
+
+  /* ── D&D 系列卡皮：青銅與羊皮紙 ── */
+  --bronze: #c9954a;
+  --bronze-2: #f0d39a;
+  --verdigris: #4fa58f;
 
   /* ── 動態 ── */
   --ease-out: cubic-bezier(.2, .85, .25, 1);

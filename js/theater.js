@@ -22,13 +22,20 @@
 
   const $ = (sel) => el.querySelector(sel);
 
+  let bound = false;
+
+  /** 可重複呼叫（切換系列時只更新 hooks），事件只綁一次 */
   function init(h) {
     hooks = h;
+    if (bound) return;
+    bound = true;
     el = document.getElementById('theater');
     el.addEventListener('click', (e) => {
       if (e.target.closest('[data-close]')) close();
       const lk = e.target.closest('.th-looks button');
       if (lk) { hooks.setLook(list[idx], lk.dataset.look); paint(); }
+      const rel = e.target.closest('.rel[data-id]');
+      if (rel) jump(rel.dataset.id);
     });
     $('.th-nav.prev').onclick = () => move(-1);
     $('.th-nav.next').onclick = () => move(1);
@@ -79,7 +86,43 @@
     paint();
   }
 
+  /** 關係鏈：目標在目前翻閱範圍內就直接跳過去；否則單獨開啟 */
+  function jump(id) {
+    const i = list.findIndex((x) => x.id === id);
+    if (i >= 0) { step = i > idx ? 1 : -1; idx = i; paint(); return; }
+    const target = hooks.byId && hooks.byId(id);
+    if (target) { list = [target]; idx = 0; step = 0; paint(); }
+  }
+
   const sec = (k, v, extra = '') => (v ? `<div class="th-sec ${extra}"><div class="k">${k}</div><div class="v">${v}</div></div>` : '');
+
+  /** D&D 系列的故事區塊：格言、背景、理想／羈絆／缺陷、章節時間線、關係鏈 */
+  function storyHtml(ch, seq) {
+    const s = ch.story;
+    if (!s) return '';
+    const triad = (s.ideal || s.bond || s.flaw) ? `<div class="triad">
+        ${s.ideal ? `<div class="tri ideal"><b>理想</b><p>${esc(s.ideal)}</p></div>` : ''}
+        ${s.bond ? `<div class="tri bond"><b>羈絆</b><p>${esc(s.bond)}</p></div>` : ''}
+        ${s.flaw ? `<div class="tri flaw"><b>缺陷</b><p>${esc(s.flaw)}</p></div>` : ''}
+      </div>` : '';
+    const chapters = (s.chapters || []).length ? `<ol class="chapters">${s.chapters.map((c, i) => `
+        <li><span class="ch-no">${String(i + 1).padStart(2, '0')}</span><div><h4>${esc(c.title)}</h4><p>${esc(c.text)}</p></div></li>`).join('')}</ol>` : '';
+    const rels = (s.relations || []).length ? `<div class="rels">${s.relations.map((r) => {
+      const t = hooks.byId && hooks.byId(r.id);
+      const name = t ? t.name : r.id;
+      const known = Boolean(t);
+      return `<button type="button" class="rel${known ? '' : ' ghost'}" data-id="${esc(r.id)}" ${known ? '' : 'disabled'}>
+          <span class="rel-ph" style="--fa:var(--fx-${esc((t && t.faction) || 'none')}-a);--fb:var(--fx-${esc((t && t.faction) || 'none')}-b)">${known ? `<img src="${C.src(t, 'base', true)}" alt="" loading="lazy" onerror="this.remove()" />` : ''}${esc(name.charAt(0))}</span>
+          <span class="rel-body"><b>${esc(name)}</b><small>${esc(r.text)}</small></span></button>`;
+    }).join('')}</div>` : '';
+    return [
+      seq(sec('格言', `<blockquote class="th-quote">${esc(s.quote)}</blockquote>`, 'quote')),
+      seq(sec('背景', esc(s.background))),
+      seq(sec('理想 · 羈絆 · 缺陷', triad)),
+      seq(sec('故事', chapters, 'story')),
+      seq(sec('關係', rels)),
+    ].join('');
+  }
 
   function bars(ch) {
     const a = (ch.combat && ch.combat.abilities) || {};
@@ -102,6 +145,8 @@
     panel.style.setProperty('--rb', `var(--${rk}-b)`);
     panel.style.setProperty('--rt', `var(--${rk}-t)`);
     panel.dataset.faction = ch.faction || 'none';
+    panel.dataset.theme = hooks.theme || 'default';
+    const dnd = hooks.theme === 'dnd';
 
     const full = C.src(ch, look, false);
     const thumb = C.src(ch, look, true);
@@ -129,15 +174,19 @@
       ch.race ? `<span class="chip">${esc(C.label.race(ch.race))}</span>` : '',
       ch.gender ? `<span class="chip">${esc(C.label.gender(ch.gender))}</span>` : '',
       ch.age != null ? `<span class="chip">${esc(ch.age)} 歲</span>` : '',
+      ch.class ? `<span class="chip gold">${esc(ch.class)}${ch.level ? ` · Lv.${esc(ch.level)}` : ''}</span>` : '',
+      ch.alignment ? `<span class="chip">${esc(ch.alignment)}</span>` : '',
       ch.role ? `<span class="chip teal">${esc(ch.role)}</span>` : '',
-      c.archetype ? `<span class="chip">${esc(C.label.arch(c.archetype))}</span>` : '',
+      !dnd && c.archetype ? `<span class="chip">${esc(C.label.arch(c.archetype))}</span>` : '',
     ].filter(Boolean).join('');
 
     $('.th-info').innerHTML = `
+      ${hooks.seriesTitle ? `<div class="th-kicker">${esc(hooks.seriesTitle)}</div>` : ''}
       ${C.stars(rank)}
       <h2 class="th-name">${esc(ch.name)}</h2>
       <div class="th-full">${esc(ch.full_name || '')}</div>
       <div class="th-tags">${tags}</div>
+      ${storyHtml(ch, seq)}
       ${seq(sec('性格', esc(ch.trait)))}
       ${seq(sec('外貌', esc(ch.appearance)))}
       ${seq(sec('細節', esc(ch.appearance_detail)))}

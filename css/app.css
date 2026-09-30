@@ -96,6 +96,86 @@ button { font: inherit; }
   .topbar .stats { display: none; }
 }
 
+/* ── 系列分頁 ─────────────────────────────────────────────── */
+.series-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin: 26px 0 0;
+}
+
+.stab {
+  --acc: var(--gold);
+  --acc2: var(--rose);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'title n' 'sub n';
+  gap: 2px 14px;
+  align-items: center;
+  text-align: left;
+  padding: 14px 18px 14px 22px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: linear-gradient(120deg, #131826, #0d111a);
+  color: var(--text-2);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform .25s var(--ease-out), border-color .25s, box-shadow .25s;
+}
+
+.stab::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--acc), var(--acc2));
+  opacity: .5;
+  transition: opacity .25s;
+}
+
+.stab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 100% at 100% 0%, color-mix(in srgb, var(--acc) 22%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+}
+
+.stab[data-theme="dnd"] { --acc: var(--bronze); --acc2: var(--verdigris); }
+.stab:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--acc) 40%, var(--line)); }
+.stab:hover::after { opacity: .6; }
+.stab.on {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--acc) 65%, transparent);
+  box-shadow: 0 8px 30px -14px color-mix(in srgb, var(--acc) 70%, transparent), inset 0 1px 0 rgba(255, 255, 255, .06);
+}
+.stab.on::before, .stab.on::after { opacity: 1; }
+.stab-title { grid-area: title; font-family: var(--serif); font-weight: 900; font-size: 17px; letter-spacing: .04em; color: var(--text); }
+.stab-sub { grid-area: sub; font-size: 11.5px; color: var(--text-3); line-height: 1.5; }
+.stab-n { grid-area: n; font-family: var(--mono); font-size: 12px; padding: 5px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--text-3); white-space: nowrap; }
+.stab.on .stab-n { color: var(--acc); border-color: color-mix(in srgb, var(--acc) 50%, transparent); }
+
+/* 世界觀簡述 */
+.world {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 12px 0 0;
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px dashed color-mix(in srgb, var(--line) 80%, transparent);
+  background: rgba(255, 255, 255, .02);
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.7;
+}
+.world .w-name { font-family: var(--serif); font-weight: 900; color: var(--text); letter-spacing: .06em; }
+.world p { flex-basis: 100%; margin: 0; }
+
 /* ── 聚光燈 ───────────────────────────────────────────────── */
 .spotlight {
   --mx: 50%; --my: 50%;
@@ -175,6 +255,38 @@ button { font: inherit; }
 }
 
 .sp-quote small { display: block; color: var(--text-3); font-size: 11.5px; margin-top: 2px; }
+
+/* 角色格言：襯線斜體、大引號 */
+.sp-say {
+  position: relative;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.8;
+  padding: 14px 18px 12px 40px;
+}
+.sp-say::before {
+  content: '“';
+  position: absolute;
+  left: 12px; top: 2px;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--sp-a, var(--gold));
+  opacity: .8;
+}
+.sp-say small { font-style: normal; font-family: var(--mono); }
+
+/* D&D 系列的聚光燈：青銅色調 */
+.spotlight[data-theme="dnd"] {
+  background:
+    radial-gradient(60% 80% at var(--mx) var(--my), color-mix(in srgb, var(--bronze) 14%, transparent), transparent 70%),
+    linear-gradient(115deg, #1c1912 0%, #12100c 60%, #0a0908 100%);
+}
+.spotlight[data-theme="dnd"] .sp-kicker { color: var(--bronze); }
+.spotlight[data-theme="dnd"] .sp-name { background: linear-gradient(120deg, #fff6e4, var(--bronze-2) 55%, var(--bronze)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.spotlight[data-theme="dnd"] .btn.primary { background: linear-gradient(120deg, var(--bronze-2), var(--bronze)); color: #1a1208; }
+.spotlight[data-theme="dnd"] .sp-say { border-left-color: var(--bronze); }
+.spotlight[data-theme="dnd"] .sp-say::before { color: var(--bronze); }
 
 .sp-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
@@ -404,6 +516,7 @@ footer {
   max-height: calc(100dvh - 44px);
   display: grid;
   grid-template-columns: minmax(300px, 46%) 1fr;
+  grid-template-rows: minmax(0, 1fr); /* 內容再長也不能撐開面板：由 .th-info 自己捲動 */
   border-radius: 22px;
   overflow: hidden;
   background: linear-gradient(120deg, #141a29, #0b0f18);
@@ -525,6 +638,10 @@ footer {
   padding: 26px 30px 30px;
   overflow-y: auto;
   min-width: 0;
+  min-height: 0;
+  max-height: calc(100dvh - 44px);
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ra) 50%, transparent) transparent;
 }
 
 .th-info .stars { font-size: 14px; letter-spacing: 2.5px; margin-bottom: 6px; }
@@ -566,6 +683,103 @@ footer {
 .th-sec .k::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, color-mix(in srgb, var(--ra) 40%, transparent), transparent); }
 .th-sec .v { font-size: 13.5px; line-height: 1.85; color: var(--text-2); }
 .th-sec .v b { color: var(--gold-2); font-weight: 700; }
+
+.th-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; color: var(--text-3); margin-bottom: 6px; }
+
+/* ── 故事區塊（D&D 系列） ─────────────────────────────────── */
+.th-quote {
+  position: relative;
+  margin: 2px 0 0;
+  padding: 12px 16px 12px 40px;
+  border-radius: 0 12px 12px 0;
+  border-left: 2px solid var(--rt);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--ra) 14%, transparent), transparent);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text);
+}
+.th-quote::before { content: '“'; position: absolute; left: 12px; top: 0; font-size: 40px; line-height: 1; color: var(--rt); opacity: .8; }
+
+/* 理想／羈絆／缺陷 */
+.triad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tri {
+  --c: var(--teal);
+  padding: 10px 12px 11px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 12%, transparent), transparent);
+}
+.tri.ideal { --c: var(--teal); }
+.tri.bond { --c: var(--gold); }
+.tri.flaw { --c: var(--rose); }
+.tri b { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; color: var(--c); margin-bottom: 4px; }
+.tri p { margin: 0; font-size: 12.5px; line-height: 1.7; color: var(--text-2); }
+
+/* 章節時間線 */
+.chapters { list-style: none; margin: 0; padding: 0; position: relative; }
+.chapters::before { content: ''; position: absolute; left: 15px; top: 14px; bottom: 14px; width: 1px; background: linear-gradient(180deg, var(--rt), color-mix(in srgb, var(--ra) 40%, transparent)); }
+.chapters li { position: relative; display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 8px 0; }
+.chapters li + li { border-top: 1px dashed color-mix(in srgb, var(--line) 70%, transparent); }
+.ch-no {
+  position: relative;
+  z-index: 1;
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--rt);
+  background: #0d1017;
+  border: 1px solid color-mix(in srgb, var(--rt) 60%, transparent);
+  box-shadow: 0 0 12px -2px color-mix(in srgb, var(--rt) 60%, transparent);
+  align-self: start;
+}
+.chapters h4 { margin: 4px 0 4px; font-family: var(--serif); font-size: 15px; font-weight: 900; color: var(--text); letter-spacing: .04em; }
+.chapters p { margin: 0; font-size: 13.5px; line-height: 1.85; color: var(--text-2); }
+
+/* 關係鏈 */
+.rels { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.rel {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 10px;
+  align-items: center;
+  text-align: left;
+  padding: 8px 10px 8px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, .025);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: transform .2s var(--ease-out), border-color .2s, background .2s;
+}
+.rel:hover { transform: translateY(-1px); border-color: color-mix(in srgb, var(--rt) 50%, transparent); background: color-mix(in srgb, var(--ra) 12%, transparent); }
+.rel.ghost { cursor: default; opacity: .55; }
+.rel-ph {
+  position: relative;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: grid; place-items: center;
+  font-family: var(--serif);
+  font-weight: 900;
+  color: rgba(255, 255, 255, .8);
+  background: linear-gradient(135deg, var(--fa, #333), var(--fb, #666));
+  border: 1px solid rgba(255, 255, 255, .15);
+}
+.rel-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.rel-body { display: grid; gap: 1px; min-width: 0; }
+.rel-body b { font-size: 13px; color: var(--text); }
+.rel-body small { font-size: 11.5px; line-height: 1.5; color: var(--text-3); }
+.rel-body small::before { content: '→ '; color: var(--rt); }
+
+/* D&D 劇場：青銅色調 */
+.th-panel[data-theme="dnd"] .th-kicker { color: var(--bronze); }
+.th-panel[data-theme="dnd"] .th-sec .v b { color: var(--bronze-2); }
+.th-panel[data-theme="dnd"] .ch-no { background: #14110b; }
 
 .th-combat {
   display: grid;
@@ -622,14 +836,21 @@ footer {
 
 @media (max-width: 860px) {
   .theater { padding: 8px; }
-  .th-panel { grid-template-columns: 1fr; max-height: calc(100dvh - 16px); overflow-y: auto; }
+  .th-panel { grid-template-columns: 1fr; grid-template-rows: auto auto; max-height: calc(100dvh - 16px); overflow-y: auto; }
   .th-figure { min-height: 0; aspect-ratio: 1 / 1; }
-  .th-info { padding: 20px 18px 26px; }
+  .th-info { padding: 20px 18px 26px; max-height: none; overflow: visible; }
   .th-combat { grid-template-columns: 1fr; justify-items: center; }
   .th-nav { top: auto; bottom: 14px; margin-top: 0; height: 44px; }
   .th-nav.next { right: 60px; }
   .th-nav.prev { left: auto; right: 108px; }
   .th-close { top: auto; bottom: 14px; right: 12px; height: 44px; width: 40px; }
+  .triad { grid-template-columns: 1fr; }
+  .rels { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .stab { grid-template-columns: 1fr; grid-template-areas: 'title' 'sub'; }
+  .stab-n { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

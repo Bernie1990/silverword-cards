@@ -1,5 +1,8 @@
 /* ═══════════════════════════════════════════════════════════════════
-   app.js — 頁面組裝：資料載入、狀態、篩選排序、聚光燈、事件委派
+   app.js — 頁面組裝：系列切換、資料載入、狀態、篩選排序、聚光燈、事件委派
+   ───────────────────────────────────────────────────────────────────
+   資料來源：data/series-*.js 各自 push 一個系列到 window.SERIES
+   series = { id, title, subtitle, theme, world, factions, generated, characters[] }
    ═══════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -11,20 +14,31 @@
   const esc = C.esc;
   const $ = (id) => document.getElementById(id);
 
+  const SERIES = (window.SERIES || []).filter((s) => s && Array.isArray(s.characters) && s.characters.length);
+
   /* ── 狀態（持久化到 localStorage） ─────────────────────── */
   const KEY = 'character-cards:ui';
-  const DEFAULT = { q: '', faction: '', rank: '', kind: 'all', sort: 'default', size: 'm', lookAll: 'base', looks: {}, featured: '' };
+  const DEFAULT = {
+    series: '', q: '', faction: '', rank: '', kind: 'all', sort: 'default', size: 'm',
+    lookAll: 'base', looks: {}, featured: {},
+  };
   const ui = load();
 
   function load() {
-    try { return { ...DEFAULT, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; }
-    catch { return { ...DEFAULT }; }
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if (typeof saved.featured === 'string') saved.featured = {}; // 舊版格式
+      return { ...DEFAULT, ...saved };
+    } catch { return { ...DEFAULT }; }
   }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(ui)); } catch { /* 私密模式 */ } }
 
+  let series = null;      // 目前系列
   let ALL = [];
   let ranker = R.build([]);
   const byId = new Map();
+  const theme = () => (series && series.theme) || 'default';
+  const isDnd = () => theme() === 'dnd';
 
   /* ── 套裝 ─────────────────────────────────────────────── */
   const lookOf = (ch) => {
@@ -52,6 +66,17 @@
   }
 
   /* ── 篩選排序 ─────────────────────────────────────────── */
+  function haystack(ch) {
+    const s = ch.story || {};
+    return [
+      ch.name, ch.full_name, ch.role, ch.trait, ch.appearance, ch.appearance_detail, ch.class, ch.alignment,
+      C.label.race(ch.race), C.label.faction(ch.faction), C.label.arch(ch.combat && ch.combat.archetype),
+      ch.hint && ch.hint.location, ch.hint && ch.hint.hook, L.RANKS[ranker.rank(ch)].tag,
+      s.quote, s.background, s.ideal, s.bond, s.flaw,
+      ...(s.chapters || []).map((c) => `${c.title} ${c.text}`),
+    ].filter(Boolean).join(' ').toLowerCase();
+  }
+
   function filtered() {
     const q = ui.q.trim().toLowerCase();
     const list = ALL.filter((ch) => {
@@ -59,31 +84,47 @@
       if (ui.rank !== '' && String(ranker.rank(ch)) !== String(ui.rank)) return false;
       if (ui.kind === 'party' && ch.kind === 'npc') return false;
       if (ui.kind === 'npc' && ch.kind !== 'npc') return false;
-      if (!q) return true;
-      const hay = [
-        ch.name, ch.full_name, ch.role, ch.trait, ch.appearance, ch.appearance_detail,
-        C.label.race(ch.race), C.label.faction(ch.faction), C.label.arch(ch.combat && ch.combat.archetype),
-        ch.hint && ch.hint.location, ch.hint && ch.hint.hook, L.RANKS[ranker.rank(ch)].tag,
-      ].filter(Boolean).join(' ').toLowerCase();
-      return hay.includes(q);
+      return !q || haystack(ch).includes(q);
     });
     const byName = (a, b) => String(a.name).localeCompare(String(b.name), 'zh-Hant');
     if (ui.sort === 'name') list.sort(byName);
     else if (ui.sort === 'power') list.sort((a, b) => R.power(b) - R.power(a) || byName(a, b));
     else if (ui.sort === 'rank') list.sort((a, b) => ranker.rank(b) - ranker.rank(a) || R.power(b) - R.power(a));
     else if (ui.sort === 'age') list.sort((a, b) => (a.age || 0) - (b.age || 0) || byName(a, b));
+    else if (ui.sort === 'level') list.sort((a, b) => (b.level || 0) - (a.level || 0) || R.power(b) - R.power(a));
     return list;
   }
 
   let current = [];
 
   /* ── 渲染 ─────────────────────────────────────────────── */
-  const cardHtml = (ch, live) => C.html(ch, { rank: ranker.rank(ch), percent: ranker.percent(ch), look: lookOf(ch), live });
+  const cardHtml = (ch, live) => C.html(ch, {
+    rank: ranker.rank(ch), percent: ranker.percent(ch), look: lookOf(ch), live, theme: theme(),
+  });
+
+  function renderSeriesTabs() {
+    const host = $('seriesTabs');
+    if (!host) return;
+    if (SERIES.length < 2) { host.hidden = true; return; }
+    host.hidden = false;
+    host.innerHTML = SERIES.map((s) => `
+      <button class="stab${s.id === series.id ? ' on' : ''}" data-series="${esc(s.id)}" data-theme="${esc(s.theme || 'default')}" type="button">
+        <span class="stab-title">${esc(s.title)}</span>
+        <span class="stab-sub">${esc(s.subtitle || '')}</span>
+        <span class="stab-n">${s.characters.length} 位</span>
+      </button>`).join('');
+    const w = series.world || {};
+    $('world').innerHTML = w.blurb
+      ? `<span class="w-name">${esc(w.name || series.title)}</span>${w.arc ? `<span class="chip gold">章節 · ${esc(w.arc)}</span>` : ''}<p>${esc(w.blurb)}</p>`
+      : '';
+    $('world').hidden = !w.blurb;
+  }
 
   function renderDeck() {
     current = filtered();
     const deck = $('deck');
     deck.dataset.size = ui.size;
+    deck.dataset.theme = theme();
     deck.innerHTML = current.length
       ? current.map((ch) => cardHtml(ch, false)).join('')
       : '<div class="empty" style="grid-column:1/-1">找不到符合條件的角色，試試清除篩選。</div>';
@@ -103,32 +144,46 @@
     return parts.length ? parts.join(' · ') : '點卡片進入立繪劇場；↻ 翻面看六維，👗 換立繪';
   }
 
+  function featuredOf() {
+    const id = ui.featured[series.id];
+    return byId.get(id) || ALL.find((c) => c.kind === 'player') || ALL[0];
+  }
+
   function renderSpotlight() {
-    const ch = byId.get(ui.featured) || ALL.find((c) => c.kind === 'player') || ALL[0];
+    const ch = featuredOf();
     if (!ch) return;
     const rank = ranker.rank(ch);
     const host = $('spotlight');
+    host.dataset.theme = theme();
     host.style.setProperty('--sp-a', `var(--rk${rank}-a)`);
     host.style.setProperty('--sp-t', `var(--rk${rank}-t)`);
     const c = ch.combat || {};
     const hint = ch.hint || {};
+    const s = ch.story || {};
+    const dnd = isDnd();
+    const desc = dnd && s.background ? s.background : (ch.appearance_detail || ch.appearance || '');
+    const quote = dnd && s.quote
+      ? `<blockquote class="sp-quote sp-say">${esc(s.quote)}<small>— ${esc(ch.name)}${hint.location ? ` · 📍 ${esc(hint.location)}` : ''}</small></blockquote>`
+      : hint.hook ? `<blockquote class="sp-quote">${esc(hint.hook)}${hint.location ? `<small>📍 ${esc(hint.location)}</small>` : ''}</blockquote>` : '';
     host.innerHTML = `
       ${cardHtml(ch, true)}
       <div class="sp-body">
-        <div class="sp-kicker">Spotlight · ${esc(C.label.kind(ch.kind))} · ${L.RANKS[rank].tag} ${L.RANKS[rank].cn}階</div>
+        <div class="sp-kicker">${esc(series.title)} · ${esc(C.label.kind(ch.kind))} · ${L.RANKS[rank].tag} ${L.RANKS[rank].cn}階</div>
         <h1 class="sp-name">${esc(ch.name)}</h1>
         <div class="sp-full">${esc(ch.full_name || '')}</div>
         <div class="sp-tags">
           <span class="chip">${C.label.crest(ch.faction)} ${esc(C.label.faction(ch.faction))}</span>
           ${ch.race ? `<span class="chip">${esc(C.label.race(ch.race))}</span>` : ''}
+          ${ch.class ? `<span class="chip gold">${esc(ch.class)}${ch.level ? ` · Lv.${esc(ch.level)}` : ''}</span>` : ''}
+          ${ch.alignment ? `<span class="chip">${esc(ch.alignment)}</span>` : ''}
           ${ch.role ? `<span class="chip teal">${esc(ch.role)}</span>` : ''}
-          ${c.archetype ? `<span class="chip">${esc(C.label.arch(c.archetype))}</span>` : ''}
+          ${!dnd && c.archetype ? `<span class="chip">${esc(C.label.arch(c.archetype))}</span>` : ''}
           ${ch.age != null ? `<span class="chip">${esc(ch.age)} 歲</span>` : ''}
         </div>
-        <p class="sp-desc">${esc(ch.appearance_detail || ch.appearance || '')}</p>
-        ${hint.hook ? `<blockquote class="sp-quote">${esc(hint.hook)}${hint.location ? `<small>📍 ${esc(hint.location)}</small>` : ''}</blockquote>` : ''}
+        <p class="sp-desc">${esc(desc)}</p>
+        ${quote}
         <div class="sp-actions">
-          <button class="btn primary" id="spOpen">✦ 進入立繪劇場</button>
+          <button class="btn primary" id="spOpen">✦ 進入立繪劇場${s.chapters ? '・讀故事' : ''}</button>
           <button class="btn" id="spRandom">🎲 隨機聚焦</button>
           <button class="btn" id="spFlip">↻ 看六維</button>
         </div>
@@ -137,7 +192,7 @@
     $('spOpen').onclick = () => Theater.open([ch], 0);
     $('spRandom').onclick = () => {
       const pool = ALL.filter((x) => x.id !== ch.id);
-      ui.featured = pool[Math.floor(Math.random() * pool.length)].id;
+      ui.featured[series.id] = pool[Math.floor(Math.random() * pool.length)].id;
       save();
       renderSpotlight();
     };
@@ -158,10 +213,17 @@
     const factions = [...new Set(ALL.map((c) => c.faction).filter(Boolean))].map((f) => [f, `${C.label.crest(f)} ${C.label.faction(f)}`]);
     $('fFaction').innerHTML = opt(factions, ui.faction, '全部陣營');
     $('fRank').innerHTML = opt(L.RANKS.map((r, i) => [i, `${r.tag} · ${r.cn}階`]).reverse(), ui.rank, '全部階級');
+    const lvlOpt = $('fSort').querySelector('option[value="level"]');
+    if (lvlOpt) lvlOpt.hidden = !isDnd();
+    if (ui.sort === 'level' && !isDnd()) ui.sort = 'default';
     $('fSort').value = ui.sort;
     $('fQ').value = ui.q;
     syncSeg('segKind', ui.kind);
     syncSeg('segSize', ui.size);
+    // 沒有多套裝的系列，隱藏「全部換裝」
+    const multi = ALL.some((c) => (c.looks || []).length > 1);
+    $('lookAll').hidden = !multi;
+    $('segKind').hidden = !ALL.some((c) => c.kind !== 'npc');
     const nxt = L.LOOKS[(L.LOOKS.findIndex((l) => l.id === ui.lookAll) + 1) % L.LOOKS.length];
     $('lookAll').textContent = `👗 全部${nxt.label}`;
     $('lookAll').title = `目前：${C.label.look(ui.lookAll)}；點擊切換為 ${nxt.label}（沒有該套裝的角色維持原裝）`;
@@ -172,12 +234,38 @@
   }
 
   function renderAll() {
+    document.body.dataset.theme = theme();
+    renderSeriesTabs();
     renderToolbar();
     renderLegend();
     renderSpotlight();
     renderDeck();
     $('statCount').textContent = ALL.length;
     $('statLooks').textContent = ALL.reduce((t, c) => t + (c.looks || []).length, 0);
+    $('statStories').textContent = ALL.filter((c) => c.story && c.story.chapters).length;
+    if (series.generated) $('generated').textContent = series.generated;
+  }
+
+  /* ── 系列切換 ─────────────────────────────────────────── */
+  function activate(id, keepFilters) {
+    series = SERIES.find((s) => s.id === id) || SERIES[0];
+    ui.series = series.id;
+    if (!keepFilters) Object.assign(ui, { q: '', faction: '', rank: '', kind: 'all' });
+    save();
+    ALL = series.characters.slice();
+    byId.clear();
+    ALL.forEach((c) => byId.set(c.id, c));
+    C.setFactions(series.factions || {});
+    ranker = R.build(ALL.filter((c) => c.kind !== 'player'));
+    Theater.init({
+      rank: (ch) => ranker.rank(ch),
+      percent: (ch) => ranker.percent(ch),
+      lookOf, setLook,
+      byId: (cid) => byId.get(cid),
+      theme: theme(),
+      seriesTitle: series.title,
+    });
+    renderAll();
   }
 
   /* ── 事件 ─────────────────────────────────────────────── */
@@ -220,6 +308,15 @@
         if (ch) applyLook(card, lookOf(ch));
       });
     };
+    const tabs = $('seriesTabs');
+    if (tabs) {
+      tabs.onclick = (e) => {
+        const b = e.target.closest('.stab');
+        if (!b || b.dataset.series === series.id) return;
+        activate(b.dataset.series);
+        window.scrollTo({ top: 0, behavior: FX.reduced ? 'auto' : 'smooth' });
+      };
+    }
 
     // 卡片互動：委派到整個 main，聚光燈與卡池共用
     const main = $('main');
@@ -256,21 +353,10 @@
   }
 
   /* ── 啟動 ─────────────────────────────────────────────── */
-  function boot(data) {
-    ALL = (data.characters || []).slice();
-    byId.clear();
-    ALL.forEach((c) => byId.set(c.id, c));
-    ranker = R.build(ALL.filter((c) => c.kind !== 'player'));
-    Theater.init({ rank: (ch) => ranker.rank(ch), percent: (ch) => ranker.percent(ch), lookOf, setLook });
-    bind();
-    renderAll();
-    if (data.generated) $('generated').textContent = data.generated;
+  if (!SERIES.length) {
+    $('deck').innerHTML = '<div class="empty" style="grid-column:1/-1">⚠ 找不到任何系列資料。<br><small>請確認 <code>data/series-*.js</code> 已在 index.html 載入。</small></div>';
+    return;
   }
-
-  if (window.CHARACTERS) boot(window.CHARACTERS);
-  else {
-    fetch('data/characters.json').then((r) => r.json()).then(boot).catch((err) => {
-      $('deck').innerHTML = `<div class="empty" style="grid-column:1/-1">⚠ 載入資料失敗：${esc(err.message || err)}<br><small>請用 <code>node server.js</code> 啟動，或確認 data/characters.js 存在。</small></div>`;
-    });
-  }
+  bind();
+  activate(ui.series, true);
 }());

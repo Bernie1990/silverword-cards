@@ -10,6 +10,17 @@
     slytherin:  { label: '史萊哲林', icon: '🐍' },
     ravenclaw:  { label: '雷文克勞', icon: '🦅' },
     hufflepuff: { label: '赫夫帕夫', icon: '🦡' },
+    // D&D 5e 通用戰役：橡木鎮四公會
+    silver_chalice: { label: '銀杯醫者團', icon: '⚕' },
+    azure_spire:    { label: '蔚藍尖塔學會', icon: '🔮' },
+    obsidian_pact:  { label: '黑曜結社', icon: '🌑' },
+    crimson_banner: { label: '赤旗傭兵團', icon: '⚔' },
+  };
+
+  const ALIGN_SHORT = {
+    守序善良: 'LG', 中立善良: 'NG', 混亂善良: 'CG',
+    守序中立: 'LN', 絕對中立: 'N', 混亂中立: 'CN',
+    守序邪惡: 'LE', 中立邪惡: 'NE', 混亂邪惡: 'CE',
   };
 
   const RACE = {
@@ -73,5 +84,5 @@
     { tag: 'UR',  cn: '絕', desc: '傳說之人' },
   ];
 
-  global.LEX = { FACTION, RACE, ARCH, GENDER, KIND, ABIL, ABIL_CN, ABIL_SHORT, SKILL, DAMAGE, ATTACK_TYPE, LOOKS, RANKS };
+  global.LEX = { FACTION, ALIGN_SHORT, RACE, ARCH, GENDER, KIND, ABIL, ABIL_CN, ABIL_SHORT, SKILL, DAMAGE, ATTACK_TYPE, LOOKS, RANKS };
 }(window));

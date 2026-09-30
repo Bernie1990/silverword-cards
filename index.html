@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>角色圖卡 · Character Cards</title>
-<meta name="description" content="手遊風角色圖卡展示：3D 傾斜、全息箔、階級框、六維雷達、多套立繪與立繪劇場。純靜態，零相依。" />
+<meta name="description" content="手遊風角色圖卡展示：3D 傾斜、全息箔、階級框、六維雷達、多套立繪與立繪劇場。內含「銀語守門人」與 D&D 5e「橡木鎮冒險者錄」兩個系列，後者附完整角色故事與關係鏈。純靜態，零相依。" />
 <meta name="theme-color" content="#07090f" />
 <meta property="og:title" content="角色圖卡 · Character Cards" />
 <meta property="og:description" content="手遊風角色圖卡展示：3D 傾斜、全息箔、階級框、六維雷達、多套立繪與立繪劇場。" />
@@ -21,11 +21,16 @@
   <div class="stats">
     <span>角色 <b id="statCount">—</b></span>
     <span>立繪 <b id="statLooks">—</b></span>
+    <span>故事 <b id="statStories">—</b></span>
   </div>
   <a class="gh" href="#deck-title">卡池 ↓</a>
 </header>
 
 <main class="wrap" id="main">
+
+  <!-- 系列切換：每個 data/series-*.js 一個分頁 -->
+  <nav class="series-tabs" id="seriesTabs" aria-label="卡片系列" hidden></nav>
+  <div class="world" id="world" hidden></div>
 
   <!-- 聚光燈：主角或隨機角色的電影感橫幅 -->
   <section class="spotlight" id="spotlight" aria-label="聚光燈"></section>
@@ -37,7 +42,7 @@
 
   <!-- 工具列 -->
   <div class="toolbar" role="search">
-    <input type="search" id="fQ" placeholder="🔍 搜尋名字、職業、性格、外貌、出沒地點…" autocomplete="off" />
+    <input type="search" id="fQ" placeholder="🔍 搜尋名字、職業、性格、外貌、地點、故事關鍵字…" autocomplete="off" />
     <select id="fFaction" title="陣營"></select>
     <select id="fRank" title="階級"></select>
     <div class="seg" id="segKind" title="範圍">
@@ -51,6 +56,7 @@
       <option value="power">依戰力</option>
       <option value="name">依名字</option>
       <option value="age">依年齡</option>
+      <option value="level">依等級</option>
     </select>
     <button class="tb-btn rose" id="lookAll" type="button">👗 全部變裝</button>
     <div class="seg" id="segSize" title="卡片尺寸">
@@ -85,7 +91,9 @@
   </div>
 </div>
 
-<script src="data/characters.js"></script>
+<!-- 系列資料：順序即分頁順序 -->
+<script src="data/series-silver.js"></script>
+<script src="data/series-oakvale.js"></script>
 <script src="js/lexicon.js"></script>
 <script src="js/rank.js"></script>
 <script src="js/card.js"></script>

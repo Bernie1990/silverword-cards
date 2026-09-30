@@ -18,9 +18,15 @@
   const ASSET = 'assets/portraits/';
   const src = (ch, look, thumb) => `${ASSET}${look}/${ch.id}${thumb ? '.thumb' : ''}.webp`;
 
+  /* 目前系列的陣營表（可由 Card.setFactions 覆寫；找不到時退回 LEX.FACTION） */
+  let FACTIONS = {};
+  const factionOf = (id) => FACTIONS[id] || L.FACTION[id];
+  const setFactions = (map) => { FACTIONS = map || {}; };
+
   const label = {
-    faction: (id) => (L.FACTION[id] ? L.FACTION[id].label : id || '無陣營'),
-    crest: (id) => (L.FACTION[id] ? L.FACTION[id].icon : '✦'),
+    faction: (id) => (factionOf(id) ? factionOf(id).label : id || '無陣營'),
+    crest: (id) => (factionOf(id) ? factionOf(id).icon : '✦'),
+    align: (s) => L.ALIGN_SHORT[s] || s || '',
     race: (id) => L.RACE[id] || id || '',
     arch: (id) => L.ARCH[id] || id || '',
     gender: (id) => L.GENDER[id] || id || '',
@@ -118,14 +124,22 @@
     const look = ctx.look || 'base';
     const c = ch.combat || {};
     const atk = c.attack;
-    const roleLine = [label.race(ch.race), ch.role].filter(Boolean).map(esc).join(' · ');
+    const theme = ctx.theme || 'default';
+    const dnd = theme === 'dnd';
+    // D&D 系列：職業 · 等級 · 陣營縱軸；其他系列：種族 · 職務
+    const roleLine = dnd
+      ? [label.race(ch.race), ch.class, ch.alignment ? label.align(ch.alignment) : ''].filter(Boolean).map(esc).join(' · ')
+      : [label.race(ch.race), ch.role].filter(Boolean).map(esc).join(' · ');
     const hasLooks = (ch.looks || []).length > 1;
     const kindChip = ch.kind === 'player'
       ? '<span class="chip gold">主角</span>'
-      : ch.kind === 'team' ? '<span class="chip teal">核心</span>' : '';
+      : ch.kind === 'team' ? '<span class="chip teal">核心</span>'
+        : dnd && ch.level ? `<span class="chip lvl" title="角色等級">Lv.${esc(ch.level)}</span>` : '';
     const skills = (c.skills || []).slice(0, 4).map((s) => `<span class="chip">${esc(label.skill(s))}</span>`).join('');
+    const peek = (dnd && ch.story && ch.story.quote) ? ch.story.quote : (ch.trait || ch.appearance || '');
+    const backSub = dnd ? [ch.class, ch.level ? `Lv.${ch.level}` : ''].filter(Boolean).join(' ') : label.arch(c.archetype);
 
-    return `<article class="card${ctx.live ? ' live' : ''}" data-id="${esc(ch.id)}" data-rank="${rank}"
+    return `<article class="card${ctx.live ? ' live' : ''}" data-id="${esc(ch.id)}" data-rank="${rank}" data-theme="${esc(theme)}"
         data-faction="${esc(ch.faction || 'none')}" data-look="${esc(look)}" data-kind="${esc(ch.kind)}"
         tabindex="0" role="button" aria-label="${esc(ch.name)} 角色卡"
         style="--power:${Math.max(4, ctx.percent || 0)}%">
@@ -146,7 +160,7 @@
               <span class="power"><i></i></span>
             </div>
             <div class="card-peek">
-              <p class="peek-trait">${esc(ch.trait || ch.appearance || '')}</p>
+              <p class="peek-trait">${esc(peek)}</p>
               <div class="peek-stats">
                 <span><b>HP</b>${esc(c.hp ?? '—')}</span>
                 <span><b>AC</b>${esc(c.ac ?? '—')}</span>
@@ -160,7 +174,7 @@
           </div>
           <div class="card-face card-back" aria-hidden="true">
             <div class="card-frame"></div>
-            <div class="back-head">${plaque(rank)}<h3 class="name">${esc(ch.name)}</h3><span class="sub">${esc(label.arch(c.archetype))}</span></div>
+            <div class="back-head">${plaque(rank)}<h3 class="name">${esc(ch.name)}</h3><span class="sub">${esc(backSub)}</span></div>
             ${radar(c.abilities)}
             ${statBoxes(ch)}
             ${atk ? `<div class="back-attack">🗡 ${attackLine(atk)}</div>` : ''}
@@ -172,5 +186,5 @@
     </article>`;
   }
 
-  global.Card = { html, art, radar, stars, plaque, attackLine, statBoxes, src, label, esc };
+  global.Card = { html, art, radar, stars, plaque, attackLine, statBoxes, src, label, esc, setFactions };
 }(window));

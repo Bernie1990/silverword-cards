@@ -100,10 +100,28 @@ for (const ch of chars) {
   });
 }
 
-const payload = { generated: new Date().toISOString().slice(0, 10), characters: chars };
+const payload = {
+  id: 'silver',
+  title: '銀語守門人',
+  subtitle: '霍格華茲 · 牆語者異象與返校的畢業校友',
+  theme: 'arcane',
+  world: {
+    name: '霍格華茲',
+    blurb: '玩家小風暴與銀語守門人小隊為已畢業的 18 歲成年校友，因牆語者異象受召返校；故事與《哈利波特》正史同步推進。',
+  },
+  factions: {
+    gryffindor: { label: '葛萊芬多', icon: '🦁' },
+    slytherin:  { label: '史萊哲林', icon: '🐍' },
+    ravenclaw:  { label: '雷文克勞', icon: '🦅' },
+    hufflepuff: { label: '赫夫帕夫', icon: '🦡' },
+  },
+  generated: new Date().toISOString().slice(0, 10),
+  characters: chars,
+};
 fs.mkdirSync(path.join(OUT, 'data'), { recursive: true });
-fs.writeFileSync(path.join(OUT, 'data/characters.json'), JSON.stringify(payload, null, 2));
-fs.writeFileSync(path.join(OUT, 'data/characters.js'), '// 由 scripts/import-from-game-server.js 產生，勿手動編輯\nwindow.CHARACTERS = ' + JSON.stringify(payload) + ';\n');
+fs.writeFileSync(path.join(OUT, 'data/series-silver.json'), JSON.stringify(payload, null, 2));
+fs.writeFileSync(path.join(OUT, 'data/series-silver.js'),
+  '// 由 scripts/import-from-game-server.js 產生，勿手動編輯\nwindow.SERIES = window.SERIES || [];\nwindow.SERIES.push(' + JSON.stringify(payload) + ');\n');
 fs.writeFileSync(path.join(__dirname, '.portrait-jobs.json'), JSON.stringify(jobs));
 console.log(`characters: ${chars.length}, portraits to convert: ${jobs.length}`);
 console.log('next → python scripts/convert-portraits.py');
