@@ -175,6 +175,40 @@ button { font: inherit; }
 }
 .world .w-name { font-family: var(--serif); font-weight: 900; color: var(--text); letter-spacing: .06em; }
 .world p { flex-basis: 100%; margin: 0; }
+.world .w-body { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; width: 100%; }
+
+/* 有橫幅圖的世界觀：電影感寬幅 */
+.world.has-banner {
+  position: relative;
+  min-height: 220px;
+  align-items: flex-end;
+  padding: 26px 28px 22px;
+  border: 1px solid color-mix(in srgb, var(--bronze) 30%, var(--line));
+  border-radius: 18px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(7, 9, 15, .1) 0%, rgba(7, 9, 15, .55) 55%, rgba(7, 9, 15, .92) 100%),
+    var(--banner) center 35% / cover no-repeat,
+    #0b0e15;
+  box-shadow: var(--shadow-float);
+  color: var(--text);
+  animation: cardIn .7s var(--ease-out) backwards;
+}
+.world.has-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(80% 60% at 50% 100%, color-mix(in srgb, var(--bronze) 18%, transparent), transparent 70%);
+}
+.world.has-banner .w-body { position: relative; z-index: 1; max-width: 760px; }
+.world.has-banner .w-name { font-size: 24px; text-shadow: 0 2px 14px rgba(0, 0, 0, .9); background: linear-gradient(120deg, #fff, var(--bronze-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.world.has-banner p { font-size: 13.5px; line-height: 1.8; color: var(--text-2); text-shadow: 0 1px 6px rgba(0, 0, 0, .9); }
+@media (max-width: 640px) {
+  /* 手機：文字下沉，讓橫幅上半部露出來 */
+  .world.has-banner { min-height: 0; padding: 130px 16px 16px; background-position: center 20%; }
+  .world.has-banner .w-name { font-size: 20px; }
+}
 
 /* ── 聚光燈 ───────────────────────────────────────────────── */
 .spotlight {

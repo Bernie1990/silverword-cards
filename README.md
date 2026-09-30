@@ -5,16 +5,19 @@
 
 從 `dnd_service`（銀語守門人）的圖鑑抽出角色卡機制後重新設計而成；資料與立繪可用內附腳本從 game-server 重新匯出。
 
-## 兩個系列
+## 三個系列
 
 | 系列 | 主題 | 角色 | 特點 |
 |------|------|------|------|
 | **銀語守門人** | 霍格華茲（`theme: arcane`） | 主角＋4 核心隊員＋39 常駐角色 | 多套立繪（原裝／變裝／清涼／水手服／泳裝）、劇場套裝列 |
-| **橡木鎮冒險者錄** | 龍與地下城 5e（`theme: dnd`） | 20 位邊境小鎮居民 | 每人職業／等級／陣營縱軸，**完整角色故事**：格言、背景、理想／羈絆／缺陷、三章故事、關係鏈（可點擊跳到對方） |
+| **橡木鎮冒險者錄** | 龍與地下城 5e（`theme: dnd`，青銅調） | 20 位邊境小鎮居民 | 每人職業／等級／陣營縱軸，**完整角色故事**：格言、背景、理想／羈絆／缺陷、三章故事、關係鏈（可點擊跳到對方） |
+| **荊薔誓約·遠征隊錄** | 龍與地下城 5e（`theme: dnd`，月銀×薔薇調） | 12 位女性冒險者（3 核心＋9 隊員） | 全新原創立繪；6 人另有「戰裝」、4 人另有「慶典」套裝；故事是橡木鎮主線的後續章節 |
 
 橡木鎮 20 人共享同一條主線「灰燼熔爐甦醒」：矮人鐵匠索格的家族祖業、盜賊皮普的空白信、被吸血鬼咬過的酒館歌者、剛醒來的守衛構裝體吉茲莫、暗中資助的黑曜結社……每張卡的故事互相補洞，在劇場的「關係」區點名字即可順著線索翻閱。
 
-D&D 系列另有專屬卡皮：青銅四角紋飾、盾形階級徽、羊皮紙名牌、`Lv.N` 徽記、hover 顯示角色格言、背面顯示職業等級。頂部分頁可切換系列，各系列獨立計算階級五分位。
+荊薔誓約是一支只收女性的遠征公司，受鎮議會之邀在黑曜結社之前深入古地城：隊長伊索德為了三年前失蹤的妹妹、矮人聖武士布蘭娜為了報完仇後的空洞、預言師薇莉絲為了一句「無人死亡」的誤讀、提夫林刺客妮莎拉帶著能讓半個鎮上絞架的帳冊、龍裔術士凱妲要在阿姨凱麗絲的傭兵隊之前抵達熔爐……十二條線在「穹頂坍塌」那一章交會。
+
+D&D 系列有專屬卡皮：四角紋飾、盾形階級徽、羊皮紙名牌、`Lv.N` 徽記、hover 顯示角色格言、背面顯示職業等級；每個系列可用 `palette` 換色（橡木鎮青銅、荊薔月銀），並以 `world.banner` 顯示寬幅世界觀橫幅。頂部分頁可切換系列，各系列獨立計算階級五分位。
 
 ## 特色
 
@@ -91,7 +94,9 @@ character-cards/
 ├─ data/
 │  ├─ series-silver.js     銀語守門人（由匯出腳本產生）→ window.SERIES.push({...})
 │  ├─ series-silver.json   同內容的 JSON
-│  └─ series-oakvale.js    橡木鎮冒險者錄（手寫，含完整故事）
+│  ├─ series-oakvale.js    橡木鎮冒險者錄（手寫，含完整故事）
+│  └─ series-thornrose.js  荊薔誓約·遠征隊錄（手寫，全原創立繪＋戰裝／慶典套裝）
+├─ assets/banners/<series>.webp              世界觀橫幅（16:9，最長邊 1600）
 ├─ assets/portraits/<look>/<id>.webp         劇場用（最長邊 768）
 ├─ assets/portraits/<look>/<id>.thumb.webp   卡片用（最長邊 384）
 ├─ scripts/
@@ -108,8 +113,9 @@ character-cards/
 window.SERIES = window.SERIES || [];
 window.SERIES.push({
   id: 'oakvale', title: '橡木鎮冒險者錄', subtitle: '龍與地下城 5e · …',
-  theme: 'dnd',                       // 'dnd' 啟用青銅卡皮與故事區塊；其他值為預設卡皮
-  world: { name: '橡木鎮', blurb: '…', arc: '灰燼熔爐' },
+  theme: 'dnd',                       // 'dnd' 啟用金屬卡皮與故事區塊；其他值為預設卡皮
+  palette: { a: '#c9954a', b: '#f0d39a', c: '#4fa58f' },   // 選用：卡皮三色（主金屬／高光／輔色）
+  world: { name: '橡木鎮', blurb: '…', arc: '灰燼熔爐', banner: 'assets/banners/oakvale.webp' },  // banner 選用
   factions: { silver_chalice: { label: '銀杯醫者團', icon: '⚕' }, /* … */ },  // 陣營顯示名（顏色在 css/tokens.css 的 --fx-<id>-a/-b）
   generated: '2026-09-30',
   characters: [ /* 見下 */ ],
@@ -135,7 +141,7 @@ window.SERIES.push({
     "skills": ["acrobatics", "perception", "survival"], "saves": ["dex", "wis"],
     "attack": { "name": "空中飛踢", "type": "melee", "damage": "1d6+4", "damage_type": "bludgeoning", "is_heal": false }
   },
-  "looks": ["base", "outfit", "outfit2"],  // 對應 assets/portraits/<look>/<id>.webp
+  "looks": ["base", "outfit", "outfit2"],  // 對應 assets/portraits/<look>/<id>.webp；可用 id 見 js/lexicon.js LOOKS（含 armor 戰裝、festival 慶典）
 
   // ── 以下為 D&D 系列選用欄位 ──
   "class": "戰士（鍛匠）", "level": 4, "alignment": "守序善良",

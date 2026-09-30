@@ -74,6 +74,9 @@
     { id: 'outfit2', label: '清涼',   short: '涼' },
     { id: 'sailor',  label: '水手服', short: '水' },
     { id: 'swim',    label: '泳裝',   short: '泳' },
+    // D&D 系列專用
+    { id: 'armor',    label: '戰裝', short: '戰' },
+    { id: 'festival', label: '慶典', short: '慶' },
   ];
 
   const RANKS = [

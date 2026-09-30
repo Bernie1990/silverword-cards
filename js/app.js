@@ -108,16 +108,31 @@
     if (SERIES.length < 2) { host.hidden = true; return; }
     host.hidden = false;
     host.innerHTML = SERIES.map((s) => `
-      <button class="stab${s.id === series.id ? ' on' : ''}" data-series="${esc(s.id)}" data-theme="${esc(s.theme || 'default')}" type="button">
+      <button class="stab${s.id === series.id ? ' on' : ''}" data-series="${esc(s.id)}" data-theme="${esc(s.theme || 'default')}" type="button"
+        ${s.palette ? `style="--acc:${esc(s.palette.a)};--acc2:${esc(s.palette.c)}"` : ''}>
         <span class="stab-title">${esc(s.title)}</span>
         <span class="stab-sub">${esc(s.subtitle || '')}</span>
         <span class="stab-n">${s.characters.length} 位</span>
       </button>`).join('');
     const w = series.world || {};
-    $('world').innerHTML = w.blurb
-      ? `<span class="w-name">${esc(w.name || series.title)}</span>${w.arc ? `<span class="chip gold">章節 · ${esc(w.arc)}</span>` : ''}<p>${esc(w.blurb)}</p>`
+    const world = $('world');
+    world.innerHTML = w.blurb
+      ? `<div class="w-body"><span class="w-name">${esc(w.name || series.title)}</span>${w.arc ? `<span class="chip gold">章節 · ${esc(w.arc)}</span>` : ''}<p>${esc(w.blurb)}</p></div>`
       : '';
-    $('world').hidden = !w.blurb;
+    world.hidden = !w.blurb;
+    world.classList.toggle('has-banner', Boolean(w.banner));
+    // url() 放進自訂屬性時，Chrome 會相對於使用它的樣式表（css/）解析，故先轉成絕對網址
+    world.style.setProperty('--banner', w.banner ? `url("${new URL(w.banner, document.baseURI).href}")` : 'none');
+  }
+
+  /* 系列調色：D&D 卡皮的青銅三色可由 series.palette 覆寫（月銀、薔薇…） */
+  const PALETTE_DEFAULT = { a: '#c9954a', b: '#f0d39a', c: '#4fa58f' };
+  function applyPalette(p) {
+    const root = document.documentElement.style;
+    const pal = { ...PALETTE_DEFAULT, ...(p || {}) };
+    root.setProperty('--bronze', pal.a);
+    root.setProperty('--bronze-2', pal.b);
+    root.setProperty('--verdigris', pal.c);
   }
 
   function renderDeck() {
@@ -256,6 +271,7 @@
     byId.clear();
     ALL.forEach((c) => byId.set(c.id, c));
     C.setFactions(series.factions || {});
+    applyPalette(series.palette);
     ranker = R.build(ALL.filter((c) => c.kind !== 'player'));
     Theater.init({
       rank: (ch) => ranker.rank(ch),
