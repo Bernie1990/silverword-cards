@@ -36,6 +36,8 @@
     giff: '河馬人', shifter: '化獸者', 'yuan-ti': '蛇人',
     harengon: '兔人', 'green-hag': '綠鬼婆', vampire: '吸血鬼貴族', ghost: '幽魂', modron: '秩序構裝體',
     autognome: '自律侏儒', hadozee: '滑翔猿人', djinni: '風燈神', myconid: '蕈人', bugbear: '熊地精',
+    devil: '魔鬼', imp: '小惡魔', cambion: '半魔', hellhound: '地獄犬', fiend: '邪魔',
+    angel: '天使', archon: '天界守衛', flumph: '飄浮怪', 'aberrant-kin': '異界裔', 'kuo-toa': '魚人', illithid: '靈吸怪',
   };
 
   const ARCH = {
