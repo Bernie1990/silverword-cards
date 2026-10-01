@@ -56,6 +56,8 @@
 .card[data-faction="ironrose"]  { --fa: var(--fx-ironrose-a);  --fb: var(--fx-ironrose-b); }
 .card[data-faction="duskquill"] { --fa: var(--fx-duskquill-a); --fb: var(--fx-duskquill-b); }
 .card[data-faction="wildthorn"] { --fa: var(--fx-wildthorn-a); --fb: var(--fx-wildthorn-b); }
+.card[data-faction="tidebound"] { --fa: var(--fx-tidebound-a); --fb: var(--fx-tidebound-b); }
+.card[data-faction="embersong"] { --fa: var(--fx-embersong-a); --fb: var(--fx-embersong-b); }
 .card[data-faction="fey_court"]    { --fa: var(--fx-fey_court-a);    --fb: var(--fx-fey_court-b); }
 .card[data-faction="shadow_ferry"] { --fa: var(--fx-shadow_ferry-a); --fb: var(--fx-shadow_ferry-b); }
 .card[data-faction="cog_court"]    { --fa: var(--fx-cog_court-a);    --fb: var(--fx-cog_court-b); }
