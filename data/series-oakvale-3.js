@@ -73,7 +73,7 @@ window.SERIES.push({
         skills: ['athletics', 'intimidation', 'survival', 'animal_handling'], saves: ['str', 'con'],
         attack: { name: '雪熊衝撞', type: 'melee', damage: '1d12+4', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'festival'],
     },
     {
       id: 'ferris', kind: 'npc', name: '費里斯·十字弓', full_name: '費里斯·十字弓（Ferris Crossbow）',
@@ -139,7 +139,7 @@ window.SERIES.push({
         skills: ['athletics', 'acrobatics', 'perception', 'intimidation'], saves: ['str', 'dex'],
         attack: { name: '草原長刺', type: 'melee', damage: '1d10+4', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'winter'],
     },
     {
       id: 'bogdan', kind: 'npc', name: '波格丹·鐵鍋', full_name: '波格丹·鐵鍋（Bogdan Ironpot）',
@@ -205,7 +205,7 @@ window.SERIES.push({
         skills: ['performance', 'persuasion', 'perception', 'athletics'], saves: ['dex', 'cha'],
         attack: { name: '戰號震擊', type: 'spell', damage: '3d8', damage_type: 'thunder', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'festival'],
     },
     {
       id: 'rook', kind: 'npc', name: '魯克·刺', full_name: '魯克·刺（Rook the Spike）',
@@ -273,7 +273,7 @@ window.SERIES.push({
         skills: ['persuasion', 'insight', 'history', 'intimidation'], saves: ['dex', 'cha'],
         attack: { name: '鎮長裁決', type: 'spell', damage: '2d8', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'winter'],
     },
     {
       id: 'garrick', kind: 'npc', name: '加里克·渡口', full_name: '加里克·渡船夫（Garrick the Ferryman）',
@@ -339,7 +339,7 @@ window.SERIES.push({
         skills: ['insight', 'persuasion', 'medicine', 'perception'], saves: ['wis', 'cha'],
         attack: { name: '熱麵包祝福', type: 'spell', damage: '1d8+3', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'festival', 'casual'],
     },
     {
       id: 'wick', kind: 'npc', name: '威克·守夜', full_name: '威克·點燈人（Wick the Lamplighter）',
@@ -405,7 +405,7 @@ window.SERIES.push({
         skills: ['athletics', 'survival', 'perception', 'intimidation'], saves: ['str', 'con'],
         attack: { name: '伐木重斧', type: 'melee', damage: '1d12+4', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'winter'],
     },
     {
       id: 'ambrose', kind: 'npc', name: '安布羅斯神父', full_name: '安布羅斯神父（Father Ambrose）',
@@ -471,7 +471,7 @@ window.SERIES.push({
         skills: ['insight', 'stealth', 'arcana', 'perception'], saves: ['con', 'cha'],
         attack: { name: '野火藍焰', type: 'spell', damage: '1d10', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'festival'],
     },
     /* ═════════════════════ 灰燼遺民 ═════════════════════ */
     {
@@ -574,7 +574,7 @@ window.SERIES.push({
         skills: ['stealth', 'perception', 'insight', 'acrobatics'], saves: ['con', 'cha'],
         attack: { name: '不小心的火花', type: 'spell', damage: '2d6', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'winter', 'festival'],
     },
     {
       id: 'slagmaw', kind: 'npc', name: '渣口', full_name: '渣口·守庫者（Slagmaw, Keeper of the Vault）',
@@ -643,7 +643,7 @@ window.SERIES.push({
         skills: ['nature', 'survival', 'insight', 'athletics'], saves: ['int', 'wis'],
         attack: { name: '封印之根', type: 'melee', damage: '2d8+4', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'winter', 'summer'],
     },
   ],
 });

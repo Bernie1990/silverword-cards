@@ -69,7 +69,7 @@ window.SERIES.push({
         skills: ['medicine', 'nature', 'investigation', 'survival'], saves: ['int', 'wis'],
         attack: { name: '苦艾孢雲', type: 'spell', damage: '2d8', damage_type: 'poison', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'travel'],
     },
     {
       id: 'bram', kind: 'npc', name: '布拉姆·骨接', full_name: '布拉姆·骨接（Bram Bonesetter）',
@@ -135,7 +135,7 @@ window.SERIES.push({
         skills: ['religion', 'insight', 'medicine', 'perception'], saves: ['wis', 'cha'],
         attack: { name: '送行之燭', type: 'spell', damage: '2d8', damage_type: 'necrotic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'rain'],
     },
     {
       id: 'tobin', kind: 'npc', name: '托賓·蛭', full_name: '托賓·蛭（Tobin Leech）',
@@ -201,7 +201,7 @@ window.SERIES.push({
         skills: ['medicine', 'perception', 'survival', 'investigation'], saves: ['str', 'dex'],
         attack: { name: '鉤杖制伏', type: 'melee', damage: '1d8+3', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'casual'],
     },
     {
       id: 'cass', kind: 'npc', name: '卡絲·止血帶', full_name: '卡絲·止血帶（Cass Tourniquet）',
@@ -234,7 +234,7 @@ window.SERIES.push({
         skills: ['medicine', 'athletics', 'intimidation', 'survival'], saves: ['str', 'con'],
         attack: { name: '戰地止血', type: 'melee', damage: '1d8+2', damage_type: 'slashing', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'training', 'festival'],
     },
     /* ═════════════════════ 蔚藍尖塔學會 ═════════════════════ */
     {
@@ -301,7 +301,7 @@ window.SERIES.push({
         skills: ['history', 'arcana', 'investigation', 'insight'], saves: ['int', 'wis'],
         attack: { name: '墨痕飛濺', type: 'spell', damage: '2d6', damage_type: 'acid', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'festival'],
     },
     {
       id: 'percival', kind: 'npc', name: '珀西瓦·玻璃', full_name: '珀西瓦·吹玻璃的（Percival Glassblower）',
@@ -367,7 +367,7 @@ window.SERIES.push({
         skills: ['arcana', 'acrobatics', 'investigation', 'survival'], saves: ['int', 'wis'],
         attack: { name: '錯位傳送', type: 'spell', damage: '3d8', damage_type: 'force', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'night'],
     },
     {
       id: 'corwin_a', kind: 'npc', name: '柯爾溫·灰燼學', full_name: '柯爾溫·灰燼學（Corwin Ashlore）',
@@ -433,7 +433,7 @@ window.SERIES.push({
         skills: ['nature', 'survival', 'investigation', 'athletics'], saves: ['int', 'wis'],
         attack: { name: '潮汐冰縛', type: 'spell', damage: '3d8', damage_type: 'cold', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'summer', 'work'],
     },
     {
       id: 'elowen', kind: 'npc', name: '艾洛文·苔燈', full_name: '艾洛文·苔燈（Elowen Mosslamp）',
@@ -466,7 +466,7 @@ window.SERIES.push({
         skills: ['nature', 'medicine', 'animal_handling', 'insight'], saves: ['int', 'wis'],
         attack: { name: '苔光療癒', type: 'spell', damage: '2d8+3', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'winter', 'festival'],
     },
     /* ═════════════════════ 黑曜結社 ═════════════════════ */
     {
@@ -533,7 +533,7 @@ window.SERIES.push({
         skills: ['history', 'investigation', 'insight', 'arcana'], saves: ['int', 'wis'],
         attack: { name: '黑蠟封印', type: 'spell', damage: '3d6', damage_type: 'necrotic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'casual'],
     },
     {
       id: 'gorn', kind: 'npc', name: '戈恩·熔渣', full_name: '戈恩·熔渣拳（Gorn Slagfist）',
@@ -599,7 +599,7 @@ window.SERIES.push({
         skills: ['deception', 'stealth', 'insight', 'performance'], saves: ['dex', 'int'],
         attack: { name: '鏡影短刃', type: 'melee', damage: '1d6+4', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'night'],
     },
     {
       id: 'mordecai', kind: 'npc', name: '莫德凱·空袖', full_name: '莫德凱·空袖（Mordecai Emptysleeve）',
@@ -665,7 +665,7 @@ window.SERIES.push({
         skills: ['arcana', 'religion', 'insight', 'deception'], saves: ['con', 'cha'],
         attack: { name: '碎星之影', type: 'spell', damage: '3d8', damage_type: 'necrotic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'ritual', 'travel'],
     },
     {
       id: 'quill', kind: 'npc', name: '奎爾·黑羽', full_name: '奎爾·黑羽（Quill Blackfeather）',
