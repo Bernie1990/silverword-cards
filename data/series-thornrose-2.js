@@ -41,7 +41,7 @@ window.SERIES.push({
         skills: ['medicine', 'religion', 'insight', 'persuasion'], saves: ['wis', 'cha'],
         attack: { name: '白夜回春', type: 'spell', damage: '2d8+4', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'winter'],
     },
     {
       id: 'senna', kind: 'npc', name: '瑟娜·霜鈴', full_name: '瑟娜·霜鈴（Senna Frostbell）',
@@ -74,7 +74,7 @@ window.SERIES.push({
         skills: ['perception', 'religion', 'insight'], saves: ['wis', 'cha'],
         attack: { name: '黃昏之燭', type: 'spell', damage: '2d8', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'rain'],
     },
     {
       id: 'odile', kind: 'npc', name: '奧蒂兒·無光', full_name: '奧蒂兒·無光（Odile Lightless）',
@@ -107,7 +107,7 @@ window.SERIES.push({
         skills: ['religion', 'medicine', 'history', 'insight'], saves: ['wis', 'cha'],
         attack: { name: '暗月之觸', type: 'spell', damage: '3d6', damage_type: 'necrotic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'ritual', 'gown'],
     },
     {
       id: 'marit', kind: 'npc', name: '瑪麗特·掌燈', full_name: '瑪麗特·掌燈（Marit Lampkeep）',
@@ -140,7 +140,7 @@ window.SERIES.push({
         skills: ['medicine', 'insight', 'persuasion', 'survival'], saves: ['wis', 'cha'],
         attack: { name: '熱湯撫慰', type: 'spell', damage: '1d8+3', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'summer'],
     },
     {
       id: 'jutta', kind: 'npc', name: '尤塔·鐵禱', full_name: '尤塔·鐵禱（Jutta Ironprayer）',
@@ -173,7 +173,7 @@ window.SERIES.push({
         skills: ['athletics', 'religion', 'intimidation'], saves: ['wis', 'cha'],
         attack: { name: '鐵禱重錘', type: 'melee', damage: '2d6+3', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'training', 'casual'],
     },
     {
       id: 'liv', kind: 'npc', name: '莉芙·月蝕', full_name: '莉芙·月蝕（Liv Eclipse）',
@@ -206,7 +206,7 @@ window.SERIES.push({
         skills: ['religion', 'medicine', 'insight'], saves: ['wis', 'cha'],
         attack: { name: '初月之光', type: 'spell', damage: '1d8', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'training'],
     },
     {
       id: 'aud', kind: 'npc', name: '奧德·盲月', full_name: '奧德·盲月（Aud Blindmoon）',
@@ -239,7 +239,7 @@ window.SERIES.push({
         skills: ['religion', 'insight', 'history', 'arcana'], saves: ['wis', 'cha'],
         attack: { name: '盲月之語', type: 'spell', damage: '3d6', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'travel', 'ritual'],
     },
     {
       id: 'ingrid', kind: 'npc', name: '英格麗·殘影', full_name: '英格麗·殘影（Ingrid Afterlight）',
@@ -272,7 +272,7 @@ window.SERIES.push({
         skills: ['athletics', 'religion', 'intimidation'], saves: ['wis', 'cha'],
         attack: { name: '殘影之劍', type: 'melee', damage: '1d8+3', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'night'],
     },
     {
       id: 'calla', kind: 'npc', name: '卡拉·晨露', full_name: '卡拉·晨露（Calla Dewlight）',
@@ -305,7 +305,7 @@ window.SERIES.push({
         skills: ['stealth', 'acrobatics', 'perception', 'deception'], saves: ['dex', 'int'],
         attack: { name: '月針', type: 'melee', damage: '1d4+4', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'dance'],
     },
 
     /* ═════════════ 鐵薔薇騎士 ═════════════ */
@@ -340,7 +340,7 @@ window.SERIES.push({
         skills: ['athletics', 'history', 'intimidation', 'insight'], saves: ['str', 'con'],
         attack: { name: '鐵薔薇闊斬', type: 'melee', damage: '2d6+4', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'winter'],
     },
     {
       id: 'solvei', kind: 'npc', name: '索爾薇·刺甲', full_name: '索爾薇·刺甲（Solvei Thornplate）',
@@ -373,7 +373,7 @@ window.SERIES.push({
         skills: ['athletics', 'perception', 'history'], saves: ['str', 'con'],
         attack: { name: '刺甲斧斬', type: 'melee', damage: '1d10+3', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'training', 'work'],
     },
     {
       id: 'ragna', kind: 'npc', name: '拉格娜·破盾', full_name: '拉格娜·破盾（Ragna Shieldbreak）',
@@ -406,7 +406,7 @@ window.SERIES.push({
         skills: ['athletics', 'insight', 'religion'], saves: ['wis', 'cha'],
         attack: { name: '破盾重擊', type: 'melee', damage: '1d8+4', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'summer'],
     },
     {
       id: 'freda', kind: 'npc', name: '芙蕊達·釘針', full_name: '芙蕊達·釘針（Freda Rivetpin）',
@@ -439,7 +439,7 @@ window.SERIES.push({
         skills: ['arcana', 'investigation', 'history', 'sleight_of_hand'], saves: ['con', 'int'],
         attack: { name: '雷鳴釘槍', type: 'ranged', damage: '1d10+4', damage_type: 'thunder', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'gown'],
     },
     {
       id: 'thyra', kind: 'npc', name: '蒂拉·赤蕾', full_name: '蒂拉·赤蕾（Thyra Redbud）',
@@ -472,7 +472,7 @@ window.SERIES.push({
         skills: ['athletics', 'intimidation', 'persuasion'], saves: ['wis', 'cha'],
         attack: { name: '赤蕾戟', type: 'melee', damage: '1d10+3', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'training', 'casual'],
     },
     {
       id: 'orla', kind: 'npc', name: '歐拉·灰馬', full_name: '歐拉·灰馬（Orla Greymare）',
@@ -505,7 +505,7 @@ window.SERIES.push({
         skills: ['athletics', 'animal_handling', 'survival', 'perception'], saves: ['str', 'con'],
         attack: { name: '薔薇騎槍', type: 'melee', damage: '1d12+3', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'summer', 'winter'],
     },
     {
       id: 'beatrix', kind: 'npc', name: '碧翠絲·無名', full_name: '碧翠絲·無名（Beatrix Nameless）',
@@ -538,7 +538,7 @@ window.SERIES.push({
         skills: ['deception', 'stealth', 'insight', 'performance'], saves: ['dex', 'int'],
         attack: { name: '無名之刃', type: 'melee', damage: '1d8+3', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'night'],
     },
     {
       id: 'sigrun', kind: 'npc', name: '希格倫·鏽薔薇', full_name: '希格倫·鏽薔薇（Sigrun Rustrose）',
@@ -571,7 +571,7 @@ window.SERIES.push({
         skills: ['athletics', 'perception', 'survival', 'intimidation'], saves: ['str', 'con'],
         attack: { name: '鏽薔薇盾斧', type: 'melee', damage: '1d10+3', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'night', 'travel'],
     },
     {
       id: 'maud', kind: 'npc', name: '莫德·小盾', full_name: '莫德·小盾（Maud Littleshield）',
@@ -604,7 +604,7 @@ window.SERIES.push({
         skills: ['athletics', 'history', 'perception'], saves: ['str', 'con'],
         attack: { name: '小盾推擊', type: 'melee', damage: '1d4+1', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'casual'],
     },
   ],
 });

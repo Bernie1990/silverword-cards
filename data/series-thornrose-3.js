@@ -40,7 +40,7 @@ window.SERIES.push({
         skills: ['history', 'arcana', 'investigation', 'insight'], saves: ['int', 'wis'],
         attack: { name: '墨書束縛', type: 'spell', damage: '3d8', damage_type: 'force', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'travel'],
     },
     {
       id: 'brisa', kind: 'npc', name: '布莉莎·碎鏡', full_name: '布莉莎·碎鏡（Brisa Shardglass）',
@@ -73,7 +73,7 @@ window.SERIES.push({
         skills: ['arcana', 'deception', 'performance', 'perception'], saves: ['int', 'wis'],
         attack: { name: '碎鏡幻刺', type: 'spell', damage: '3d6', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'dance'],
     },
     {
       id: 'nell', kind: 'npc', name: '奈兒·紙鳶', full_name: '奈兒·紙鳶（Nell Paperkite）',
@@ -106,7 +106,7 @@ window.SERIES.push({
         skills: ['investigation', 'perception', 'stealth', 'history'], saves: ['dex', 'int'],
         attack: { name: '墨羽飛鏢', type: 'ranged', damage: '1d6+3', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'rain'],
     },
     {
       id: 'quilla', kind: 'npc', name: '奎拉·墨潮', full_name: '奎拉·墨潮（Quilla Inktide）',
@@ -139,7 +139,7 @@ window.SERIES.push({
         skills: ['arcana', 'investigation', 'nature', 'medicine'], saves: ['con', 'int'],
         attack: { name: '蝕墨瓶', type: 'ranged', damage: '2d8', damage_type: 'acid', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'summer', 'work'],
     },
     {
       id: 'honora', kind: 'npc', name: '霍諾拉·遲鐘', full_name: '霍諾拉·遲鐘（Honora Latebell）',
@@ -172,7 +172,7 @@ window.SERIES.push({
         skills: ['arcana', 'investigation', 'history', 'perception'], saves: ['con', 'int'],
         attack: { name: '計算閃電', type: 'ranged', damage: '2d6+2', damage_type: 'lightning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'winter'],
     },
     {
       id: 'vespera', kind: 'npc', name: '薇絲佩拉·黯墨', full_name: '薇絲佩拉·黯墨（Vespera Darkink）',
@@ -205,7 +205,7 @@ window.SERIES.push({
         skills: ['arcana', 'history', 'religion', 'medicine'], saves: ['int', 'wis'],
         attack: { name: '黯墨枯萎', type: 'spell', damage: '3d8', damage_type: 'necrotic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'ritual'],
     },
     {
       id: 'clio', kind: 'npc', name: '克莉歐·詠史', full_name: '克莉歐·詠史（Clio Singhistory）',
@@ -238,7 +238,7 @@ window.SERIES.push({
         skills: ['performance', 'history', 'persuasion', 'insight'], saves: ['dex', 'cha'],
         attack: { name: '詠史雷鳴', type: 'spell', damage: '2d8', damage_type: 'thunder', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'travel', 'dance'],
     },
     {
       id: 'fen', kind: 'npc', name: '芬·拾字', full_name: '芬·拾字（Fen Wordpicker）',
@@ -271,7 +271,7 @@ window.SERIES.push({
         skills: ['stealth', 'sleight_of_hand', 'acrobatics', 'investigation'], saves: ['dex', 'int'],
         attack: { name: '拾字利爪', type: 'melee', damage: '1d6+4', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'night'],
     },
     {
       id: 'margery', kind: 'npc', name: '瑪潔莉·盲讀', full_name: '瑪潔莉·盲讀（Margery Blindread）',
@@ -304,7 +304,7 @@ window.SERIES.push({
         skills: ['arcana', 'history', 'insight', 'medicine'], saves: ['int', 'wis'],
         attack: { name: '記憶迴響', type: 'spell', damage: '2d10', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'summer'],
     },
 
     /* ═════════════ 荊野游俠 ═════════════ */
@@ -339,7 +339,7 @@ window.SERIES.push({
         skills: ['nature', 'survival', 'medicine', 'insight'], saves: ['int', 'wis'],
         attack: { name: '荊蔓纏繞', type: 'spell', damage: '2d8+3', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'winter', 'summer'],
     },
     {
       id: 'kestrel', kind: 'npc', name: '凱絲翠·鷹眼', full_name: '凱絲翠·鷹眼（Kestrel Hawkeye）',
@@ -372,7 +372,7 @@ window.SERIES.push({
         skills: ['perception', 'survival', 'acrobatics', 'stealth'], saves: ['str', 'dex'],
         attack: { name: '俯衝羽箭', type: 'ranged', damage: '1d6+4', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'travel', 'rain'],
     },
     {
       id: 'brid', kind: 'npc', name: '布莉德·雪蹄', full_name: '布莉德·雪蹄（Brid Snowhoof）',
@@ -405,7 +405,7 @@ window.SERIES.push({
         skills: ['survival', 'perception', 'athletics', 'animal_handling'], saves: ['str', 'con'],
         attack: { name: '雪蹄撕爪', type: 'melee', damage: '1d8+3', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'winter', 'casual'],
     },
     {
       id: 'morag', kind: 'npc', name: '莫拉格·沼語', full_name: '莫拉格·沼語（Morag Mirespeak）',
@@ -438,7 +438,7 @@ window.SERIES.push({
         skills: ['nature', 'survival', 'medicine', 'perception'], saves: ['int', 'wis'],
         attack: { name: '沼毒噬咬', type: 'melee', damage: '1d8+2', damage_type: 'poison', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'rain', 'travel'],
     },
     {
       id: 'ailsa', kind: 'npc', name: '艾爾莎·孤弓', full_name: '艾爾莎·孤弓（Ailsa Lonebow）',
@@ -471,7 +471,7 @@ window.SERIES.push({
         skills: ['perception', 'survival', 'stealth', 'athletics'], saves: ['str', 'dex'],
         attack: { name: '孤弓一矢', type: 'ranged', damage: '1d8+5', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'winter', 'casual'],
     },
     {
       id: 'tove', kind: 'npc', name: '托芙·小熊', full_name: '托芙·小熊（Tove Cubling）',
@@ -504,7 +504,7 @@ window.SERIES.push({
         skills: ['animal_handling', 'nature', 'survival', 'athletics'], saves: ['int', 'wis'],
         attack: { name: '熊形重擊', type: 'melee', damage: '2d6+3', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'winter'],
     },
     {
       id: 'ysra', kind: 'npc', name: '伊絲拉·苔語', full_name: '伊絲拉·苔語（Ysra Mosswhisper）',
@@ -537,7 +537,7 @@ window.SERIES.push({
         skills: ['nature', 'medicine', 'survival', 'stealth'], saves: ['int', 'wis'],
         attack: { name: '苔語療癒', type: 'spell', damage: '2d8+3', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'ritual', 'summer'],
     },
     {
       id: 'nettle', kind: 'npc', name: '妮朵·刺蕁', full_name: '妮朵·刺蕁（Nettle Stingleaf）',
@@ -570,7 +570,7 @@ window.SERIES.push({
         skills: ['sleight_of_hand', 'stealth', 'investigation', 'perception'], saves: ['dex', 'int'],
         attack: { name: '刺蕁彈射', type: 'ranged', damage: '1d6+4', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'night'],
     },
     {
       id: 'vashti', kind: 'npc', name: '瓦絲緹·毒牙', full_name: '瓦絲緹·毒牙（Vashti Venomfang）',
@@ -603,7 +603,7 @@ window.SERIES.push({
         skills: ['stealth', 'medicine', 'nature', 'deception'], saves: ['dex', 'int'],
         attack: { name: '毒牙之吻', type: 'melee', damage: '1d6+3', damage_type: 'poison', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'ritual'],
     },
   ],
 });

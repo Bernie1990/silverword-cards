@@ -45,7 +45,7 @@ window.SERIES.push({
         skills: ['athletics', 'survival', 'perception', 'intimidation'], saves: ['str', 'con'],
         attack: { name: '船斧劈砍', type: 'melee', damage: '1d8+3', damage_type: 'slashing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'winter'],
     },
     {
       id: 'moira', kind: 'npc', name: '莫伊拉·鹽歌', full_name: '莫伊拉·鹽歌（Moira Saltsong）',
@@ -78,7 +78,7 @@ window.SERIES.push({
         skills: ['performance', 'perception', 'insight', 'survival'], saves: ['dex', 'cha'],
         attack: { name: '鹽歌震波', type: 'spell', damage: '2d8', damage_type: 'thunder', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'ritual', 'summer'],
     },
     {
       id: 'ondine', kind: 'npc', name: '翁蒂娜·沉錨', full_name: '翁蒂娜·沉錨（Ondine Sunkanchor）',
@@ -111,7 +111,7 @@ window.SERIES.push({
         skills: ['athletics', 'history', 'insight', 'religion'], saves: ['wis', 'cha'],
         attack: { name: '沉錨三叉戟', type: 'melee', damage: '1d8+3', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'night'],
     },
     {
       id: 'pell', kind: 'npc', name: '佩兒·快槳', full_name: '佩兒·快槳（Pell Quickoar）',
@@ -144,7 +144,7 @@ window.SERIES.push({
         skills: ['acrobatics', 'athletics', 'perception', 'sleight_of_hand'], saves: ['dex', 'int'],
         attack: { name: '快槳突刺', type: 'melee', damage: '1d6+4', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'rain'],
     },
     {
       id: 'greta', kind: 'npc', name: '葛蕾塔·鐵纜', full_name: '葛蕾塔·鐵纜（Greta Ironhawser）',
@@ -177,7 +177,7 @@ window.SERIES.push({
         skills: ['athletics', 'perception', 'survival'], saves: ['str', 'con'],
         attack: { name: '鐵纜重擊', type: 'melee', damage: '1d10+4', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'casual'],
     },
     {
       id: 'isa', kind: 'npc', name: '伊薩·水燈', full_name: '伊薩·水燈（Isa Waterlamp）',
@@ -210,7 +210,7 @@ window.SERIES.push({
         skills: ['religion', 'survival', 'perception', 'medicine'], saves: ['wis', 'cha'],
         attack: { name: '燈神之光', type: 'spell', damage: '1d8+3', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'ritual', 'travel'],
     },
 
     /* ═════════════ 燼燄詠團 ═════════════ */
@@ -245,7 +245,7 @@ window.SERIES.push({
         skills: ['performance', 'arcana', 'history', 'persuasion'], saves: ['dex', 'cha'],
         attack: { name: '借名之歌', type: 'spell', damage: '3d6', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'gown'],
     },
     {
       id: 'dagny', kind: 'npc', name: '達格妮·餘燼', full_name: '達格妮·餘燼（Dagny Embertide）',
@@ -278,7 +278,7 @@ window.SERIES.push({
         skills: ['arcana', 'intimidation', 'investigation'], saves: ['int', 'wis'],
         attack: { name: '餘燼烈焰', type: 'spell', damage: '3d8', damage_type: 'fire', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'summer'],
     },
     {
       id: 'petra', kind: 'npc', name: '佩特拉·石喉', full_name: '佩特拉·石喉（Petra Stonethroat）',
@@ -311,7 +311,7 @@ window.SERIES.push({
         skills: ['athletics', 'survival', 'history', 'perception'], saves: ['str', 'con'],
         attack: { name: '礦鎬重劈', type: 'melee', damage: '1d10+3', damage_type: 'piercing', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'casual'],
     },
     {
       id: 'sable_e', kind: 'npc', name: '莎珀·無聲', full_name: '莎珀·無聲（Sable Voiceless）',
@@ -344,7 +344,7 @@ window.SERIES.push({
         skills: ['acrobatics', 'stealth', 'insight', 'medicine'], saves: ['str', 'dex'],
         attack: { name: '無聲掌', type: 'melee', damage: '1d8+4', damage_type: 'bludgeoning', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'training', 'travel'],
     },
     {
       id: 'ida', kind: 'npc', name: '伊妲·雙夢', full_name: '伊妲·雙夢（Ida Twindream）',
@@ -377,7 +377,7 @@ window.SERIES.push({
         skills: ['arcana', 'insight', 'perception', 'history'], saves: ['int', 'wis'],
         attack: { name: '雙夢迴響', type: 'spell', damage: '2d10', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'night', 'casual'],
     },
     {
       id: 'tamar', kind: 'npc', name: '塔瑪·鼓心', full_name: '塔瑪·鼓心（Tamar Drumheart）',
@@ -410,7 +410,7 @@ window.SERIES.push({
         skills: ['performance', 'persuasion', 'acrobatics', 'insight'], saves: ['dex', 'cha'],
         attack: { name: '鼓心震擊', type: 'spell', damage: '2d8', damage_type: 'thunder', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'dance', 'travel'],
     },
   ],
 });
