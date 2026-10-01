@@ -3,3 +3,6 @@ node_modules/
 Thumbs.db
 scripts/.portrait-jobs.json
 *.log
+
+# 畫圖用的原始大圖（網站只使用 assets/portraits 的 WebP），不進公開倉庫
+assets/originals/
