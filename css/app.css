@@ -210,6 +210,98 @@ button { font: inherit; }
   .world.has-banner .w-name { font-size: 20px; }
 }
 
+/* ── 故事線（系列主線分幕） ─────────────────────────────────── */
+.saga {
+  position: relative;
+  margin: 12px 0 0;
+  padding: 16px 18px 14px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--bronze) 28%, var(--line));
+  background:
+    radial-gradient(90% 70% at 100% 0%, color-mix(in srgb, var(--bronze) 10%, transparent), transparent 60%),
+    rgba(255, 255, 255, .02);
+  animation: cardIn .7s var(--ease-out) .08s backwards;
+}
+.saga-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; margin-bottom: 10px; }
+.saga-title { display: flex; align-items: center; gap: 10px; }
+.saga-k { font-size: 11px; letter-spacing: .3em; color: var(--bronze-2); text-transform: uppercase; }
+.saga-title b { font-family: var(--serif); font-size: 19px; font-weight: 900; letter-spacing: .08em; color: var(--text); }
+.saga-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.saga-link {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px dashed color-mix(in srgb, var(--bronze) 50%, transparent);
+  background: transparent;
+  color: var(--text-2);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.saga-link:hover { color: var(--text); border-style: solid; background: color-mix(in srgb, var(--bronze) 12%, transparent); }
+
+.acts { list-style: none; margin: 0; padding: 0; position: relative; }
+.acts::before { content: ''; position: absolute; left: 17px; top: 18px; bottom: 18px; width: 1px; background: linear-gradient(180deg, var(--bronze-2), color-mix(in srgb, var(--bronze) 35%, transparent)); }
+.act { position: relative; display: grid; grid-template-columns: 36px 1fr; gap: 14px; padding: 12px 0; animation: cardIn .5s var(--ease-out) calc(var(--i) * 40ms) backwards; }
+.act + .act { border-top: 1px dashed color-mix(in srgb, var(--line) 70%, transparent); }
+.act-no {
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--bronze) 60%, transparent);
+  background: #0c0f16;
+  color: var(--bronze-2);
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 13px;
+  box-shadow: 0 0 0 4px #0b0e15, 0 0 18px color-mix(in srgb, var(--bronze) 25%, transparent);
+}
+.act-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.act-when { font-size: 11.5px; letter-spacing: .12em; color: var(--verdigris); }
+.act h3 { margin: 0; font-family: var(--serif); font-size: 16px; font-weight: 900; letter-spacing: .05em; color: var(--text); }
+.act p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.9; color: var(--text-2); max-width: 900px; }
+.act-cast { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.cast {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px 3px 3px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--line) 90%, transparent);
+  background: rgba(255, 255, 255, .03);
+  color: var(--text-2);
+  font: inherit; font-size: 12px;
+  cursor: pointer;
+  transition: transform .15s var(--ease-out), border-color .15s, background .15s;
+}
+.cast:hover { transform: translateY(-1px); color: var(--text); border-color: color-mix(in srgb, var(--bronze) 55%, transparent); background: color-mix(in srgb, var(--bronze) 10%, transparent); }
+.cast.foreign { border-style: dashed; }
+.cast.foreign::after { content: '↗'; font-size: 10px; color: var(--text-3); }
+.cast-ph {
+  position: relative; width: 24px; height: 24px; flex: none;
+  display: grid; place-items: center; overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--fa, #333), var(--fb, #555));
+  color: #fff; font-size: 11px; font-weight: 700;
+}
+.cast-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+
+/* 收合：只露出前兩幕，其餘以漸層遮住 */
+.acts.folded { max-height: 270px; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent); mask-image: linear-gradient(180deg, #000 60%, transparent); }
+.saga-more {
+  display: block; width: 100%; margin-top: -6px; padding: 9px;
+  border-radius: 10px;
+  border: 1px dashed color-mix(in srgb, var(--bronze) 45%, transparent);
+  background: transparent;
+  color: var(--bronze-2);
+  font: inherit; font-size: 12.5px; letter-spacing: .08em;
+  cursor: pointer;
+}
+.saga-more:hover { background: color-mix(in srgb, var(--bronze) 10%, transparent); }
+@media (max-width: 640px) {
+  .saga { padding: 14px 12px 12px; }
+  .act { grid-template-columns: 30px 1fr; gap: 10px; }
+  .act-no { width: 30px; height: 30px; font-size: 12px; }
+  .acts::before { left: 14px; }
+}
+
 /* ── 聚光燈 ───────────────────────────────────────────────── */
 .spotlight {
   --mx: 50%; --my: 50%;

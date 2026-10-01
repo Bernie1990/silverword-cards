@@ -14,15 +14,23 @@
   const esc = C.esc;
   const $ = (id) => document.getElementById(id);
 
-  /* 同 id 的多個 push 合併為一個系列：第一個提供設定，後續只追加角色（方便把大系列拆檔） */
+  /* 同 id 的多個 push 合併為一個系列：第一個提供設定，後續追加角色（方便把大系列拆檔）。
+     追加的角色若 id 已存在，則視為「覆蓋層」：只合併它帶來的欄位（例如替匯入的角色補 story）。
+     也可帶 world（合併）與 saga（系列主線：{ prev, next, acts[] }）。 */
   const MAX_PER_SERIES = 60;
   const SERIES = [];
   (window.SERIES || []).forEach((s) => {
     if (!s || !s.id) return;
     const host = SERIES.find((x) => x.id === s.id);
     if (!host) { SERIES.push({ ...s, characters: (s.characters || []).slice() }); return; }
-    host.characters.push(...(s.characters || []));
+    (s.characters || []).forEach((c) => {
+      const i = host.characters.findIndex((x) => x.id === c.id);
+      if (i < 0) host.characters.push(c);
+      else host.characters[i] = { ...host.characters[i], ...c, story: { ...(host.characters[i].story || {}), ...(c.story || {}) } };
+    });
     if (s.factions) host.factions = { ...(host.factions || {}), ...s.factions }; // 分檔也可補陣營
+    if (s.world) host.world = { ...(host.world || {}), ...s.world };
+    if (s.saga) host.saga = s.saga;
   });
   SERIES.forEach((s) => {
     if (s.characters.length > MAX_PER_SERIES) {
@@ -144,6 +152,48 @@
     world.classList.toggle('has-banner', Boolean(w.banner));
     // url() 放進自訂屬性時，Chrome 會相對於使用它的樣式表（css/）解析，故先轉成絕對網址
     world.style.setProperty('--banner', w.banner ? `url("${new URL(w.banner, document.baseURI).href}")` : 'none');
+  }
+
+  /* ── 系列主線（故事線）：series.saga = { prev, next, acts: [{ when, title, text, cast[] }] } ── */
+  const sagaOpen = {}; // 每個系列的展開狀態（不持久化）
+  const seriesTitle = (id) => { const s = SERIES.find((x) => x.id === id); return s ? s.title : id; };
+
+  function castChip(cid) {
+    const t = byId.get(cid) || GLOBAL.get(cid);
+    if (!t) return '';
+    const foreign = !byId.has(cid);
+    return `<button type="button" class="cast${foreign ? ' foreign' : ''}" data-id="${esc(cid)}" title="${esc(t.full_name || t.name)}${foreign ? '（其他系列）' : ''}">
+      <span class="cast-ph" style="--fa:var(--fx-${esc(t.faction || 'none')}-a);--fb:var(--fx-${esc(t.faction || 'none')}-b)"><img src="${C.src(t, 'base', true)}" alt="" loading="lazy" onerror="this.remove()" />${esc(t.name.charAt(0))}</span>
+      <span>${esc(t.name)}</span></button>`;
+  }
+
+  function renderSaga() {
+    const host = $('saga');
+    if (!host) return;
+    const g = series.saga;
+    const acts = (g && g.acts) || [];
+    if (!acts.length) { host.hidden = true; host.innerHTML = ''; return; }
+    host.hidden = false;
+    const open = Boolean(sagaOpen[series.id]);
+    const w = series.world || {};
+    const link = (id, label) => (id && SERIES.some((s) => s.id === id)
+      ? `<button type="button" class="saga-link" data-series="${esc(id)}">${label} · ${esc(seriesTitle(id))} →</button>` : '');
+    host.innerHTML = `
+      <div class="saga-head">
+        <div class="saga-title"><span class="saga-k">故事線</span><b>${esc(w.arc || series.title)}</b><span class="chip">${acts.length} 幕</span></div>
+        <div class="saga-nav">${link(g.prev, '前傳')}${link(g.next, '續篇')}
+          <button type="button" class="btn saga-toggle" aria-expanded="${open}">${open ? '收合' : '展開全部'}</button></div>
+      </div>
+      <ol class="acts${open ? '' : ' folded'}">${acts.map((a, i) => `
+        <li class="act" style="--i:${i}">
+          <div class="act-no">${String(i + 1).padStart(2, '0')}</div>
+          <div class="act-body">
+            <div class="act-meta">${a.when ? `<span class="act-when">${esc(a.when)}</span>` : ''}<h3>${esc(a.title)}</h3></div>
+            <p>${esc(a.text)}</p>
+            ${(a.cast || []).length ? `<div class="act-cast">${a.cast.map(castChip).join('')}</div>` : ''}
+          </div>
+        </li>`).join('')}</ol>
+      ${open ? '' : `<button type="button" class="saga-more">閱讀全部 ${acts.length} 幕 ↓</button>`}`;
   }
 
   /* 系列調色：D&D 卡皮的青銅三色可由 series.palette 覆寫（月銀、薔薇…） */
@@ -282,6 +332,7 @@
   function renderAll() {
     document.body.dataset.theme = theme();
     renderSeriesTabs();
+    renderSaga();
     renderToolbar();
     renderLegend();
     renderSpotlight();
@@ -361,6 +412,28 @@
         if (!b || b.dataset.series === series.id) return;
         activate(b.dataset.series);
         window.scrollTo({ top: 0, behavior: FX.reduced ? 'auto' : 'smooth' });
+      };
+    }
+
+    const saga = $('saga');
+    if (saga) {
+      saga.onclick = (e) => {
+        const lk = e.target.closest('.saga-link');
+        if (lk) { activate(lk.dataset.series); window.scrollTo({ top: 0, behavior: FX.reduced ? 'auto' : 'smooth' }); return; }
+        if (e.target.closest('.saga-toggle, .saga-more')) {
+          sagaOpen[series.id] = !sagaOpen[series.id];
+          const top = saga.getBoundingClientRect().top + window.scrollY - 12;
+          renderSaga();
+          if (!sagaOpen[series.id]) window.scrollTo({ top, behavior: 'auto' });
+          return;
+        }
+        const cast = e.target.closest('.cast[data-id]');
+        if (cast) {
+          // 以該幕的登場人物為翻閱範圍（可跨系列）
+          const ids = [...cast.closest('.act-cast').querySelectorAll('.cast[data-id]')].map((b) => b.dataset.id);
+          const list = ids.map((cid) => byId.get(cid) || GLOBAL.get(cid)).filter(Boolean);
+          Theater.open(list, Math.max(0, list.findIndex((x) => x.id === cast.dataset.id)));
+        }
       };
     }
 

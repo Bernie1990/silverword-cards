@@ -17,8 +17,17 @@ const LEX = ctx.window.LEX;
 const merged = [];
 ctx.window.SERIES.forEach((s) => {
   const host = merged.find((x) => x.id === s.id);
-  if (host) host.characters.push(...(s.characters || []));
-  else merged.push({ ...s, characters: (s.characters || []).slice() });
+  if (!host) { merged.push({ ...s, characters: (s.characters || []).slice() }); return; }
+  (s.characters || []).forEach((c) => {
+    const i = host.characters.findIndex((x) => x.id === c.id);
+    if (i < 0) host.characters.push(c);
+    else {
+      // 覆蓋層：必須補的是已存在的角色，且只帶 id 以外的欄位
+      host.characters[i] = { ...host.characters[i], ...c, story: { ...(host.characters[i].story || {}), ...(c.story || {}) } };
+    }
+  });
+  if (s.saga) host.saga = s.saga;
+  if (s.world) host.world = { ...(host.world || {}), ...s.world };
 });
 const global = new Set(merged.flatMap((s) => s.characters.map((c) => c.id)));
 
@@ -47,7 +56,28 @@ merged.forEach((s) => {
     (cb.skills || []).forEach((k) => { if (!LEX.SKILL[k]) err(`${c.id}: 未知技能 ${k}`); });
     if (cb.attack && cb.attack.damage_type && !LEX.DAMAGE[cb.attack.damage_type]) err(`${c.id}: 未知傷害 ${cb.attack.damage_type}`);
     ((c.story && c.story.relations) || []).forEach((r) => { if (!global.has(r.id)) err(`${c.id}: 關係指向不存在的 ${r.id}`); });
+    const st = c.story;
+    if (st) {
+      ['quote', 'background', 'ideal', 'bond', 'flaw'].forEach((k) => { if (!st[k]) err(`${c.id}: 故事缺 ${k}`); });
+      if (!Array.isArray(st.chapters) || st.chapters.length < 3) err(`${c.id}: 故事章節不足 3 章`);
+      (st.chapters || []).forEach((ch, i) => { if (!ch.title || !ch.text) err(`${c.id}: 第 ${i + 1} 章缺標題或內文`); });
+    }
   });
+  const stories = s.characters.filter((c) => c.story && c.story.chapters).length;
+  if (stories && stories < s.characters.length) err(`${s.characters.length - stories} 位角色沒有故事`);
+  if (s.saga) {
+    const acts = s.saga.acts || [];
+    if (!acts.length) err('saga 沒有任何一幕');
+    acts.forEach((a, i) => {
+      if (!a.title || !a.text) err(`saga 第 ${i + 1} 幕缺標題或內文`);
+      (a.cast || []).forEach((cid) => { if (!global.has(cid)) err(`saga 第 ${i + 1} 幕登場人物不存在：${cid}`); });
+    });
+    ['prev', 'next'].forEach((k) => { if (s.saga[k] && !merged.some((x) => x.id === s.saga[k])) err(`saga.${k} 指向不存在的系列 ${s.saga[k]}`); });
+    const onStage = new Set(acts.flatMap((a) => a.cast || []));
+    const missing = s.characters.filter((c) => !onStage.has(c.id)).map((c) => c.id);
+    if (missing.length) console.log(`  · 未在故事線登場：${missing.join(', ')}`);
+    console.log(`  · 故事線 ${acts.length} 幕，登場 ${s.characters.filter((c) => onStage.has(c.id)).length}/${s.characters.length} 位`);
+  }
 });
 console.log(errors ? `\n${errors} 個問題` : '\n全部通過');
 process.exit(errors ? 1 : 0);

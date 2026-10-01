@@ -32,6 +32,9 @@
   <nav class="series-tabs" id="seriesTabs" aria-label="卡片系列" hidden></nav>
   <div class="world" id="world" hidden></div>
 
+  <!-- 故事線：series.saga 的主線分幕（data/series-*-saga.js），登場人物可點進立繪劇場 -->
+  <section class="saga" id="saga" aria-label="故事線" hidden></section>
+
   <!-- 聚光燈：主角或隨機角色的電影感橫幅 -->
   <section class="spotlight" id="spotlight" aria-label="聚光燈"></section>
 
@@ -105,7 +108,14 @@
 <script src="data/series-planar-3.js"></script>
 <script src="data/series-planar-4.js"></script>
 <script src="data/series-planar-5.js"></script>
-<script src="data/series-planar-6.js"></script>
+  <script src="data/series-planar-6.js"></script>
+  <!-- 故事覆蓋層：系列主線（saga）與補上的角色故事；同 id 角色只合併欄位 -->
+  <script src="data/series-silver-story.js"></script>
+  <script src="data/series-silver-story-2.js"></script>
+  <script src="data/series-silver-story-3.js"></script>
+  <script src="data/series-oakvale-saga.js"></script>
+  <script src="data/series-thornrose-saga.js"></script>
+  <script src="data/series-planar-saga.js"></script>
 <script src="js/lexicon.js"></script>
 <script src="js/rank.js"></script>
 <script src="js/card.js"></script>
