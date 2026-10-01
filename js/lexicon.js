@@ -15,6 +15,8 @@
     azure_spire:    { label: '蔚藍尖塔學會', icon: '🔮' },
     obsidian_pact:  { label: '黑曜結社', icon: '🌑' },
     crimson_banner: { label: '赤旗傭兵團', icon: '⚔' },
+    oak_council:    { label: '橡木鎮議會', icon: '🌳' },
+    ashen_forge:    { label: '灰燼遺民', icon: '🔥' },
   };
 
   const ALIGN_SHORT = {

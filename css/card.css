@@ -50,6 +50,8 @@
 .card[data-faction="azure_spire"]    { --fa: var(--fx-azure_spire-a);    --fb: var(--fx-azure_spire-b); }
 .card[data-faction="obsidian_pact"]  { --fa: var(--fx-obsidian_pact-a);  --fb: var(--fx-obsidian_pact-b); }
 .card[data-faction="crimson_banner"] { --fa: var(--fx-crimson_banner-a); --fb: var(--fx-crimson_banner-b); }
+.card[data-faction="oak_council"]    { --fa: var(--fx-oak_council-a);    --fb: var(--fx-oak_council-b); }
+.card[data-faction="ashen_forge"]    { --fa: var(--fx-ashen_forge-a);    --fb: var(--fx-ashen_forge-b); }
 .card[data-faction="moonveil"]  { --fa: var(--fx-moonveil-a);  --fb: var(--fx-moonveil-b); }
 .card[data-faction="ironrose"]  { --fa: var(--fx-ironrose-a);  --fb: var(--fx-ironrose-b); }
 .card[data-faction="duskquill"] { --fa: var(--fx-duskquill-a); --fb: var(--fx-duskquill-b); }

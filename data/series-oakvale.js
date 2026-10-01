@@ -4,6 +4,8 @@
 // 角色骨架（名字／外貌／數值）取自 game-server 的 generic5e 名單，
 // 職業、陣營、背景、理想／羈絆／缺陷、三章故事與人物關係為本系列原創，
 // 全部圍繞同一條主線：鎮外古地城深處的「灰燼熔爐」正在甦醒。
+// 本系列分三個檔案：series-oakvale.js（設定＋前 20 位）、series-oakvale-2.js（醫者團／尖塔／結社補完）、
+// series-oakvale-3.js（赤旗／鎮議會／灰燼遺民）。後兩檔以相同 id push，app.js 會併進同一系列。
 // ═══════════════════════════════════════════════════════════════════
 window.SERIES = window.SERIES || [];
 window.SERIES.push({
@@ -23,6 +25,8 @@ window.SERIES.push({
     azure_spire:    { label: '蔚藍尖塔學會', icon: '🔮' },
     obsidian_pact:  { label: '黑曜結社', icon: '🌑' },
     crimson_banner: { label: '赤旗傭兵團', icon: '⚔' },
+    oak_council:    { label: '橡木鎮議會', icon: '🌳' },
+    ashen_forge:    { label: '灰燼遺民', icon: '🔥' },
   },
   generated: '2026-09-30',
   characters: [

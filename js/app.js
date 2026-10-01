@@ -22,6 +22,7 @@
     const host = SERIES.find((x) => x.id === s.id);
     if (!host) { SERIES.push({ ...s, characters: (s.characters || []).slice() }); return; }
     host.characters.push(...(s.characters || []));
+    if (s.factions) host.factions = { ...(host.factions || {}), ...s.factions }; // 分檔也可補陣營
   });
   SERIES.forEach((s) => {
     if (s.characters.length > MAX_PER_SERIES) {
