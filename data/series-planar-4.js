@@ -104,7 +104,7 @@ window.SERIES.push({
         skills: ['history', 'investigation', 'arcana', 'insight'], saves: ['int', 'wis'],
         attack: { name: '墨蝕判詞', type: 'spell', damage: '3d6', damage_type: 'acid', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'night'],
     },
     {
       id: 'dorn', kind: 'npc', name: '多恩·鎖鏈', full_name: '多恩·鎖鏈執行官（Dorn Chainwarden）',
@@ -170,7 +170,7 @@ window.SERIES.push({
         skills: ['persuasion', 'deception', 'insight', 'performance'], saves: ['dex', 'cha'],
         attack: { name: '紅蠟封口', type: 'spell', damage: '3d8', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'gown', 'travel'],
     },
     {
       id: 'hexus', kind: 'npc', name: '赫克蘇斯', full_name: '赫克蘇斯·利息（Hexus Interest）',
@@ -270,7 +270,7 @@ window.SERIES.push({
         skills: ['persuasion', 'insight', 'religion', 'athletics'], saves: ['wis', 'cha'],
         attack: { name: '渡船之槳', type: 'melee', damage: '1d8+1', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'travel', 'festival'],
     },
     {
       id: 'zagan', kind: 'npc', name: '札岡·帳房', full_name: '札岡·總帳（Zagan the Ledger）',
@@ -336,7 +336,7 @@ window.SERIES.push({
         skills: ['insight', 'persuasion', 'deception', 'medicine'], saves: ['con', 'cha'],
         attack: { name: '藍燭低語', type: 'spell', damage: '2d8', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'dance'],
     },
   ],
 });

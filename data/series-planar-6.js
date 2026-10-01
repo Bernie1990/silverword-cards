@@ -106,7 +106,7 @@ window.SERIES.push({
         skills: ['arcana', 'investigation', 'history', 'insight'], saves: ['int', 'wis'],
         attack: { name: '重力錯置', type: 'spell', damage: '3d8', damage_type: 'force', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'casual', 'work'],
     },
     {
       id: 'blub', kind: 'npc', name: '布拉布', full_name: '布拉布·自封神父（Blub the Self-Anointed）',
@@ -205,7 +205,7 @@ window.SERIES.push({
         skills: ['insight', 'acrobatics', 'perception', 'survival'], saves: ['str', 'dex'],
         attack: { name: '夢徑摺擊', type: 'melee', damage: '1d8+3', damage_type: 'psychic', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'travel', 'night'],
     },
     {
       id: 'pollux', kind: 'npc', name: '波路克斯·雙面', full_name: '波路克斯·雙面（Pollux Twoface）',
@@ -271,7 +271,7 @@ window.SERIES.push({
         skills: ['sleight_of_hand', 'arcana', 'perception', 'athletics'], saves: ['con', 'int'],
         attack: { name: '四手織刃', type: 'melee', damage: '1d6+4', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'festival', 'casual'],
     },
     {
       id: 'orrin', kind: 'npc', name: '奧林·門', full_name: '奧林·活的門（Orrin the Doorway）',

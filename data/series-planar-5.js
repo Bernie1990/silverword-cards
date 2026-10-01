@@ -38,7 +38,7 @@ window.SERIES.push({
         skills: ['religion', 'performance', 'insight', 'medicine'], saves: ['wis', 'cha'],
         attack: { name: '七重聖詠', type: 'spell', damage: '4d8', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'armor', 'festival'],
     },
     {
       id: 'castor', kind: 'npc', name: '卡斯托·聖犬', full_name: '卡斯托·金門守衛（Castor of the Golden Gate）',
@@ -105,7 +105,7 @@ window.SERIES.push({
         skills: ['medicine', 'survival', 'religion', 'persuasion'], saves: ['wis', 'cha'],
         attack: { name: '行腳之燭', type: 'spell', damage: '1d8+3', damage_type: 'radiant', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'winter'],
     },
     {
       id: 'theron', kind: 'npc', name: '塞隄·光鑄', full_name: '塞隄·光鑄（Theron Lightwright）',
@@ -171,7 +171,7 @@ window.SERIES.push({
         skills: ['performance', 'insight', 'perception', 'medicine'], saves: ['dex', 'cha'],
         attack: { name: '共鳴音叉', type: 'spell', damage: '2d8', damage_type: 'thunder', is_heal: true },
       },
-      looks: ['base'],
+      looks: ['base', 'dance', 'casual'],
     },
     {
       id: 'barachiel', kind: 'npc', name: '巴拉基爾', full_name: '巴拉基爾·天秤之翼（Barachiel of the Scales）',
@@ -237,7 +237,7 @@ window.SERIES.push({
         skills: ['history', 'religion', 'insight', 'investigation'], saves: ['int', 'wis'],
         attack: { name: '紀名之筆', type: 'spell', damage: '3d8', damage_type: 'force', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'work', 'summer'],
     },
     {
       id: 'lumen', kind: 'npc', name: '路門', full_name: '路門·提燈天使（Lumen the Lantern）',
@@ -336,7 +336,7 @@ window.SERIES.push({
         skills: ['acrobatics', 'athletics', 'perception', 'survival'], saves: ['str', 'dex'],
         attack: { name: '疾風投信', type: 'ranged', damage: '1d6+4', damage_type: 'radiant', is_heal: false },
       },
-      looks: ['base'],
+      looks: ['base', 'rain', 'festival'],
     },
   ],
 });
