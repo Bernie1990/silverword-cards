@@ -537,7 +537,10 @@
 .card:hover .card-tools,
 .card:focus-within .card-tools { opacity: 1; transform: none; }
 
-@media (hover: none) { .card-tools { opacity: 1; transform: none; } }
+@media (hover: none), (pointer: coarse) {
+  .card-tools { opacity: 1; transform: none; }
+  .tool { width: 42px; height: 42px; font-size: 16px; }
+}
 
 .tool {
   width: 30px; height: 30px;

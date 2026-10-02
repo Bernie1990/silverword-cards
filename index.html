@@ -76,7 +76,7 @@
 
   <footer>
     <span>資料產生於 <b id="generated">—</b></span>
-    <span>操作：點卡片開劇場 · <kbd>↻</kbd>／<kbd>F</kbd> 翻面 · <kbd>👗</kbd>／<kbd>L</kbd> 換立繪 · 劇場內 <kbd>←</kbd><kbd>→</kbd> 翻閱、<kbd>Esc</kbd> 關閉</span>
+    <span>操作：點卡片開劇場 · <kbd>↻</kbd>／<kbd>F</kbd> 翻面 · <kbd>👗</kbd>／<kbd>L</kbd> 換立繪 · 劇場內 <kbd>←</kbd><kbd>→</kbd> 翻閱、<kbd>Esc</kbd> 離開</span>
     <span>純靜態頁面，零相依，可直接部署至任何靜態主機。</span>
   </footer>
 </main>
@@ -87,10 +87,12 @@
   <div class="th-panel">
     <div class="th-figure"></div>
     <div class="th-info"></div>
-    <div class="th-pos"></div>
-    <button class="th-close" data-close title="關閉（Esc）" aria-label="關閉">✕</button>
-    <button class="th-nav prev" title="上一位（←）" aria-label="上一位">‹</button>
-    <button class="th-nav next" title="下一位（→）" aria-label="下一位">›</button>
+    <div class="th-chrome">
+      <button class="th-nav prev" type="button" title="上一位（←）" aria-label="上一位"><span aria-hidden="true">‹</span> 上一位</button>
+      <span class="th-pos" aria-live="polite">1 / 1</span>
+      <button class="th-nav next" type="button" title="下一位（→）" aria-label="下一位">下一位 <span aria-hidden="true">›</span></button>
+      <button class="th-close" type="button" data-close title="離開（Esc）" aria-label="離開">離開</button>
+    </div>
   </div>
 </div>
 
@@ -116,6 +118,7 @@
   <script src="data/series-oakvale-saga.js"></script>
   <script src="data/series-thornrose-saga.js"></script>
   <script src="data/series-planar-saga.js"></script>
+  <script src="data/series-galladia.js"></script>
 <script src="js/lexicon.js"></script>
 <script src="js/rank.js"></script>
 <script src="js/card.js"></script>

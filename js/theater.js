@@ -49,14 +49,21 @@
       e.preventDefault();
     });
 
-    // 觸控左右滑切換
+    // 左右滑只作用在立繪上：讀故事時上下捲動不會誤觸翻頁
     let sx = 0;
     let sy = 0;
-    el.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; }, { passive: true });
-    el.addEventListener('pointerup', (e) => {
+    let swipeOk = false;
+    const fig = $('.th-figure');
+    fig.addEventListener('pointerdown', (e) => {
+      swipeOk = !e.target.closest('button');
+      sx = e.clientX;
+      sy = e.clientY;
+    }, { passive: true });
+    fig.addEventListener('pointerup', (e) => {
+      if (!swipeOk) return;
       const dx = e.clientX - sx;
       const dy = e.clientY - sy;
-      if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) move(dx < 0 ? 1 : -1);
+      if (Math.abs(dx) > 56 && Math.abs(dx) > Math.abs(dy) * 1.4) move(dx < 0 ? 1 : -1);
     }, { passive: true });
   }
 
@@ -68,7 +75,8 @@
     el.hidden = false;
     document.body.classList.add('locked');
     paint();
-    $('.th-close').focus();
+    el.tabIndex = -1;
+    el.focus({ preventScroll: true });
   }
 
   function close() {
@@ -207,6 +215,7 @@
 
     $('.th-nav.prev').disabled = idx <= 0;
     $('.th-nav.next').disabled = idx >= list.length - 1;
+    $('.th-chrome').classList.toggle('single', list.length < 2);
     $('.th-pos').textContent = `${idx + 1} / ${list.length}`;
     $('.th-info').scrollTop = 0;
 
