@@ -26,7 +26,7 @@
   };
 
   const RACE = {
-    human: '人類', elf: '精靈', 'half-elf': '半精靈', dwarf: '矮人', dragonborn: '龍裔', 'half-dragon': '半龍', tiefling: '提夫林',
+    human: '人類', elf: '精靈', 'half-elf': '半精靈', dwarf: '矮人', dragonborn: '龍裔', 'half-dragon': '半龍', dragon: '真龍', tiefling: '提夫林',
     'half-orc': '半獸人', orc: '獸人', halfling: '半身人', gnome: '地精', goblin: '哥布林', kobold: '狗頭人',
     aasimar: '神裔', goliath: '巨人族', 'half-giant': '半巨人', changeling: '易形者', triton: '崔頓海族',
     warforged: '鍛造人', 'treant-kin': '樹靈', aarakocra: '鳥人', 'fire-genasi': '火元素裔', 'water-genasi': '水元素裔',

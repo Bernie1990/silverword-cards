@@ -73,6 +73,7 @@
 .card[data-faction="saltport"]   { --fa: var(--fx-saltport-a);   --fb: var(--fx-saltport-b); }
 .card[data-faction="bahamut"]    { --fa: var(--fx-bahamut-a);    --fb: var(--fx-bahamut-b); }
 .card[data-faction="tiamat"]     { --fa: var(--fx-tiamat-a);     --fb: var(--fx-tiamat-b); }
+.card[data-faction="mire"]       { --fa: var(--fx-mire-a);       --fb: var(--fx-mire-b); }
 
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(28px) rotateX(-12deg) scale(.94); }
