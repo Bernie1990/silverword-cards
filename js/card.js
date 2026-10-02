@@ -56,11 +56,11 @@
 
   /**
    * 立繪堆疊。每套服裝各一層 <img>；目前套裝 .on 且有 src，其餘延遲載入（data-src）。
-   * onload 加 .loaded 才淡入，避免閃白。
+   * onload 加 .loaded 才淡入，避免閃白。portrait: false 的角色尚無立繪，只出佔位字。
    */
   function art(ch, look, opts = {}) {
     const initial = esc((ch.name || '?').charAt(0));
-    const layers = (ch.looks || ['base']).map((lk) => {
+    const layers = ch.portrait === false ? '' : (ch.looks || ['base']).map((lk) => {
       const on = lk === look;
       const s = src(ch, lk, opts.thumb !== false);
       return `<img class="look${on ? ' on' : ''}" data-look="${lk}"${on ? ` src="${s}"` : ` data-src="${s}"`}

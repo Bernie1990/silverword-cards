@@ -16,7 +16,8 @@
 
   /* 同 id 的多個 push 合併為一個系列：第一個提供設定，後續追加角色（方便把大系列拆檔）。
      追加的角色若 id 已存在，則視為「覆蓋層」：只合併它帶來的欄位（例如替匯入的角色補 story）。
-     也可帶 world（合併）與 saga（系列主線：{ prev, next, acts[] }）。 */
+     也可帶 world（合併）與 saga（系列主線：{ prev, next, acts[] }）；
+     多個檔案都帶 saga 時，acts 依載入順序接在後面（同一個故事分季寫在不同檔）。 */
   const SERIES = [];
   (window.SERIES || []).forEach((s) => {
     if (!s || !s.id) return;
@@ -29,7 +30,11 @@
     });
     if (s.factions) host.factions = { ...(host.factions || {}), ...s.factions }; // 分檔也可補陣營
     if (s.world) host.world = { ...(host.world || {}), ...s.world };
-    if (s.saga) host.saga = s.saga;
+    if (s.saga) {
+      host.saga = host.saga
+        ? { ...host.saga, ...s.saga, acts: [...(host.saga.acts || []), ...(s.saga.acts || [])] }
+        : s.saga;
+    }
     if (s.lead) host.lead = s.lead;
   });
   /* 有指名主角的系列：主角卡固定在最前，其餘依故事線首次登場的幕次排列（同幕保持原順序）。 */
@@ -171,7 +176,7 @@
     if (!t) return '';
     const foreign = !byId.has(cid);
     return `<button type="button" class="cast${foreign ? ' foreign' : ''}" data-id="${esc(cid)}" title="${esc(t.full_name || t.name)}${foreign ? '（其他系列）' : ''}">
-      <span class="cast-ph" style="--fa:var(--fx-${esc(t.faction || 'none')}-a);--fb:var(--fx-${esc(t.faction || 'none')}-b)"><img src="${C.src(t, 'base', true)}" alt="" loading="lazy" onerror="this.remove()" />${esc(t.name.charAt(0))}</span>
+      <span class="cast-ph" style="--fa:var(--fx-${esc(t.faction || 'none')}-a);--fb:var(--fx-${esc(t.faction || 'none')}-b)">${t.portrait === false ? '' : `<img src="${C.src(t, 'base', true)}" alt="" loading="lazy" onerror="this.remove()" />`}${esc(t.name.charAt(0))}</span>
       <span>${esc(t.name)}</span></button>`;
   }
 

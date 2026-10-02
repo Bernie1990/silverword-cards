@@ -164,11 +164,12 @@
             <img src="${C.src(ch, lk, true)}" alt="" loading="lazy" /><span>${esc(C.label.look(lk))}</span></button>`).join('')}</div>`
       : '';
 
+    const noArt = ch.portrait === false; // 尚無立繪：只留佔位字，不發圖片請求
     $('.th-figure').innerHTML = `
       <span class="card-ph" style="--fa:var(--fx-${esc(ch.faction || 'none')}-a);--fb:var(--fx-${esc(ch.faction || 'none')}-b)">${esc((ch.name || '?').charAt(0))}</span>
-      <img class="th-bg" src="${thumb}" alt="" aria-hidden="true" onload="this.classList.add('loaded')" onerror="this.remove()" />
-      <img class="th-img" src="${full}" alt="${esc(ch.name)}" onload="this.classList.add('loaded')" onerror="this.remove()" />
-      ${lookStrip}`;
+      ${noArt ? '' : `<img class="th-bg" src="${thumb}" alt="" aria-hidden="true" onload="this.classList.add('loaded')" onerror="this.remove()" />
+      <img class="th-img" src="${full}" alt="${esc(ch.name)}" onload="this.classList.add('loaded')" onerror="this.remove()" />`}
+      ${noArt ? '' : lookStrip}`;
     FX.dust($('.th-figure'), 18);
     FX.syncLoaded($('.th-figure'));
 

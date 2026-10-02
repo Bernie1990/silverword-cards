@@ -26,7 +26,12 @@ ctx.window.SERIES.forEach((s) => {
       host.characters[i] = { ...host.characters[i], ...c, story: { ...(host.characters[i].story || {}), ...(c.story || {}) } };
     }
   });
-  if (s.saga) host.saga = s.saga;
+  if (s.saga) {
+    // 與 app.js 相同：多檔都帶 saga 時，acts 依載入順序接續
+    host.saga = host.saga
+      ? { ...host.saga, ...s.saga, acts: [...(host.saga.acts || []), ...(s.saga.acts || [])] }
+      : s.saga;
+  }
   if (s.world) host.world = { ...(host.world || {}), ...s.world };
   if (s.factions) host.factions = { ...(host.factions || {}), ...s.factions };
 });
@@ -45,6 +50,7 @@ merged.forEach((s) => {
     ids.add(c.id);
     (c.looks || ['base']).forEach((lk) => {
       if (!looks.has(lk)) err(`${c.id}: 未知套裝 ${lk}`);
+      if (c.portrait === false) return; // 尚無立繪的角色，不檢查檔案
       for (const f of [`${c.id}.webp`, `${c.id}.thumb.webp`]) {
         if (!fs.existsSync(path.join(ROOT, 'assets/portraits', lk, f))) err(`${c.id}: 缺 ${lk}/${f}`);
       }
@@ -63,6 +69,8 @@ merged.forEach((s) => {
       (st.chapters || []).forEach((ch, i) => { if (!ch.title || !ch.text) err(`${c.id}: 第 ${i + 1} 章缺標題或內文`); });
     }
   });
+  const noArt = s.characters.filter((c) => c.portrait === false).map((c) => c.id);
+  if (noArt.length) console.log(`  · 尚無立繪：${noArt.join(', ')}`);
   const stories = s.characters.filter((c) => c.story && c.story.chapters).length;
   if (stories && stories < s.characters.length) err(`${s.characters.length - stories} 位角色沒有故事`);
   if (s.saga) {
