@@ -38,8 +38,6 @@ const looks = new Set(LEX.LOOKS.map((l) => l.id));
 
 merged.forEach((s) => {
   console.log(`${s.id}: ${s.characters.length} 位`);
-  const nonPlayer = s.characters.filter((c) => c.kind !== 'player').length;
-  if (nonPlayer > 60) err(`超過 60 位上限（主角不計）`);
   if (s.world && s.world.banner && !fs.existsSync(path.join(ROOT, s.world.banner))) err(`缺橫幅 ${s.world.banner}`);
   const ids = new Set();
   s.characters.forEach((c) => {

@@ -17,7 +17,6 @@
   /* 同 id 的多個 push 合併為一個系列：第一個提供設定，後續追加角色（方便把大系列拆檔）。
      追加的角色若 id 已存在，則視為「覆蓋層」：只合併它帶來的欄位（例如替匯入的角色補 story）。
      也可帶 world（合併）與 saga（系列主線：{ prev, next, acts[] }）。 */
-  const MAX_PER_SERIES = 60;
   const SERIES = [];
   (window.SERIES || []).forEach((s) => {
     if (!s || !s.id) return;
@@ -31,15 +30,6 @@
     if (s.factions) host.factions = { ...(host.factions || {}), ...s.factions }; // 分檔也可補陣營
     if (s.world) host.world = { ...(host.world || {}), ...s.world };
     if (s.saga) host.saga = s.saga;
-  });
-  SERIES.forEach((s) => {
-    // 主角（kind: player）不計入 60 人上限，多出來的從名單尾端拿掉
-    const extras = s.characters.filter((c) => c.kind !== 'player');
-    if (extras.length > MAX_PER_SERIES) {
-      console.warn(`系列 ${s.id} 有 ${extras.length} 位非主角，超過上限 ${MAX_PER_SERIES}，多出的不顯示`);
-      const drop = new Set(extras.slice(MAX_PER_SERIES).map((c) => c.id));
-      s.characters = s.characters.filter((c) => c.kind === 'player' || !drop.has(c.id));
-    }
   });
   for (let i = SERIES.length - 1; i >= 0; i -= 1) if (!SERIES[i].characters.length) SERIES.splice(i, 1);
 
