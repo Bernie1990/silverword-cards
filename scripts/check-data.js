@@ -28,6 +28,7 @@ ctx.window.SERIES.forEach((s) => {
   });
   if (s.saga) host.saga = s.saga;
   if (s.world) host.world = { ...(host.world || {}), ...s.world };
+  if (s.factions) host.factions = { ...(host.factions || {}), ...s.factions };
 });
 const global = new Set(merged.flatMap((s) => s.characters.map((c) => c.id)));
 
@@ -37,7 +38,8 @@ const looks = new Set(LEX.LOOKS.map((l) => l.id));
 
 merged.forEach((s) => {
   console.log(`${s.id}: ${s.characters.length} 位`);
-  if (s.characters.length > 60) err(`超過 60 位上限`);
+  const nonPlayer = s.characters.filter((c) => c.kind !== 'player').length;
+  if (nonPlayer > 60) err(`超過 60 位上限（主角不計）`);
   if (s.world && s.world.banner && !fs.existsSync(path.join(ROOT, s.world.banner))) err(`缺橫幅 ${s.world.banner}`);
   const ids = new Set();
   s.characters.forEach((c) => {

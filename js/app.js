@@ -33,9 +33,12 @@
     if (s.saga) host.saga = s.saga;
   });
   SERIES.forEach((s) => {
-    if (s.characters.length > MAX_PER_SERIES) {
-      console.warn(`系列 ${s.id} 有 ${s.characters.length} 位角色，超過上限 ${MAX_PER_SERIES}，多出的不顯示`);
-      s.characters.length = MAX_PER_SERIES;
+    // 主角（kind: player）不計入 60 人上限，多出來的從名單尾端拿掉
+    const extras = s.characters.filter((c) => c.kind !== 'player');
+    if (extras.length > MAX_PER_SERIES) {
+      console.warn(`系列 ${s.id} 有 ${extras.length} 位非主角，超過上限 ${MAX_PER_SERIES}，多出的不顯示`);
+      const drop = new Set(extras.slice(MAX_PER_SERIES).map((c) => c.id));
+      s.characters = s.characters.filter((c) => c.kind === 'player' || !drop.has(c.id));
     }
   });
   for (let i = SERIES.length - 1; i >= 0; i -= 1) if (!SERIES[i].characters.length) SERIES.splice(i, 1);

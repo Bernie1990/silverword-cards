@@ -135,7 +135,7 @@ window.SERIES.push({
     },
     /* ───────────────────────── 4 ───────────────────────── */
     {
-      id: 'tamsin', kind: 'npc', name: '譚馨·荊野', full_name: '譚馨·荊野（Tamsin Thornfield）',
+      id: 'tamsin_thorn', kind: 'npc', name: '譚馨·荊野', full_name: '譚馨·荊野（Tamsin Thornfield）',
       race: 'wood-elf', gender: 'female', age: 61, faction: 'wildthorn',
       class: '遊俠（獵魔者）', level: 4, alignment: '混亂善良',
       role: '斥候／追蹤者', trait: '寡言警覺、直覺敏銳、對動物比對人溫柔',
@@ -223,7 +223,7 @@ window.SERIES.push({
         ],
         relations: [
           { id: 'brannagh', text: '打了三場架換來的後背' },
-          { id: 'tamsin', text: '打獵搭檔；一個先看、一個先衝' },
+          { id: 'tamsin_thorn', text: '打獵搭檔；一個先看、一個先衝' },
           { id: 'kaida', text: '教她「燒東西之前先數到三」，自己卻從沒數過' },
           { id: 'oriel', text: '把她斷牙的故事唱成一首歡快的酒歌' },
         ],
@@ -256,7 +256,7 @@ window.SERIES.push({
           { title: '退燒', text: '核心室外，她把杖上的湖水倒進熔爐的裂縫。水碰到灰燼時發出的不是蒸汽聲，而是一聲長長的、像嘆息的鐘響。湖的溫度從那一刻開始回升。她跪在那裡很久，直到譚馨拉她起來：「湖退燒了。妳呢？」她發現自己的臉上有水，不是湖的。' },
         ],
         relations: [
-          { id: 'tamsin', text: '夜裡一起聽湖的人；她聽水、譚馨聽風' },
+          { id: 'tamsin_thorn', text: '夜裡一起聽湖的人；她聽水、譚馨聽風' },
           { id: 'pimm', text: '為她做了能帶走湖聲的小瓶，讓她第一次主動擁抱別人' },
           { id: 'wren', text: '兩人都聽得見森林，卻聽到完全不同的話' },
           { id: 'isolde', text: '契約書上唯一濕的拇指印' },
@@ -292,7 +292,7 @@ window.SERIES.push({
         relations: [
           { id: 'brannagh', text: '被盯了十一天，換來一個從不回頭確認的後背' },
           { id: 'isolde', text: '收留了敵營逃兵的人，她欠她一本帳' },
-          { id: 'tamsin', text: '灰足坐在她腳邊那天，她才算真的進了隊' },
+          { id: 'tamsin_thorn', text: '灰足坐在她腳邊那天，她才算真的進了隊' },
           { id: 'maelle', text: '兩個不出聲的人，用手勢就能溝通整場戰鬥' },
         ],
       },
@@ -428,7 +428,7 @@ window.SERIES.push({
         relations: [
           { id: 'vaelis', text: '唯一讓預言書空白的人' },
           { id: 'seren', text: '兩人都聽得見森林，聽到的卻是不同的半邊' },
-          { id: 'tamsin', text: '游俠說她「有森林的味道，卻不是活著的森林」' },
+          { id: 'tamsin_thorn', text: '游俠說她「有森林的味道，卻不是活著的森林」' },
           { id: 'isolde', text: '隊長從不問她的祭主要什麼，這讓她第一次覺得被當成人' },
         ],
       },

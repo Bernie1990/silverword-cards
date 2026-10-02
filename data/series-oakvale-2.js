@@ -171,7 +171,7 @@ window.SERIES.push({
       looks: ['base'],
     },
     {
-      id: 'rosalind', kind: 'npc', name: '蘿莎琳·靜脈', full_name: '蘿莎琳·靜脈（Rosalind Quietvein）',
+      id: 'rosalind_vein', kind: 'npc', name: '蘿莎琳·靜脈', full_name: '蘿莎琳·靜脈（Rosalind Quietvein）',
       race: 'half-elf', gender: 'female', age: 33, faction: 'silver_chalice',
       class: '遊俠（怪物殺手）', level: 5, alignment: '守序中立',
       role: '瘟疫醫生 · 隔離區巡查', trait: '疏離、警醒、把每個人都當潛在感染源',

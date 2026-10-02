@@ -2,6 +2,7 @@ node_modules/
 .DS_Store
 Thumbs.db
 scripts/.portrait-jobs.json
+scripts/.roster-jobs.json
 *.log
 
 # 畫圖用的原始大圖（網站只使用 assets/portraits 的 WebP），不進公開倉庫

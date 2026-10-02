@@ -329,7 +329,7 @@ window.SERIES.push({
         ],
         relations: [
           { id: 'isolde', text: '創隊時在她荊條上劃血立誓的人' },
-          { id: 'tamsin', text: '她最老的枝條' },
+          { id: 'tamsin_thorn', text: '她最老的枝條' },
           { id: 'wren', text: '妖精界的孩子，她看不透卻疼愛' },
           { id: 'mossbeard', text: '橡木鎮的樹靈長老，兩棵老樹聊一次要三天' },
         ],
@@ -361,7 +361,7 @@ window.SERIES.push({
           { title: '沒有天空的地方', text: '熔爐核心室的穹頂足有三十公尺高。凱絲翠第一次張開翅膀飛起來，在火光下盤旋，從上方看見了所有人看不見的東西：核心室的六十個壁龕，每個壁龕裡有一個發光的名字——其中六十個名字之外，還有一個空的。她落下來說：「它替我們準備了位置。我們不要坐。」' },
         ],
         relations: [
-          { id: 'tamsin', text: '搭檔，樹上與地上看同一個方向' },
+          { id: 'tamsin_thorn', text: '搭檔，樹上與地上看同一個方向' },
           { id: 'calla', text: '一個飛得高、一個飛得快，天空的兩個斥候' },
           { id: 'halla', text: '每天讓她飛一次的船長' },
           { id: 'toku', text: '橡木鎮的狗頭人盜賊會爬最高的塔，兩人比過誰看得遠' },
@@ -395,7 +395,7 @@ window.SERIES.push({
         ],
         relations: [
           { id: 'ketra', text: '「唯一跟得上我的」，衝鋒搭檔' },
-          { id: 'tamsin', text: '灰足找到她那天起，譚馨就是她的狼群' },
+          { id: 'tamsin_thorn', text: '灰足找到她那天起，譚馨就是她的狼群' },
           { id: 'marit', text: '湯的氣味是她回家的信號' },
           { id: 'grommash', text: '橡木鎮的半獸人戰士，兩人在酒館打過一場，誰也沒贏' },
         ],
@@ -427,7 +427,7 @@ window.SERIES.push({
           { title: '太多字', text: '熔爐核心前，詠團的歌聲讓每個人都在發抖。莫拉格說：「妳們在怕。」布蘭娜說：「我們在難過。」莫拉格歪著頭想了很久：「我沒有這個字。但我看得出來那不是『跑』也不是『吃』。」她把法杖上的骨鈴摘下來，遞給布蘭娜：「給妳。我不知道這叫什麼，但妳需要。」' },
         ],
         relations: [
-          { id: 'tamsin', text: '收她時只問了一個問題的人' },
+          { id: 'tamsin_thorn', text: '收她時只問了一個問題的人' },
           { id: 'seren', text: '一個沼、一個湖，兩個「水的女人」聊不太起來但互相尊重' },
           { id: 'halla', text: '船長，兩人共同決定「那東西想不想吃我們」' },
           { id: 'vashti', text: '同為鱗族，她的毒藥由莫拉格試味' },
@@ -463,7 +463,7 @@ window.SERIES.push({
           { id: 'isolde', text: '三年前邀她、她沒去的人' },
           { id: 'aud', text: '告訴她「沒射就不算失手」' },
           { id: 'pell', text: '那一箭沒射，她記了一路' },
-          { id: 'tamsin', text: '荊野裡唯一知道她住哪的人' },
+          { id: 'tamsin_thorn', text: '荊野裡唯一知道她住哪的人' },
         ],
       },
       combat: {
@@ -559,7 +559,7 @@ window.SERIES.push({
           { title: '我在等妳', text: '熔爐核心室的門上有一個陷阱——她看了很久，說：「這個不是地下城做的。這是人做的。」她拆開它，裡面是一張紙條，伊索德的字跡：「布蘭娜，別衝。等我。」妮朵把紙條交給布蘭娜，說：「她在等妳。妳要怎麼回答？」' },
         ],
         relations: [
-          { id: 'tamsin', text: '撿到她的人，問的第一句是「妳做的？」' },
+          { id: 'tamsin_thorn', text: '撿到她的人，問的第一句是「妳做的？」' },
           { id: 'ragna', text: '她的瞭望台' },
           { id: 'orla', text: '她的第二個坐騎，教她「慢慢走」' },
           { id: 'pip', text: '橡木鎮的半身人盜賊，兩人交換過「作品」' },
@@ -594,7 +594,7 @@ window.SERIES.push({
         relations: [
           { id: 'nyssara', text: '遠征隊裡另一個刺客，彼此從不多說' },
           { id: 'morag', text: '她的試毒員兼歸類員' },
-          { id: 'tamsin', text: '問「妳會對我們用毒嗎」的人' },
+          { id: 'tamsin_thorn', text: '問「妳會對我們用毒嗎」的人' },
           { id: 'sethra', text: '黑曜結社的另一位毒藥師，兩人隔著整個橡木鎮互相「聞」到過彼此' },
         ],
       },
