@@ -4,6 +4,7 @@
 window.SERIES = window.SERIES || [];
 window.SERIES.push({
   id: 'oakvale',
+  lead: 'le_gladia',
   factions: {
     wayfarer: { label: '過路冒險者', icon: '✦' },
   },

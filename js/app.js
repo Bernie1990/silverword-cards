@@ -30,6 +30,21 @@
     if (s.factions) host.factions = { ...(host.factions || {}), ...s.factions }; // 分檔也可補陣營
     if (s.world) host.world = { ...(host.world || {}), ...s.world };
     if (s.saga) host.saga = s.saga;
+    if (s.lead) host.lead = s.lead;
+  });
+  /* 有指名主角的系列：主角卡固定在最前，其餘依故事線首次登場的幕次排列（同幕保持原順序）。 */
+  SERIES.forEach((series) => {
+    if (!series.lead) return;
+    const first = new Map();
+    (series.saga && series.saga.acts || []).forEach((act, i) => {
+      (act.cast || []).forEach((id) => { if (!first.has(id)) first.set(id, i); });
+    });
+    const indexed = series.characters.map((c, i) => ({ c, i }));
+    indexed.sort((a, b) => {
+      const rank = (x) => (x.c.id === series.lead ? -1 : (first.has(x.c.id) ? first.get(x.c.id) : 1000));
+      return rank(a) - rank(b) || a.i - b.i;
+    });
+    series.characters = indexed.map((x) => x.c);
   });
   for (let i = SERIES.length - 1; i >= 0; i -= 1) if (!SERIES[i].characters.length) SERIES.splice(i, 1);
 
