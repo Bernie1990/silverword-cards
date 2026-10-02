@@ -67,6 +67,9 @@
 .card[data-faction="hell_court"]   { --fa: var(--fx-hell_court-a);   --fb: var(--fx-hell_court-b); }
 .card[data-faction="mount_choir"]  { --fa: var(--fx-mount_choir-a);  --fb: var(--fx-mount_choir-b); }
 .card[data-faction="far_bazaar"]   { --fa: var(--fx-far_bazaar-a);   --fb: var(--fx-far_bazaar-b); }
+.card[data-faction="skasaha"]    { --fa: var(--fx-skasaha-a);    --fb: var(--fx-skasaha-b); }
+.card[data-faction="riverfen"]   { --fa: var(--fx-riverfen-a);   --fb: var(--fx-riverfen-b); }
+.card[data-faction="frostfield"] { --fa: var(--fx-frostfield-a); --fb: var(--fx-frostfield-b); }
 
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(28px) rotateX(-12deg) scale(.94); }

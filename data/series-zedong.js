@@ -15,6 +15,7 @@ window.SERIES.push({
     name: '澤冬小隊',
     blurb: '葛拉是白龍家族裡不被承認的那個。他逃出冬原，向季節與狩獵之神斯卡薩哈求一條出路，神給他的是「體驗痛苦」。這是他學會不再一個人痛的故事：一個教他把重量放下的老祭司，一個每天問他同一個問題的木匠，和一個從籠子裡帶出來的孩子。',
     arc: '體驗痛苦',
+    banner: 'assets/banners/zedong.webp',
   },
   factions: {
     skasaha: { label: '斯卡薩哈', icon: '☽' },
