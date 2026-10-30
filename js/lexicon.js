@@ -21,6 +21,12 @@
     xuanhu:         { label: '玄壺藥谷', icon: '壺' },
     chenxiang:      { label: '沉香鏢局', icon: '🛡' },
     baiwu:          { label: '白霧樓', icon: '霧' },
+    wulin:          { label: '武林盟', icon: '盟' },
+    jifeng:         { label: '緝風司', icon: '令' },
+    jinlian:        { label: '燼蓮教', icon: '蓮' },
+    hansha:         { label: '寒沙刀門', icon: '刀' },
+    chaosheng:      { label: '潮生島', icon: '潮' },
+    hanshan:        { label: '寒山寺', icon: '鐘' },
   };
 
   const ALIGN_SHORT = {
