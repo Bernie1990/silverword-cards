@@ -17,6 +17,10 @@
     crimson_banner: { label: '赤旗傭兵團', icon: '⚔' },
     oak_council:    { label: '橡木鎮議會', icon: '🌳' },
     ashen_forge:    { label: '灰燼遺民', icon: '🔥' },
+    qingluan:       { label: '青鸞劍社', icon: '🗡' },
+    xuanhu:         { label: '玄壺藥谷', icon: '壺' },
+    chenxiang:      { label: '沉香鏢局', icon: '🛡' },
+    baiwu:          { label: '白霧樓', icon: '霧' },
   };
 
   const ALIGN_SHORT = {
