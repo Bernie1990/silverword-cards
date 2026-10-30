@@ -27,6 +27,7 @@
     hansha:         { label: '寒沙刀門', icon: '刀' },
     chaosheng:      { label: '潮生島', icon: '潮' },
     hanshan:        { label: '寒山寺', icon: '鐘' },
+    zishu:          { label: '自書人', icon: '冊' },
   };
 
   const ALIGN_SHORT = {
