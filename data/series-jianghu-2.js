@@ -128,6 +128,7 @@
         appearance: '清秀窄臉，鬢邊一支竹筆，素絳色官樣衣裙，懷裡抱著一卷用油布包好的冊子',
         appearance_detail: '她走路很輕。不是怕驚動人，是習慣了在盟主府裡把聲音收起來，好聽見別人不說的話。',
         hint: { location: '盟主府書房', hook: '青鸞劍社的名冊不是自己漂進飯舖的，是她丟進河的' },
+        looks: ['base', 'rain'],
         combat: C('lore_scholar', [8, 13, 11, 17, 15, 13], 30, 12, ['history', 'investigation', 'deception'], ['int', 'wis'], ['筆鋒', 'spell', '1d8+2', 'force']),
         story: {
           quote: '紙比人活得久。所以我得替人決定，哪一張紙該活下去。',
@@ -201,6 +202,7 @@
         appearance: '高挑，朱紅短打外罩金邊坎肩，長髮編成一條粗辮，腰間掛着一串銅鈴與一柄長劍',
         appearance_detail: '她走路時鈴會響。她說這是讓台上的人知道裁判來了，別趁亂下死手。',
         hint: { location: '鳴劍台', hook: '台規只有一條：點到為止。她要所有人都記得' },
+        looks: ['base', 'menghui'],
         combat: C('guardian_caster', [14, 15, 14, 12, 15, 13], 62, 17, ['athletics', 'insight', 'perception'], ['str', 'wis'], ['鈴劍', 'melee', '1d8+3', 'slashing']),
         story: {
           quote: '鈴一響就收手。收不住的，我替你收。',
@@ -444,6 +446,7 @@
         appearance: '素淨鵝蛋臉，粗布灰衣袖口有燒痕，頭上包一塊褪色藍巾，指間藏着一枚銅哨',
         appearance_detail: '她笑起來像營裡的任何一個婦人。兩年了，只有月娘知道她夜裡會對着北方吹不出聲的哨。',
         hint: { location: '燼蓮營地', hook: '她的回信只有一句：他們沒有放火的油' },
+        looks: ['base', 'night'],
         combat: C('swift_striker', [10, 16, 12, 14, 15, 13], 40, 14, ['stealth', 'deception', 'insight'], ['dex', 'wis'], ['藏刃', 'melee', '1d6+3', 'piercing']),
         story: {
           quote: '我是來找罪證的。找了兩年，只找到他們很餓。',
@@ -516,6 +519,7 @@
         appearance: '高瘦，黑髮緊束，深青窄袖箭衣，背負長弓與一壺白羽箭，左眼下一顆小痣',
         appearance_detail: '她看遠處時一動不動。司裡的人說，她拉弓之前已經決定了，之後只是讓箭追上她的決定。',
         hint: { location: '城樓', hook: '她接到命令，大會若亂，先射燼蓮教主' },
+        looks: ['base', 'night'],
         combat: C('beast_ranger', [12, 18, 13, 12, 15, 10], 56, 15, ['perception', 'stealth', 'survival'], ['dex', 'wis'], ['白羽箭', 'ranged', '1d8+4', 'piercing']),
         story: {
           quote: '一箭定生死。所以每一箭，都要先問自己一次。',

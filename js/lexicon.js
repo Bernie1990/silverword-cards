@@ -104,6 +104,7 @@
     { id: 'winter',   label: '冬裝',   short: '冬' },
     { id: 'rain',     label: '雨夜',   short: '雨' },
     { id: 'night',    label: '夜行',   short: '夜' },
+    { id: 'menghui',  label: '盟會',   short: '盟' },
     { id: 'ritual',   label: '儀式',   short: '儀' },
     { id: 'dance',    label: '起舞',   short: '舞' },
     // 跨畫風套裝

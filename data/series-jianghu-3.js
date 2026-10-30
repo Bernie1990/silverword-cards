@@ -17,6 +17,7 @@
         appearance: '鬢角全白的中年女子，赤褐粗布長袍上縫着一朵褪色蓮紋，手背有灼痕，眼神亮而沉',
         appearance_detail: '她三十七歲，看起來像五十。只有笑的時候，臉上會短暫地回到原本的年紀。',
         hint: { location: '江北燼蓮營地', hook: '武林盟叫她魔頭。她營裡最多的東西是鋤頭' },
+        looks: ['base', 'rain'],
         combat: C('controller_caster', [14, 13, 12, 14, 15, 17], 70, 14, ['persuasion', 'survival', 'intimidation'], ['con', 'cha'], ['燃脈掌', 'spell', '2d8', 'fire']),
         story: {
           quote: '我們燒的是自己。武林盟燒的，是別人。',
@@ -260,6 +261,7 @@
         appearance: '高大剛健的中年女子，風沙刻出的臉，沙黃毛皮鑲邊的厚袍，肩披破舊狼皮，背負一柄闊刃長刀',
         appearance_detail: '她的眼睛被風沙吹得總是微眯。北漠人說，她眯眼的時候是在數人。',
         hint: { location: '北漠關口', hook: '她把三十七封沒有回音的信放在鳴劍台口，誰上台都得跨過去' },
+        looks: ['base', 'menghui'],
         combat: C('duelist_leader', [17, 13, 17, 12, 15, 15], 96, 17, ['athletics', 'survival', 'intimidation'], ['str', 'con'], ['寒沙長刀', 'melee', '2d6+4', 'slashing']),
         story: {
           quote: '北漠沒有空讓人哭。可是名字不能少念。',

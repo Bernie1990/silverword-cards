@@ -83,7 +83,7 @@ window.SERIES.push({
       appearance_detail: '木劍比她的手臂還笨。她擦劍的時候很專心，專心到像這把劍明天就會變成真的。',
       hint: { location: '聽雨飯舖', hook: '後巷水溝裡漂來一本青鸞劍社的名冊，她把冊子晾在灶邊，不肯讓人扔' },
       combat: { archetype: 'swift_striker', abilities: { str: 10, dex: 16, con: 12, int: 12, wis: 13, cha: 14 }, hp: 16, ac: 14, skills: ['acrobatics', 'persuasion', 'insight'], saves: ['dex', 'cha'], attack: { name: '木劍', type: 'melee', damage: '1d6+3', damage_type: 'bludgeoning', is_heal: false } },
-      looks: ['base'],
+      looks: ['base', 'rain'],
       story: {
         quote: '名冊上的人，我一個一個叫。叫得到的，才算還在。',
         background: '林小七是青鸞劍社散社之後留下的雜役。沒人教她劍，她仍每天把木劍擦一遍。名冊漂進飯舖那天，她第一次覺得自己的名字不是被寫著玩的。',
@@ -139,7 +139,7 @@ window.SERIES.push({
       appearance_detail: '袖口是藥漬，不是血。她看傷的時候不嘆氣，嘆聲會讓病人以為自己死定了。',
       hint: { location: '玄壺藥谷外的石階', hook: '她把沈無咎從飯舖背上藥谷，一路罵他不該讓舊傷見雨' },
       combat: { archetype: 'herbal_healer', abilities: { str: 11, dex: 12, con: 14, int: 14, wis: 16, cha: 13 }, hp: 32, ac: 12, skills: ['medicine', 'nature', 'insight'], saves: ['wis', 'con'], attack: { name: '金瘡藥', type: 'spell', damage: '1d8+3', damage_type: 'poison', is_heal: true } },
-      looks: ['base'],
+      looks: ['base', 'rain'],
       story: {
         quote: '傷可以補。人要是自己不想活，藥會先知道。',
         background: '何滿是玄壺藥谷派出來走江的郎中。劍社散的那年她在場，不是為了勸架，是為了數有多少人還喘得過氣。她把喘得過氣的都記在藥箱蓋內側。',
@@ -195,7 +195,7 @@ window.SERIES.push({
       appearance_detail: '她說話不大聲。不大聲的原因是她知道自己每一句都會被別處拿去用。',
       hint: { location: '江邊茶棚', hook: '她等著那口輕箱子，箱子裡是別人想買走的名字' },
       combat: { archetype: 'noble_enchanter', abilities: { str: 9, dex: 15, con: 12, int: 16, wis: 14, cha: 16 }, hp: 33, ac: 14, skills: ['deception', 'persuasion', 'insight'], saves: ['cha', 'int'], attack: { name: '話裡的針', type: 'spell', damage: '1d8', damage_type: 'psychic', is_heal: false } },
-      looks: ['base'],
+      looks: ['base', 'menghui'],
       story: {
         quote: '消息可以賣。人名不是消息。',
         background: '白素把白霧樓從一間聽牆根的茶館做成了江上的消息行。她的規矩只有一條，寫在帳冊第一頁：會讓人被找到以後活不了的消息，不賣。',
@@ -277,7 +277,7 @@ window.SERIES.push({
       appearance_detail: '風吹開她的頭髮時，她也不去按。像已經不打算為誰維持一個溫柔的輪廓。',
       hint: { location: '白霧樓後院', hook: '有人想把她的名字再寫進一份新的聘書，她把聘書釘在刀靶上' },
       combat: { archetype: 'duelist_leader', abilities: { str: 13, dex: 16, con: 13, int: 12, wis: 12, cha: 14 }, hp: 42, ac: 15, skills: ['acrobatics', 'intimidation', 'insight'], saves: ['dex', 'cha'], attack: { name: '短刀', type: 'melee', damage: '1d6+3', damage_type: 'piercing', is_heal: false } },
-      looks: ['base'],
+      looks: ['base', 'night'],
       story: {
         quote: '我的名字只簽在我自己願意走的路上。',
         background: '慕容秋的婚事是兩家長輩在名冊邊上寫的。她退婚的方式不是哭，是連夜走。白霧樓收她，不是因為她的刀，是因為她看得懂一份不情願的簽名。',
@@ -441,7 +441,7 @@ window.SERIES.push({
       appearance_detail: '她呼吸很淺。淺到對手常常先把自己的節奏露出來。',
       hint: { location: '江邊擂台', hook: '康雷的快劍攻進來時，她一刀都沒有往前送' },
       combat: { archetype: 'precision_duelist', abilities: { str: 12, dex: 17, con: 13, int: 12, wis: 15, cha: 10 }, hp: 40, ac: 16, skills: ['acrobatics', 'perception', 'insight'], saves: ['dex', 'wis'], attack: { name: '雙刀', type: 'melee', damage: '1d6+3', damage_type: 'slashing', is_heal: false } },
-      looks: ['base'],
+      looks: ['base', 'night'],
       story: {
         quote: '攻出去的刀要有理由。沒有理由，我就只守。',
         background: '葉霜在劍社負責拆解別人的殺招。散社以後她沒有另投門派。她在江邊接一些不殺人的護衛，擂台上則專接那些太想贏的年輕人。',

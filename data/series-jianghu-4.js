@@ -17,6 +17,7 @@
         appearance: '曬成小麥色的颯爽女子，及肩短髮被海風吹亂，海青色短打外罩褪色的船長外衣，腰間別一柄彎刀與一卷海圖',
         appearance_detail: '她站在甲板上不扶任何東西。島上的人說，海棠的腳底長了根，根扎在浪裡。',
         hint: { location: '潮生島的主船', hook: '她把海圖攤在緝風司使者面前：你指一個地方給我，我就寫' },
+        looks: ['base', 'menghui'],
         combat: C('duelist_leader', [14, 16, 15, 13, 14, 16], 80, 16, ['athletics', 'survival', 'persuasion'], ['dex', 'cha'], ['海刀', 'melee', '1d8+4', 'slashing']),
         story: {
           quote: '你要我們入冊？先讓冊子學會游泳。',
